@@ -1,5 +1,5 @@
 ---
-title: "Kompute Examples"
+title: "Evaluating KOMPUTE Imputation Algorithm"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,15 +8,17 @@ editor_options:
   chunk_output_type: console
 ---
 
+This R Markdown document presents a comparative study on testing [the KOMPUTE imputation algorithm](https://github.com/statsleelab/kompute) with data from [the International Mouse Phenotyping Consortium (IMPC)](https://www.mousephenotype.org/). The analysis spans two versions of IMPC data, namely version 16 and version 10.1, across three phenotyping domains: Body Composition, Clinical Chemistry and Open Field. 
+
 ## IMPC Data Version 16
-* [Example 1) Test imputation algorithm using Body Composition data](kompute_test_BC_v16.html)
-* [Example 2) Test imputation algorithm using Clinical Chemistry data](kompute_test_CC_v16.html)
-* [Example 3) Test imputation algorithm using Open Field data](kompute_test_OF_v16.html)
+* [Example 1) Body Composition data](kompute_test_BC_v16.html)
+* [Example 2) Clinical Chemistry data](kompute_test_CC_v16.html)
+* [Example 3) Open Field data](kompute_test_OF_v16.html)
 
 
 ## IMPC Data Version 10.1
-* [Example 1) Test imputation algorithm using Body Composition data](kompute_test_BC_v10.1.html)
-* [Example 2) Test imputation algorithm using Clinical Chemistry data](kompute_test_CC_v10.1.html)
-* [Example 3) Test imputation algorithm using Open Field data](kompute_test_OF_v10.1.html)
+* [Example 1) Body Composition data](kompute_test_BC_v10.1.html)
+* [Example 2) Clinical Chemistry data](kompute_test_CC_v10.1.html)
+* [Example 3) Open Field data](kompute_test_OF_v10.1.html)
 
 
