@@ -7,9 +7,8 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Prep
 
-### Import the necessary packages and source functions for the analysis
+## Import the necessary packages and source functions for the analysis
 ```{r}
 library(MASS)
 library(kompute)
@@ -18,17 +17,19 @@ source("code/svd_impute.R")
 source("code/sim_function.R")
 ```
 
-### Load the phenotypic correlation matrix specific to the Body Composition domain and set initial parameters
+## Load the phenotypic correlation matrix specific to the Body Composition domain and set initial parameters
 ```{r}
 pheno.cor <- readRDS("data/BC_pheno_cor.RDS")
-n.genes <- 10000 # number of genes
+n.genes <- 100 # number of genes
 seed <- 05152022 # set seed
 ```
 
 
 ## Simulations
 
-### Simulate an association Z-score matrix with 10,000 genes and 9 phenotypes at varying levels of masking and impute the masked z-scores using the Matrix Completion method
+### Matrix Completion
+
+Simulate an association Z-score matrix with 10,000 genes and 9 phenotypes at varying levels of masking and impute the masked z-scores using the Matrix Completion method
 ```{r}
 mc.res20 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.2, seed=seed)
 mc.res40 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.4, seed=seed)
@@ -36,7 +37,9 @@ mc.res60 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.6, seed=
 ```
 
 
-### Perform identical simulations as above, but impute the masked z-scores using the KOMPUTE method. Here, we include all imputed z-scores when computing the correlation coefficients between imputed and origianl z-scores
+### KOMPUTE
+
+Perform identical simulations as above, but impute the masked z-scores using the KOMPUTE method. Here, we include all imputed z-scores when computing the correlation coefficients between imputed and origianl z-scores
 ```{r}
 komp.res20 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.2, method="kompute", seed=seed)
 komp.res40 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.4, method="kompute", seed=seed)
@@ -44,7 +47,9 @@ komp.res60 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.6, met
 ```
 
 
-### Perform identical simulations and use the same method (KOMPUTE), however, we only utilize imputed z-scores that have an imputation information value greater than 0.8.
+### KOMPUTE with info > 0.8
+
+Perform identical simulations and use the same method (KOMPUTE), however, we only utilize imputed z-scores that have an imputation information value greater than 0.8.
 ```{r}
 komp.info.res20 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.2, method="kompute", info.cutoff = 0.8, seed=seed)
 komp.info.res40 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.4, method="kompute", info.cutoff = 0.8, seed=seed)
@@ -52,7 +57,9 @@ komp.info.res60 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.6
 ```
 
 
-### Complie a table of correlation coefficients from all the simulations conducted
+## Results
+
+Complie a table of correlation coefficients from all the simulations conducted
 ```{r}
 cor.table <- data.frame(c(mc.res20$cor, komp.res20$cor, komp.info.res20$cor),
                         c(mc.res40$cor, komp.res40$cor, komp.info.res40$cor),
