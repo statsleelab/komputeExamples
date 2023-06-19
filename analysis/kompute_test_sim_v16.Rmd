@@ -20,7 +20,7 @@ source("code/sim_function.R")
 ## Load the phenotypic correlation matrix specific to the Body Composition domain and set initial parameters
 ```{r}
 pheno.cor <- readRDS("data/BC_pheno_cor.RDS")
-n.genes <- 100 # number of genes
+n.genes <- 10000 # number of genes
 seed <- 05152022 # set seed
 ```
 
