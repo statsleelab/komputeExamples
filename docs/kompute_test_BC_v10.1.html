@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-01-10" />
+<meta name="date" content="2023-06-19" />
 
 <title>KOMPUTE method testing - BC data (v10.1)</title>
 
@@ -262,13 +262,10 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="license.html">License</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/warkenca/komputeExamples">
+  <a href="https://github.com/statsleelab/komputeExamples">
     <span class="fa fa-github"></span>
      
   </a>
@@ -285,7 +282,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">KOMPUTE method testing - BC data
 (v10.1)</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-01-10</h4>
+<h4 class="date">2023-06-19</h4>
 
 </div>
 
@@ -402,7 +399,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-01-10
+<strong>Last updated:</strong> 2023-06-19
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -466,16 +463,16 @@ empty environment.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20211027code">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230110code">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Seed:</strong>
-<code>set.seed(20211027)</code> </a>
+<code>set.seed(20230110)</code> </a>
 </p>
 </div>
-<div id="strongSeedstrongcodesetseed20211027code"
+<div id="strongSeedstrongcodesetseed20230110code"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The command <code>set.seed(20211027)</code> was run prior to running
+<p>The command <code>set.seed(20230110)</code> was run prior to running
 the code in the R Markdown file. Setting a seed ensures that any results
 that rely on randomness, e.g. subsampling or permutations, are
 reproducible.</p>
@@ -533,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwarkencakomputeExamplestreef42927dc0e316636c4fff128b99bc9eb7bec6d34targetblankf42927da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreebb7f5ee60e39d8e8938a9ccf086408513a862a31targetblankbb7f5eea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/warkenca/komputeExamples/tree/f42927dc0e316636c4fff128b99bc9eb7bec6d34" target="_blank">f42927d</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/bb7f5ee60e39d8e8938a9ccf086408513a862a31" target="_blank">bb7f5ee</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomwarkencakomputeExamplestreef42927dc0e316636c4fff128b99bc9eb7bec6d34targetblankf42927da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreebb7f5ee60e39d8e8938a9ccf086408513a862a31targetblankbb7f5eea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -551,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/warkenca/komputeExamples/tree/f42927dc0e316636c4fff128b99bc9eb7bec6d34" target="_blank">f42927d</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/bb7f5ee60e39d8e8938a9ccf086408513a862a31" target="_blank">bb7f5ee</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -569,22 +566,14 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    code/.Rhistory
+    Ignored:    analysis/.DS_Store
+    Ignored:    code/.DS_Store
 
 Untracked files:
-    Untracked:  analysis/kompute_test_BC_v16.Rmd
-    Untracked:  analysis/kompute_test_CC_v16.Rmd
-    Untracked:  analysis/kompute_test_OF_v16.Rmd
-    Untracked:  code/prep_PPI_stat_v16.R
-    Untracked:  code/sim_study_BC.R
-    Untracked:  data/PPI.stat.v16.rds
-    Untracked:  output/Fig1.pdf
+    Untracked:  analysis/figures.Rmd_old
 
 Unstaged changes:
-    Modified:   analysis/_site.yml
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
-    Modified:   data/BC.zmat.rds
+    Deleted:    analysis/figures.Rmd
 
 </code></pre>
 <p>
@@ -632,19 +621,36 @@ Message
 <tbody>
 <tr>
 <td>
-Rmd
+html
 </td>
 <td>
-<a href="https://github.com/warkenca/komputeExamples/blob/f42927dc0e316636c4fff128b99bc9eb7bec6d34/analysis/kompute_test_BC_v10.1.Rmd" target="_blank">f42927d</a>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/kompute_test_BC_v10.1.html" target="_blank">7685a09</a>
 </td>
 <td>
-dleelab
+statsleelab
 </td>
 <td>
 2023-01-10
 </td>
 <td>
-Updated
+first commit
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/32dd775bf5907abd2ae88a2a60a3f9cb859c9d40/analysis/kompute_test_BC_v10.1.Rmd" target="_blank">32dd775</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+<td>
+first commit
 </td>
 </tr>
 </tbody>
@@ -861,6 +867,43 @@ head(BC.mat)</code></pre>
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
   theme(strip.text.x = element_text(size = 6))</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/pheno_dist-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pheno_dist-1">
+Past versions of pheno_dist-1.png
+</button>
+</p>
+<div id="fig-pheno_dist-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/pheno_dist-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rank-z-transformation" class="section level3">
 <h3>Rank Z transformation</h3>
@@ -882,6 +925,43 @@ ggplot(melt(BC.mat.rank), aes(x=value)) +
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
   theme(strip.text.x = element_text(size = 6))</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/rankZ_trans-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-rankZ_trans-1">
+Past versions of rankZ_trans-1.png
+</button>
+</p>
+<div id="fig-rankZ_trans-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/rankZ_trans-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="principal-variance-component-analysis" class="section level3">
 <h3>Principal Variance Component Analysis</h3>
@@ -949,6 +1029,43 @@ names(pvca.means) &lt;- c(colnames(meta), &quot;resid&quot;)
 pvca.plot &lt;- PlotPVCA(pvca.means, &quot;PVCA of Phenotype Matrix Data&quot;)
 pvca.plot</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/PVCA-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-PVCA-1">
+Past versions of PVCA-1.png
+</button>
+</p>
+<div id="fig-PVCA-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/PVCA-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>png(file=&quot;docs/figure/figures.Rmd/pvca_BC_1.png&quot;, width=600, height=350)
 pvca.plot
 dev.off()</code></pre>
@@ -985,6 +1102,43 @@ Attaching package: &#39;genefilter&#39;</code></pre>
 <pre><code>Finding parametric adjustments</code></pre>
 <pre><code>Adjusting the Data</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/combat-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-combat-1">
+Past versions of combat-1.png
+</button>
+</p>
+<div id="fig-combat-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/combat-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>combat_komp[1:5,1:5]</code></pre>
 <pre><code>                                               39641      39643      39657
 BC_BMC/Body weight                        -0.5446577  0.7624261 -0.8478037
@@ -1031,6 +1185,43 @@ names(pvca.means.nobatch) &lt;- c(colnames(meta), &quot;resid&quot;)
 pvca.plot.nobatch &lt;- PlotPVCA(pvca.means.nobatch, &quot;PVCA of Phenotype Matrix Data with Reduced Batch Effect&quot;)
 pvca.plot.nobatch</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/PVCA_resid-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-PVCA_resid-1">
+Past versions of PVCA_resid-1.png
+</button>
+</p>
+<div id="fig-PVCA_resid-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/PVCA_resid-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>png(file=&quot;docs/figure/figures.Rmd/pvca_BC_2.png&quot;, width=600, height=350)
 pvca.plot.nobatch
 dev.off()</code></pre>
@@ -1048,12 +1239,123 @@ pheno.list &lt;- rownames(BC.cor)
 ht1 = Heatmap(BC.cor, show_column_names = F, row_names_gp = gpar(fontsize = 9), name=&quot;Spearm. Corr.&quot;)
 draw(ht1)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ht2 = Heatmap(BC.cor.rank, show_column_names = F, row_names_gp = gpar(fontsize = 9), name=&quot;Corr. RankZ&quot;)
 draw(ht2)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-2">
+Past versions of unnamed-chunk-3-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-2.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ht3 = Heatmap(BC.cor.combat, show_column_names = F, row_names_gp = gpar(fontsize = 9), name=&quot;Corr. ComBat&quot;)
 draw(ht3)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-3">
+Past versions of unnamed-chunk-3-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-3-3.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="prep-impc-summary-stat" class="section level2">
@@ -1126,6 +1428,43 @@ col_fun(seq(0, nmax))</code></pre>
              row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/gene_pheno_dup-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gene_pheno_dup-1">
+Past versions of gene_pheno_dup-1.png
+</button>
+</p>
+<div id="fig-gene_pheno_dup-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/gene_pheno_dup-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div
 id="using-stouffers-method-merge-multiple-z-scores-of-a-gene-phenotype-pair-into-a-z-score"
@@ -1173,6 +1512,43 @@ ht = Heatmap(t(id.mat),
              row_names_gp = gpar(fontsize = 10), name=&quot;Missing&quot;)
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-4-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="z-score-distribution" class="section level3">
 <h3>Z-score Distribution</h3>
@@ -1182,6 +1558,43 @@ draw(ht)</code></pre>
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
   theme(strip.text.x = element_text(size = 6))</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-5-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div
 id="estimate-genetic-correlation-matrix-between-phenotypes-using-zscores"
@@ -1199,6 +1612,43 @@ ht = Heatmap(BC.zcor, cluster_rows = T, cluster_columns = T, show_column_names =
              )
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-6-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="phenotype-corr-vs-genetic-corr-btw-phenotypes"
 class="section level3">
@@ -1246,6 +1696,43 @@ draw(ht1+ht2+ht3+ht4)</code></pre>
 <pre><code>Warning: Heatmap/annotation names are duplicated: Corr, Corr</code></pre>
 <pre><code>Warning: Heatmap/annotation names are duplicated: Corr, Corr, Corr</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/comp_pheno_corr_gene_corr-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-comp_pheno_corr_gene_corr-1">
+Past versions of comp_pheno_corr_gene_corr-1.png
+</button>
+</p>
+<div id="fig-comp_pheno_corr_gene_corr-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/comp_pheno_corr_gene_corr-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>png(file=&quot;docs/figure/figures.Rmd/cors_BC.png&quot;, width=800, height=250)
 draw(ht1+ht2+ht3+ht4)</code></pre>
 <pre><code>Warning: Heatmap/annotation names are duplicated: Corr</code></pre>
@@ -1274,10 +1761,121 @@ a4 &lt;- to.upper(BC.zcor.fig)
 
 plot(a4, a1)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(a4, a2)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-2.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(a4, a3)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
+Past versions of unnamed-chunk-7-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/unnamed-chunk-7-3.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>mantel.rtest(as.dist(1-BC.cor.fig), as.dist(1-BC.zcor.fig), nrepet = 9999) #nrepet = number of permutations</code></pre>
 <pre><code>Monte-Carlo test
 Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
@@ -1415,6 +2013,43 @@ length(org.z)</code></pre>
 imp.info &lt;- as.matrix(kompute.res$infomat)[mask.i]  
 plot(imp.z, org.z)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-1">
+Past versions of KOMPUTE_res-1.png
+</button>
+</p>
+<div id="fig-KOMPUTE_res-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
 dim(imp)</code></pre>
 <pre><code>[1] 2000    3</code></pre>
@@ -1427,6 +2062,43 @@ cor.val</code></pre>
 <pre><code>[1] 0.852</code></pre>
 <pre class="r"><code>plot(imp$imp.z, imp$org.z)</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-2.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-2">
+Past versions of KOMPUTE_res-2.png
+</button>
+</p>
+<div id="fig-KOMPUTE_res-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-2.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>info.cutoff &lt;- 0.8
 imp.sub &lt;- subset(imp, info&gt;info.cutoff)
 dim(imp.sub)</code></pre>
@@ -1447,6 +2119,43 @@ cor.val</code></pre>
     theme_minimal()
 g</code></pre>
 <p><img src="figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-3.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-3">
+Past versions of KOMPUTE_res-3.png
+</button>
+</p>
+<div id="fig-KOMPUTE_res-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v10.1.Rmd/KOMPUTE_res-3.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># save plot
 png(file=&quot;docs/figure/figures.Rmd/sim_results_BC.png&quot;, width=600, height=350)
 g
@@ -1482,46 +2191,46 @@ other attached packages:
  [4] BiocParallel_1.30.3   genefilter_1.78.0     mgcv_1.8-40          
  [7] nlme_3.1-158          lme4_1.1-31           Matrix_1.5-1         
 [10] RNOmni_1.0.1          ComplexHeatmap_2.12.1 circlize_0.4.15      
-[13] RColorBrewer_1.1-3    tidyr_1.2.0           ggplot2_3.3.6        
+[13] RColorBrewer_1.1-3    tidyr_1.2.0           ggplot2_3.4.1        
 [16] reshape2_1.4.4        dplyr_1.0.9           data.table_1.14.2    
 [19] workflowr_1.7.0.1    
 
 loaded via a namespace (and not attached):
-  [1] minqa_1.2.5            colorspace_2.0-3       rjson_0.2.21          
-  [4] ellipsis_0.3.2         rprojroot_2.0.3        XVector_0.36.0        
-  [7] GlobalOptions_0.1.2    fs_1.5.2               clue_0.3-62           
- [10] rstudioapi_0.13        farver_2.1.1           bit64_4.0.5           
- [13] AnnotationDbi_1.58.0   fansi_1.0.3            codetools_0.2-18      
- [16] splines_4.2.1          doParallel_1.0.17      cachem_1.0.6          
- [19] knitr_1.39             jsonlite_1.8.0         nloptr_2.0.3          
- [22] annotate_1.74.0        cluster_2.1.3          png_0.1-7             
- [25] compiler_4.2.1         httr_1.4.3             assertthat_0.2.1      
- [28] fastmap_1.1.0          limma_3.52.4           cli_3.3.0             
- [31] later_1.3.0            htmltools_0.5.3        tools_4.2.1           
- [34] gtable_0.3.0           glue_1.6.2             GenomeInfoDbData_1.2.8
- [37] Rcpp_1.0.9             Biobase_2.56.0         jquerylib_0.1.4       
- [40] vctrs_0.4.1            Biostrings_2.64.0      iterators_1.0.14      
- [43] xfun_0.31              stringr_1.4.0          ps_1.7.1              
- [46] lifecycle_1.0.1        XML_3.99-0.10          edgeR_3.38.4          
- [49] getPass_0.2-2          MASS_7.3-58.1          zlibbioc_1.42.0       
- [52] scales_1.2.0           promises_1.2.0.1       parallel_4.2.1        
- [55] yaml_2.3.5             memoise_2.0.1          sass_0.4.2            
- [58] stringi_1.7.8          RSQLite_2.2.15         highr_0.9             
- [61] S4Vectors_0.34.0       foreach_1.5.2          BiocGenerics_0.42.0   
- [64] boot_1.3-28            shape_1.4.6            GenomeInfoDb_1.32.3   
- [67] rlang_1.0.4            pkgconfig_2.0.3        matrixStats_0.62.0    
- [70] bitops_1.0-7           evaluate_0.16          lattice_0.20-45       
- [73] purrr_0.3.4            labeling_0.4.2         bit_4.0.4             
- [76] processx_3.7.0         tidyselect_1.1.2       plyr_1.8.7            
- [79] magrittr_2.0.3         R6_2.5.1               IRanges_2.30.0        
- [82] generics_0.1.3         DBI_1.1.3              pillar_1.8.0          
- [85] whisker_0.4            withr_2.5.0            survival_3.3-1        
- [88] KEGGREST_1.36.3        RCurl_1.98-1.8         tibble_3.1.8          
- [91] crayon_1.5.1           utf8_1.2.2             rmarkdown_2.14        
- [94] GetoptLong_1.0.5       locfit_1.5-9.6         blob_1.2.3            
- [97] callr_3.7.1            git2r_0.30.1           digest_0.6.29         
-[100] xtable_1.8-4           httpuv_1.6.5           stats4_4.2.1          
-[103] munsell_0.5.0          bslib_0.4.0           </code></pre>
+  [1] minqa_1.2.5            colorspace_2.1-0       rjson_0.2.21          
+  [4] rprojroot_2.0.3        XVector_0.36.0         GlobalOptions_0.1.2   
+  [7] fs_1.5.2               clue_0.3-62            rstudioapi_0.13       
+ [10] farver_2.1.1           bit64_4.0.5            AnnotationDbi_1.58.0  
+ [13] fansi_1.0.4            codetools_0.2-18       splines_4.2.1         
+ [16] doParallel_1.0.17      cachem_1.0.6           knitr_1.39            
+ [19] jsonlite_1.8.0         nloptr_2.0.3           annotate_1.74.0       
+ [22] cluster_2.1.3          png_0.1-8              compiler_4.2.1        
+ [25] httr_1.4.3             assertthat_0.2.1       fastmap_1.1.0         
+ [28] limma_3.52.4           cli_3.6.0              later_1.3.0           
+ [31] htmltools_0.5.3        tools_4.2.1            gtable_0.3.1          
+ [34] glue_1.6.2             GenomeInfoDbData_1.2.8 Rcpp_1.0.10           
+ [37] Biobase_2.56.0         jquerylib_0.1.4        vctrs_0.5.2           
+ [40] Biostrings_2.64.0      iterators_1.0.14       xfun_0.31             
+ [43] stringr_1.4.0          ps_1.7.1               lifecycle_1.0.3       
+ [46] XML_3.99-0.10          edgeR_3.38.4           getPass_0.2-2         
+ [49] MASS_7.3-58.1          zlibbioc_1.42.0        scales_1.2.1          
+ [52] promises_1.2.0.1       parallel_4.2.1         yaml_2.3.5            
+ [55] memoise_2.0.1          sass_0.4.2             stringi_1.7.8         
+ [58] RSQLite_2.2.15         highr_0.9              S4Vectors_0.34.0      
+ [61] foreach_1.5.2          BiocGenerics_0.42.0    boot_1.3-28           
+ [64] shape_1.4.6            GenomeInfoDb_1.32.3    rlang_1.0.6           
+ [67] pkgconfig_2.0.3        matrixStats_0.62.0     bitops_1.0-7          
+ [70] evaluate_0.16          lattice_0.20-45        purrr_0.3.4           
+ [73] labeling_0.4.2         bit_4.0.4              processx_3.7.0        
+ [76] tidyselect_1.2.0       plyr_1.8.7             magrittr_2.0.3        
+ [79] R6_2.5.1               IRanges_2.30.0         generics_0.1.3        
+ [82] DBI_1.1.3              pillar_1.8.1           whisker_0.4           
+ [85] withr_2.5.0            survival_3.3-1         KEGGREST_1.36.3       
+ [88] RCurl_1.98-1.8         tibble_3.1.8           crayon_1.5.1          
+ [91] utf8_1.2.3             rmarkdown_2.14         GetoptLong_1.0.5      
+ [94] locfit_1.5-9.6         blob_1.2.3             callr_3.7.1           
+ [97] git2r_0.30.1           digest_0.6.29          xtable_1.8-4          
+[100] httpuv_1.6.5           stats4_4.2.1           munsell_0.5.0         
+[103] bslib_0.4.0           </code></pre>
 </div>
 </div>
 </div>
