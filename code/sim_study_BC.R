@@ -1,4 +1,5 @@
 library(MASS)
+library(kompute)
 
 # Source functions and phenotypic correlation matrix for BC domain
 source("code/svd_impute.R")

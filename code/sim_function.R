@@ -1,18 +1,30 @@
-# This function performs a simulation from a MVN(0, Sigma) distribution and imputes a specified percentage of masked values using either matrix completion or KOMPUTE
-#' @param n.samples The number of samples to simulate
-#' @param pheno.cor The mxm phenotypic correlation matrix of the m phenotypes considered, functioning as Sigma in the MVN(0, Sigma) simulation
+library(ggplot2)
+
+# This function simulates an association z-score matrix,
+# masks a specified percentage of z-scores, and
+# imputes them using either matrix completion or KOMPUTE
+#' @param n.genes The number of genes to simulate
+#' @param pheno.cor The m by m phenotypic correlation matrix of the m phenotypes considered, functioning as Sigma in the MVN(0, Sigma) simulation
 #' @param mask.prop The proportion of z-scores that should be masked for the imputation
-#' @param method Should be either "mc" or "kompute" to denote the matrix completion or kompute method, respectively
+#' @param method The imputation method to use; either "mc" for matrix completion or "kompute"
 #' @param info.cutoff The minimum imputation information score necessary to be included; 0 indicates all values are kept regardless of info score (all are always kept for the matrix completion method)
-#' @return A list containing two objects: the plot of imputed vs original z-scores, and the correlation coefficient
+#' @param seed The seed number for random number generation
+#' @return A list containing two objects: the plot of imputed vs original z-scores, and the correlation coefficient between imputed and original z-scores
 
-simulation <- function(n.samples, pheno.cor, mask.prop, method="mc", info.cutoff=0){
 
+simulation <- function(n.genes, pheno.cor, mask.prop, method="mc", info.cutoff=0, seed=123){
+
+  # Set the seed for reproducibility in simulation
+  set.seed(seed)
+
+  # Define the number of phenotypes based on the dimensions of the correlation matrix
   npheno <- nrow(pheno.cor)
-  sim.z <- mvrnorm(n=n.samples, mu=rep(0, npheno), Sigma=pheno.cor)
+
+  # Simulate association Z-score matrix
+  sim.z <- mvrnorm(n=n.genes, mu=rep(0, npheno), Sigma=pheno.cor)
   sim.z <- t(sim.z)
 
-  ## mask a % of measured z-scores
+  # Mask a specified percentage of measured z-scores
   nimp <- nrow(sim.z)*ncol(sim.z)*mask.prop
   all.i <- 1:(nrow(sim.z)*ncol(sim.z))
 
@@ -24,8 +36,9 @@ simulation <- function(n.samples, pheno.cor, mask.prop, method="mc", info.cutoff
   rownames(zmat.imp) <- rownames(sim.z)
 
 
-  # Matrix completion method
-  if(method=="mc"){
+  # Apply the specified imputation method
+  r <- 6
+  if(method=="mc"){ # Matrix complete method
     mc.res <- svd.impute(zmat.imp, r)
     org.z <- sim.z[mask.i]
     imp.z <- mc.res[mask.i]
@@ -40,14 +53,14 @@ simulation <- function(n.samples, pheno.cor, mask.prop, method="mc", info.cutoff
     imp <- imp[complete.cases(imp),]
     imp <- subset(imp, info>=0 & info <= 1)
 
-    # Info cutoff
+    # Apply imputation information cutoff
     imp.sub <- subset(imp, info>info.cutoff)
     org.z <- imp.sub$org.z
     imp.z <- imp.sub$imp.z
     info <- imp.sub$info
   }
 
-  # Calculate correlation
+  # Calculate correlation coefficient between imputed and original z-scores
   cor.val <- round(cor(imp.z, org.z), digits=3)
   type <- ifelse(method=="mc", "Matrix Completion", "KOMPUTE")
 
