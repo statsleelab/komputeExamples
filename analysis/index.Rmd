@@ -13,15 +13,15 @@ Here, we present a comprehensive comparative study evaluating [the KOMPUTE imput
 
 In our initial phase (Example 1), we assessed the performance of the KOMPUTE method by conducting extensive simulation studies. We then compare its performance to that of a Singular Value Decomposition (SVD) matrix completion method ([Kurucz, et al., 2007](https://www.cs.uic.edu/~liub/KDD-cup-2007/proceedings/missing-value-Kurucz.pdf)).
 
-* [Example 1) Simulation data](kompute_test_sim_v16.html)
 
 To further evaluate the effectiveness of KOMPUTE in more realistic scenarios, we conducted additional experiments (Examples 2-4) employing actual measured association Z-scores from three phenotype domains: Body Composition (8 phenotypes), Clinical Chemistry (19 phenotypes), and Open Field (14 phenotypes). For each domain, we started by estimating a phenotype correlation matrix utilizing control mice phenotypes and adjusted for non-biological factors via PVCA and ComBat. Subsequently, we randomly masked 1000 gene-phenotype association Z-scores from each domain. Using the remaining Z-scores alongside the estimated phenotype correlation matrix, we imputed the missing values employing the KOMPUTE method. 
 
 
 ## IMPC Data Version 16
-* [Example 2) Body Composition data](kompute_test_BC_v16.html)
-* [Example 3) Clinical Chemistry data](kompute_test_CC_v16.html)
-* [Example 4) Open Field data](kompute_test_OF_v16.html)
+* [Example 1) Simulation study: KOMPUTE vs. Matrix Completion](kompute_test_sim_v16.html)
+* [Example 2) Evaluate KOMPUTE using Body Composition data](kompute_test_BC_v16.html)
+* [Example 3) Evaluate KOMPUTE using Clinical Chemistry data](kompute_test_CC_v16.html)
+* [Example 4) Evaluate KOMPUTE using Open Field data](kompute_test_OF_v16.html)
 
 
 ## IMPC Data Version 10.1
