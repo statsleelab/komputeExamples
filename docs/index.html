@@ -354,15 +354,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreed61de3ce65d7e7f47ad64d7397556064b9f843f1targetblankd61de3ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestree96c6efb4b51213f8935604352053e8046209ffb6targetblank96c6efba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/d61de3ce65d7e7f47ad64d7397556064b9f843f1" target="_blank">d61de3c</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/96c6efb4b51213f8935604352053e8046209ffb6" target="_blank">96c6efb</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreed61de3ce65d7e7f47ad64d7397556064b9f843f1targetblankd61de3ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestree96c6efb4b51213f8935604352053e8046209ffb6targetblank96c6efba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -372,7 +372,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/d61de3ce65d7e7f47ad64d7397556064b9f843f1" target="_blank">d61de3c</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/96c6efb4b51213f8935604352053e8046209ffb6" target="_blank">96c6efb</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -436,6 +436,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/96c6efb4b51213f8935604352053e8046209ffb6/analysis/index.Rmd" target="_blank">96c6efb</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+text updated
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/a04b2cfae17a46192a5e847d7bf005efbca3b3c4/analysis/index.Rmd" target="_blank">a04b2cf</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+text
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/faa94f6eeed4d3e2bf0ff04fe6c7256d68eca745/analysis/index.Rmd" target="_blank">faa94f6</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+text updated
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/8460ab6434d3c35a1df357bd9297b92eb4ed3de4/docs/index.html" target="_blank">8460ab6</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+typo fixed
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -586,44 +654,43 @@ href="https://www.mousephenotype.org/">the International Mouse
 Phenotyping Consortium (IMPC)</a>. Our analysis spans two versions of
 IMPC data (versions 16 and 10.1) across three distinct phenotyping
 domains: Body Composition, Clinical Chemistry and Open Field.</p>
-<p>In our initial phase, we assessed the performance of the KOMPUTE
-method by conducting extensive simulation studies. We then compare its
-performance to that of a Singular Value Decomposition (SVD) matrix
-completion method (<a
+<p>In our initial phase (Example 1), we assessed the performance of the
+KOMPUTE method by conducting extensive simulation studies. We then
+compare its performance to that of a Singular Value Decomposition (SVD)
+matrix completion method (<a
 href="https://www.cs.uic.edu/~liub/KDD-cup-2007/proceedings/missing-value-Kurucz.pdf">Kurucz,
 et al., 2007</a>).</p>
 <p>To further evaluate the effectiveness of KOMPUTE in more realistic
-scenarios, we conducted additional experiments employing actual measured
-association Z-scores from three phenotype domains: Body Composition (8
-phenotypes), Clinical Chemistry (19 phenotypes), and Open Field (14
-phenotypes). For each domain, we started by estimating a phenotype
-correlation matrix utilizing control mice phenotypes and adjusted for
-non-biological factors via PVCA and ComBat. Subsequently, we randomly
-masked 1000 gene-phenotype association Z-scores from each domain. Using
-the remaining Z-scores alongside the estimated phenotype correlation
-matrix, we imputed the missing values employing the KOMPUTE method.</p>
+scenarios, we conducted additional experiments (Examples 2-4) employing
+actual measured association Z-scores from three phenotype domains: Body
+Composition (8 phenotypes), Clinical Chemistry (19 phenotypes), and Open
+Field (14 phenotypes). For each domain, we started by estimating a
+phenotype correlation matrix utilizing control mice phenotypes and
+adjusted for non-biological factors via PVCA and ComBat. Subsequently,
+we randomly masked 1000 gene-phenotype association Z-scores from each
+domain. Using the remaining Z-scores alongside the estimated phenotype
+correlation matrix, we imputed the missing values employing the KOMPUTE
+method.</p>
 <div id="impc-data-version-16" class="section level2">
 <h2>IMPC Data Version 16</h2>
 <ul>
-<li><a href="kompute_test_sim_v16.html">Example 1) Simulation
-data</a></li>
-<li><a href="kompute_test_BC_v16.html">Example 2) Body Composition
-data</a></li>
-<li><a href="kompute_test_CC_v16.html">Example 3) Clinical Chemistry
-data</a></li>
-<li><a href="kompute_test_OF_v16.html">Example 4) Open Field
-data</a></li>
+<li><a href="kompute_test_sim_v16.html">Example 1) Simulation study:
+KOMPUTE vs. Matrix Completion</a></li>
+<li><a href="kompute_test_BC_v16.html">Example 2) Evaluate KOMPUTE using
+Body Composition data</a></li>
+<li><a href="kompute_test_CC_v16.html">Example 3) Evaluate KOMPUTE using
+Clinical Chemistry data</a></li>
+<li><a href="kompute_test_OF_v16.html">Example 4) Evaluate KOMPUTE using
+Open Field data</a></li>
 </ul>
 </div>
 <div id="impc-data-version-10.1" class="section level2">
 <h2>IMPC Data Version 10.1</h2>
 <ul>
-<li><a href="kompute_test_BC_v10.1.html">Example 1) Body Composition
+<li><a href="kompute_test_BC_v10.1.html">Body Composition data</a></li>
+<li><a href="kompute_test_CC_v10.1.html">Clinical Chemistry
 data</a></li>
-<li><a href="kompute_test_CC_v10.1.html">Example 2) Clinical Chemistry
-data</a></li>
-<li><a href="kompute_test_OF_v10.1.html">Example 3) Open Field
-data</a></li>
+<li><a href="kompute_test_OF_v10.1.html">Open Field data</a></li>
 </ul>
 </div>
 
