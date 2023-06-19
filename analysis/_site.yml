@@ -7,7 +7,7 @@ navbar:
     href: index.html
   right:
   - icon: fa-github
-    href: https://github.com/warkenca/komputeExamples
+    href: https://github.com/statsleelab/komputeExamples
 output:
   workflowr::wflow_html:
     toc: yes
