@@ -1,5 +1,13 @@
 # komputeExamples
 
-The [KOMPUTE webpage](https://statsleelab.github.io/komputeExamples/) includes several data examples utilizing the KOMPUTE package and function.
+<br>
+
+The [komputeExamples webpage](https://statsleelab.github.io/komputeExamples/) provides a collection of practical examples and analyses that utilize the functionalities of the [KOMPUTE package](https://statsleelab.github.io/kompute).
+
+
+
+
+
+
 
 
