@@ -11,9 +11,9 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-19" />
+<meta name="date" content="2023-06-20" />
 
-<title>KOMPUTE method testing - OF data</title>
+<title>Evaluating KOMPUTE - Open Field Data</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -279,9 +279,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">KOMPUTE method testing - OF data</h1>
+<h1 class="title toc-ignore">Evaluating KOMPUTE - Open Field Data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-19</h4>
+<h4 class="date">2023-06-20</h4>
 
 </div>
 
@@ -289,85 +289,94 @@ $(document).ready(function () {
 <ul>
 <li><a href="#load-packages" id="toc-load-packages">Load
 packages</a></li>
-<li><a href="#prep-control-phenotype-data"
-id="toc-prep-control-phenotype-data">Prep control phenotype data</a>
+<li><a href="#preparing-control-phenotype-data"
+id="toc-preparing-control-phenotype-data">Preparing control phenotype
+data</a>
 <ul>
-<li><a href="#load-open-field-control-phenotypes"
-id="toc-load-open-field-control-phenotypes">Load Open Field control
+<li><a href="#importing-open-field-control-phenotype-dataset"
+id="toc-importing-open-field-control-phenotype-dataset">Importing Open
+Field Control Phenotype Dataset</a></li>
+<li><a href="#visualizing-measured-phenotypes-via-a-heatmap"
+id="toc-visualizing-measured-phenotypes-via-a-heatmap">Visualizing
+measured phenotypes via a heatmap</a></li>
+<li><a href="#exclude-phenotypes-with-fewer-than-15000-observations"
+id="toc-exclude-phenotypes-with-fewer-than-15000-observations">Exclude
+phenotypes with fewer than 15,000 observations</a></li>
+<li><a href="#remove-samples-with-fewer-than-10-measured-phenotypes"
+id="toc-remove-samples-with-fewer-than-10-measured-phenotypes">Remove
+samples with fewer than 10 measured phenotypes</a></li>
+<li><a href="#heapmap-of-filtered-phenotypes"
+id="toc-heapmap-of-filtered-phenotypes">Heapmap of filtered
 phenotypes</a></li>
-<li><a href="#heatmap-showing-measured-phenotypes"
-id="toc-heatmap-showing-measured-phenotypes">Heatmap showing measured
-phenotypes</a></li>
-<li><a href="#remove-phenotypes-with-num-of-obs-15000"
-id="toc-remove-phenotypes-with-num-of-obs-15000">Remove phenotypes with
-num of obs &lt; 15000</a></li>
-<li><a href="#remove-samples-with-num-of-measured-phenotypes-10"
-id="toc-remove-samples-with-num-of-measured-phenotypes-10">Remove
-samples with num of measured phenotypes &lt; 10</a></li>
-<li><a href="#heapmap-of-measured-phenotypes-after-filtering"
-id="toc-heapmap-of-measured-phenotypes-after-filtering">Heapmap of
-measured phenotypes after filtering</a></li>
-<li><a href="#reshape-the-data-long-to-wide"
-id="toc-reshape-the-data-long-to-wide">Reshape the data (long to
-wide)</a></li>
-<li><a href="#distribution-of-each-phenotype"
-id="toc-distribution-of-each-phenotype">Distribution of each
-phenotype</a></li>
+<li><a href="#reforatting-the-dataset-long-to-wide"
+id="toc-reforatting-the-dataset-long-to-wide">Reforatting the dataset
+(long to wide)</a></li>
+<li><a href="#visualizing-phenotype-distributions"
+id="toc-visualizing-phenotype-distributions">Visualizing phenotype
+distributions</a></li>
 <li><a href="#rank-z-transformation" id="toc-rank-z-transformation">Rank
 Z transformation</a></li>
-<li><a href="#principal-variance-component-analysis"
-id="toc-principal-variance-component-analysis">Principal Variance
-Component Analysis</a></li>
-<li><a href="#removing-batch-effects-using-combat"
-id="toc-removing-batch-effects-using-combat">Removing batch effects
-using ComBat</a></li>
-<li><a href="#pvca-on-residuals-from-combat"
-id="toc-pvca-on-residuals-from-combat">PVCA on residuals from
+<li><a href="#conducting-principal-variance-component-analysis-pvca"
+id="toc-conducting-principal-variance-component-analysis-pvca">Conducting
+Principal Variance Component Analysis (PVCA)</a></li>
+<li><a href="#batch-effect-removal-using-combat"
+id="toc-batch-effect-removal-using-combat">Batch effect removal using
 ComBat</a></li>
-<li><a href="#compute-correlations-between-phenotypes"
-id="toc-compute-correlations-between-phenotypes">Compute correlations
-between phenotypes</a></li>
+<li><a href="#pvca-on-combat-residuals"
+id="toc-pvca-on-combat-residuals">PVCA on ComBat residuals</a></li>
+<li><a href="#computing-phenotypic-correlations"
+id="toc-computing-phenotypic-correlations">Computing phenotypic
+correlations</a></li>
 </ul></li>
-<li><a href="#prep-impc-summary-stat"
-id="toc-prep-impc-summary-stat">Prep IMPC summary stat</a>
+<li><a href="#preparation-of-impc-summary-statistics-data"
+id="toc-preparation-of-impc-summary-statistics-data">Preparation of IMPC
+summary statistics data</a>
 <ul>
-<li><a href="#read-of-summary-stat-impcv10.1"
-id="toc-read-of-summary-stat-impcv10.1">Read OF summary stat
-(IMPCv10.1)</a></li>
-<li><a href="#duplicates-in-gene-phenotype-pair"
-id="toc-duplicates-in-gene-phenotype-pair">Duplicates in gene-phenotype
-pair</a></li>
+<li><a href="#loading-open-field-summary-stat-impcv16"
+id="toc-loading-open-field-summary-stat-impcv16">Loading Open Field
+summary stat (IMPCv16)</a></li>
+<li><a href="#visualizing-gene-phenotype-pair-duplicates"
+id="toc-visualizing-gene-phenotype-pair-duplicates">Visualizing
+gene-phenotype pair duplicates</a></li>
 <li><a
-href="#using-stouffers-method-merge-multiple-z-scores-of-a-gene-phenotype-pair-into-a-z-score"
-id="toc-using-stouffers-method-merge-multiple-z-scores-of-a-gene-phenotype-pair-into-a-z-score">Using
-Stouffer’s method, merge multiple z-scores of a gene-phenotype pair into
-a z-score</a></li>
-<li><a href="#make-z-score-matrix-long-to-wide"
-id="toc-make-z-score-matrix-long-to-wide">Make z-score matrix (long to
-wide)</a></li>
-<li><a href="#z-score-distribution"
-id="toc-z-score-distribution">Z-score Distribution</a></li>
+href="#consolidating-muliple-z-scores-of-a-gene-phenotype-pair-using-stouffers-method"
+id="toc-consolidating-muliple-z-scores-of-a-gene-phenotype-pair-using-stouffers-method">Consolidating
+muliple z-scores of a gene-phenotype pair using Stouffer’s
+Method</a></li>
+<li><a href="#generating-z-score-matrix-reformatting"
+id="toc-generating-z-score-matrix-reformatting">Generating Z-score
+matrix (reformatting)</a></li>
+<li><a href="#visualization-of-phenotype-gene-coverage"
+id="toc-visualization-of-phenotype-gene-coverage">Visualization of
+Phenotype-Gene Coverage</a></li>
+<li><a href="#distribution-of-z-scores-across-phenotypes"
+id="toc-distribution-of-z-scores-across-phenotypes">Distribution of
+Z-Scores Across Phenotypes</a></li>
+<li><a href="#estimation-of-genetic-correlation-matrix-using-z-scores"
+id="toc-estimation-of-genetic-correlation-matrix-using-z-scores">Estimation
+of Genetic Correlation Matrix Using Z-Scores</a></li>
 <li><a
-href="#estimate-genetic-correlation-matrix-between-phenotypes-using-zscores"
-id="toc-estimate-genetic-correlation-matrix-between-phenotypes-using-zscores">Estimate
-genetic correlation matrix between phenotypes using Zscores</a></li>
-<li><a href="#phenotype-corr-vs-genetic-corr-btw-phenotypes"
-id="toc-phenotype-corr-vs-genetic-corr-btw-phenotypes">Phenotype Corr VS
-Genetic Corr btw phenotypes</a></li>
+href="#comparison-of-phenotypic-correlation-and-genetic-correlation-among-phenotypes"
+id="toc-comparison-of-phenotypic-correlation-and-genetic-correlation-among-phenotypes">Comparison
+of Phenotypic Correlation and Genetic Correlation Among
+Phenotypes</a></li>
 <li><a
-href="#test-of-the-correlation-between-genetic-correlation-matrices"
-id="toc-test-of-the-correlation-between-genetic-correlation-matrices">Test
-of the correlation between genetic correlation matrices</a></li>
+href="#correlation-analysis-between-genetic-correlation-matrices-using-mantels-test"
+id="toc-correlation-analysis-between-genetic-correlation-matrices-using-mantels-test">Correlation
+Analysis Between Genetic Correlation Matrices Using Mantel’s
+Test</a></li>
 </ul></li>
-<li><a href="#test-kompute-imputation-algorithm"
-id="toc-test-kompute-imputation-algorithm">Test KOMPUTE imputation
-algorithm</a>
+<li><a href="#evaluating-the-kompute-imputation-algorithm"
+id="toc-evaluating-the-kompute-imputation-algorithm">Evaluating the
+KOMPUTE Imputation Algorithm</a>
 <ul>
-<li><a href="#load-kompute-package" id="toc-load-kompute-package">Load
-KOMPUTE package</a></li>
-<li><a href="#simulation-study---imputed-vs-measured"
-id="toc-simulation-study---imputed-vs-measured">Simulation study -
-imputed vs measured</a></li>
+<li><a href="#initializing-the-kompute-package"
+id="toc-initializing-the-kompute-package">Initializing the KOMPUTE
+Package</a></li>
+<li><a
+href="#simulation-study---comparison-of-imputed-vs-measured-z-score-values"
+id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Simulation
+study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
 </ul></li>
@@ -398,7 +407,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-19
+<strong>Last updated:</strong> 2023-06-20
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -529,15 +538,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreebb7f5ee60e39d8e8938a9ccf086408513a862a31targetblankbb7f5eea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreed343f6aaf3961a6880ad1f6153e73e3a534d04c4targetblankd343f6aa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/bb7f5ee60e39d8e8938a9ccf086408513a862a31" target="_blank">bb7f5ee</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/d343f6aaf3961a6880ad1f6153e73e3a534d04c4" target="_blank">d343f6a</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreebb7f5ee60e39d8e8938a9ccf086408513a862a31targetblankbb7f5eea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreed343f6aaf3961a6880ad1f6153e73e3a534d04c4targetblankd343f6aa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +556,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/bb7f5ee60e39d8e8938a9ccf086408513a862a31" target="_blank">bb7f5ee</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/d343f6aaf3961a6880ad1f6153e73e3a534d04c4" target="_blank">d343f6a</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -567,12 +576,6 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    code/.DS_Store
-
-Untracked files:
-    Untracked:  analysis/figures.Rmd_old
-
-Unstaged changes:
-    Deleted:    analysis/figures.Rmd
 
 </code></pre>
 <p>
@@ -618,6 +621,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/d343f6aaf3961a6880ad1f6153e73e3a534d04c4/analysis/kompute_test_OF_v16.Rmd" target="_blank">d343f6a</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+doc updated
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/d56cc7aaadf25c2dbd667b52b8458b78fae74c49/docs/kompute_test_OF_v16.html" target="_blank">d56cc7a</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -679,6 +716,8 @@ first commit
 <div id="load-packages" class="section level2">
 <h2>Load packages</h2>
 <pre class="r"><code>rm(list=ls())
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
 library(data.table)
 library(dplyr)
 library(reshape2)
@@ -688,18 +727,22 @@ library(RColorBrewer)
 library(circlize)
 library(ComplexHeatmap)</code></pre>
 </div>
-<div id="prep-control-phenotype-data" class="section level2">
-<h2>Prep control phenotype data</h2>
-<div id="load-open-field-control-phenotypes" class="section level3">
-<h3>Load Open Field control phenotypes</h3>
+<div id="preparing-control-phenotype-data" class="section level2">
+<h2>Preparing control phenotype data</h2>
+<div id="importing-open-field-control-phenotype-dataset"
+class="section level3">
+<h3>Importing Open Field Control Phenotype Dataset</h3>
 <pre class="r"><code>OF.data &lt;- readRDS(&quot;data/OF.data.rds&quot;)
 dim(OF.data)</code></pre>
 <pre><code>[1] 344844     10</code></pre>
 </div>
-<div id="heatmap-showing-measured-phenotypes" class="section level3">
-<h3>Heatmap showing measured phenotypes</h3>
-<p>This heatmaps show phenotypes measured for each control mouse.
-Columns represent mice and rows represent phenotypes.</p>
+<div id="visualizing-measured-phenotypes-via-a-heatmap"
+class="section level3">
+<h3>Visualizing measured phenotypes via a heatmap</h3>
+<p>The heatmap below presents a visualization of the phenotypic
+measurements taken for each control mouse. The columns represent
+individual mice, while the rows correspond to the distinct phenotypes
+measured.</p>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name_stable_id, OF.data$biological_sample_id)
 mtest &lt;-as.data.frame.matrix(mtest)
 dim(mtest)</code></pre>
@@ -714,9 +757,11 @@ ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, sh
 draw(ht)
 }</code></pre>
 </div>
-<div id="remove-phenotypes-with-num-of-obs-15000"
+<div id="exclude-phenotypes-with-fewer-than-15000-observations"
 class="section level3">
-<h3>Remove phenotypes with num of obs &lt; 15000</h3>
+<h3>Exclude phenotypes with fewer than 15,000 observations</h3>
+<p>To maintain data quality and robustness, we will discard any
+phenotypes that have fewer than 15,000 recorded observations.</p>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name, OF.data$biological_sample_id)
 dim(mtest)</code></pre>
 <pre><code>[1]    16 24604</code></pre>
@@ -751,9 +796,9 @@ dim(OF.data)</code></pre>
 length(unique(OF.data$proc_param_name))</code></pre>
 <pre><code>[1] 15</code></pre>
 </div>
-<div id="remove-samples-with-num-of-measured-phenotypes-10"
+<div id="remove-samples-with-fewer-than-10-measured-phenotypes"
 class="section level3">
-<h3>Remove samples with num of measured phenotypes &lt; 10</h3>
+<h3>Remove samples with fewer than 10 measured phenotypes</h3>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name, OF.data$biological_sample_id)
 dim(mtest)</code></pre>
 <pre><code>[1]    15 24604</code></pre>
@@ -807,9 +852,8 @@ dim(OF.data)</code></pre>
 length(unique(OF.data$biological_sample_id))</code></pre>
 <pre><code>[1] 22857</code></pre>
 </div>
-<div id="heapmap-of-measured-phenotypes-after-filtering"
-class="section level3">
-<h3>Heapmap of measured phenotypes after filtering</h3>
+<div id="heapmap-of-filtered-phenotypes" class="section level3">
+<h3>Heapmap of filtered phenotypes</h3>
 <pre class="r"><code>if(FALSE){
 mtest &lt;- table(OF.data$proc_param_name, OF.data$biological_sample_id)
 dim(mtest)
@@ -825,8 +869,10 @@ draw(ht)
 dev.off()
 }</code></pre>
 </div>
-<div id="reshape-the-data-long-to-wide" class="section level3">
-<h3>Reshape the data (long to wide)</h3>
+<div id="reforatting-the-dataset-long-to-wide" class="section level3">
+<h3>Reforatting the dataset (long to wide)</h3>
+<p>We restructure our data from a long format to a wide one for further
+processing and analysis.</p>
 <pre class="r"><code>OF.mat &lt;- OF.data %&gt;% 
   dplyr::select(biological_sample_id, proc_param_name, data_point, sex, phenotyping_center, strain_name) %&gt;% 
   ##consider weight or age in weeks
@@ -904,8 +950,8 @@ head(OF.mat)</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
       0       0       1    1677    3882    5159 </code></pre>
 </div>
-<div id="distribution-of-each-phenotype" class="section level3">
-<h3>Distribution of each phenotype</h3>
+<div id="visualizing-phenotype-distributions" class="section level3">
+<h3>Visualizing phenotype distributions</h3>
 <pre class="r"><code>ggplot(melt(OF.mat), aes(x=value)) + 
   geom_histogram() + 
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
@@ -951,6 +997,8 @@ statsleelab
 </div>
 <div id="rank-z-transformation" class="section level3">
 <h3>Rank Z transformation</h3>
+<p>In this step, we conduct a rank Z transformation on the phenotype
+data to ensure that the data is normally distributed</p>
 <pre class="r"><code>library(RNOmni)
 OF.mat.rank &lt;- OF.mat
 dim(OF.mat.rank)</code></pre>
@@ -1007,14 +1055,26 @@ statsleelab
 </div>
 </div>
 </div>
-<div id="principal-variance-component-analysis" class="section level3">
-<h3>Principal Variance Component Analysis</h3>
-<p>Here we conducted a PVCA analysis on the phenotype matrix data and
-measure the proportion of variance explained by each important covariate
-(sex, phenotyping_center).</p>
+<div id="conducting-principal-variance-component-analysis-pvca"
+class="section level3">
+<h3>Conducting Principal Variance Component Analysis (PVCA)</h3>
+<p>In this step, we apply Principal Variance Component Analysis (PVCA)
+on the phenotype matrix data. PVCA is an approach that combines
+Principal Component Analysis (PCA) and Variance Component Analysis to
+quantify the proportion of total variance in the data attributed to each
+important covariate, in this case ‘sex’ and ‘phenotyping_center’.</p>
+<p>First, we prepare our metadata which includes our chosen covariates.
+Any character variables in the metadata are then converted to factors.
+To avoid potential confounding, we check for associations between our
+covariates and drop ‘strain_name’ due to its strong association with
+‘phenotyping_center’.</p>
+<p>Next, we run PVCA on randomly chosen subsets of our phenotype data
+(for computational efficiency). Finally, we compute the average effect
+size across all random samples and visualize the results in a PVCA
+plot.</p>
 <pre class="r"><code>source(&quot;code/PVCA.R&quot;)
 
-meta &lt;- OF.mat.rank[,1:3] ## looking at covariates sex, phenotyping_center, and strain_name
+meta &lt;- OF.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
 head(meta)</code></pre>
 <pre><code>         sex phenotyping_center strain_name
 39638 female        MRC Harwell C57BL/6NTac
@@ -1025,7 +1085,7 @@ head(meta)</code></pre>
 39643 female               HMGU C57BL/6NCrl</code></pre>
 <pre class="r"><code>dim(meta)</code></pre>
 <pre><code>[1] 14863     3</code></pre>
-<pre class="r"><code>summary(meta) # variables are still characters</code></pre>
+<pre class="r"><code>summary(meta) # variables are currently characters</code></pre>
 <pre><code>     sex            phenotyping_center strain_name       
  Length:14863       Length:14863       Length:14863      
  Class :character   Class :character   Class :character  
@@ -1052,9 +1112,9 @@ X-squared = 3.7637, df = 7, p-value = 0.8066</code></pre>
 
 data:  meta[, 2] and meta[, 3]
 X-squared = 29526, df = 21, p-value &lt; 2.2e-16</code></pre>
-<pre class="r"><code>meta&lt;-meta[,-3] # phenotyping_center and strain_name strongly associated and this caused confouding in PVCA analysis so strain_name dropped.
+<pre class="r"><code>meta&lt;-meta[,-3] # phenotyping_center and strain_name strongly associated which could cause confounding in the PVCA analysis, so we drop &#39;strain_name&#39;.
 
-G &lt;- t(OF.mat.rank[,-1:-3]) ## phenotype matrix data
+G &lt;- t(OF.mat.rank[,-1:-3])  # preparing the phenotype matrix data
 
 set.seed(09302021)
 
@@ -1065,11 +1125,11 @@ for (i in 1:10){
   pvca.res[i,] &lt;- PVCA(G[,sample], meta[sample,], threshold=0.6, inter=FALSE)
 }
 
-# Average effect size across samples
+# Compute average effect size across the 10 random samples
 pvca.means &lt;- colMeans(pvca.res)
 names(pvca.means) &lt;- c(colnames(meta), &quot;resid&quot;)
 
-# Plot PVCA
+# Create PVCA plot
 pvca.plot &lt;- PlotPVCA(pvca.means, &quot;PVCA of Phenotype Matrix Data&quot;)
 pvca.plot</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/PVCA-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -1116,36 +1176,13 @@ dev.off()</code></pre>
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div id="removing-batch-effects-using-combat" class="section level3">
-<h3>Removing batch effects using ComBat</h3>
-<p>We remove the center effect using ComBat.</p>
-<pre class="r"><code>library(sva)</code></pre>
-<pre><code>Loading required package: mgcv</code></pre>
-<pre><code>Loading required package: nlme</code></pre>
-<pre><code>
-Attaching package: &#39;nlme&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:lme4&#39;:
-
-    lmList</code></pre>
-<pre><code>The following object is masked from &#39;package:dplyr&#39;:
-
-    collapse</code></pre>
-<pre><code>This is mgcv 1.8-40. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
-<pre><code>Loading required package: genefilter</code></pre>
-<pre><code>
-Attaching package: &#39;genefilter&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:ComplexHeatmap&#39;:
-
-    dist2</code></pre>
-<pre><code>Loading required package: BiocParallel</code></pre>
-<pre class="r"><code>combat_komp = ComBat(dat=G, batch=meta$phenotyping_center, par.prior=TRUE, prior.plots=TRUE, mod=NULL)</code></pre>
+<div id="batch-effect-removal-using-combat" class="section level3">
+<h3>Batch effect removal using ComBat</h3>
+<p>We remove batch effects (the center effect) in the phenotype data set
+by using the ComBat method.</p>
+<pre class="r"><code>library(sva)
+combat_komp = ComBat(dat=G, batch=meta$phenotyping_center, par.prior=TRUE, prior.plots=TRUE, mod=NULL)</code></pre>
 <pre><code>Found 1 genes with uniform expression within a single batch (all zeros); these will not be adjusted for batch.</code></pre>
-<pre><code>Found8batches</code></pre>
-<pre><code>Adjusting for0covariate(s) or covariate level(s)</code></pre>
-<pre><code>Standardizing Data across genes</code></pre>
-<pre><code>Fitting L/S model and finding priors</code></pre>
-<pre><code>Finding parametric adjustments</code></pre>
-<pre><code>Adjusting the Data</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/combat-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-combat-1">
@@ -1211,22 +1248,24 @@ OF_Center permanence time     -1.37773801
 OF_Center resting time        -0.04360882
 OF_Distance travelled - total -0.61963422</code></pre>
 </div>
-<div id="pvca-on-residuals-from-combat" class="section level3">
-<h3>PVCA on residuals from ComBat</h3>
-<p>The center effect should be much lower.</p>
+<div id="pvca-on-combat-residuals" class="section level3">
+<h3>PVCA on ComBat residuals</h3>
+<p>After using ComBat to account for batch effects, we perform a PVCA on
+the residuals. We expect to observe a significantly reduced effect from
+the phenotyping centers.</p>
 <pre class="r"><code>set.seed(09302021)
-# Perform PVCA for 10 samples (more computationally efficient)
+# Perform PVCA for 10 random samples (more computationally efficient)
 pvca.res.nobatch &lt;- matrix(nrow=10, ncol=3)
 for (i in 1:10){
   sample &lt;- sample(1:ncol(combat_komp), 1000, replace=FALSE)
   pvca.res.nobatch[i,] &lt;- PVCA(combat_komp[,sample], meta[sample,], threshold=0.6, inter=FALSE)
 }
 
-# Average effect size across samples
+# Compute average effect size across samples
 pvca.means.nobatch &lt;- colMeans(pvca.res.nobatch)
 names(pvca.means.nobatch) &lt;- c(colnames(meta), &quot;resid&quot;)
 
-# Plot PVCA
+# Generate PVCA plot
 pvca.plot.nobatch &lt;- PlotPVCA(pvca.means.nobatch, &quot;PVCA of Phenotype Matrix Data with Reduced Batch Effect&quot;)
 pvca.plot.nobatch</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/PVCA_resid-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -1273,9 +1312,10 @@ pvca.plot.nobatch
 dev.off()
 }</code></pre>
 </div>
-<div id="compute-correlations-between-phenotypes"
-class="section level3">
-<h3>Compute correlations between phenotypes</h3>
+<div id="computing-phenotypic-correlations" class="section level3">
+<h3>Computing phenotypic correlations</h3>
+<p>We compute the phenotype correlations using different methods and
+compare them.</p>
 <pre class="r"><code>OF.cor.rank &lt;- cor(OF.mat.rank[,-1:-3], use=&quot;pairwise.complete.obs&quot;) # pearson correlation coefficient
 OF.cor &lt;- cor(OF.mat[,-1:-3], use=&quot;pairwise.complete.obs&quot;, method=&quot;spearman&quot;) # spearman
 OF.cor.combat &lt;- cor(t(combat_komp), use=&quot;pairwise.complete.obs&quot;)
@@ -1403,10 +1443,12 @@ statsleelab
 </div>
 </div>
 </div>
-<div id="prep-impc-summary-stat" class="section level2">
-<h2>Prep IMPC summary stat</h2>
-<div id="read-of-summary-stat-impcv10.1" class="section level3">
-<h3>Read OF summary stat (IMPCv10.1)</h3>
+<div id="preparation-of-impc-summary-statistics-data"
+class="section level2">
+<h2>Preparation of IMPC summary statistics data</h2>
+<div id="loading-open-field-summary-stat-impcv16"
+class="section level3">
+<h3>Loading Open Field summary stat (IMPCv16)</h3>
 <pre class="r"><code>OF.stat &lt;- readRDS(&quot;data/OF.stat.v16.rds&quot;)
 dim(OF.stat)</code></pre>
 <pre><code>[1] 61854     8</code></pre>
@@ -1433,9 +1475,9 @@ dim(OF.stat)</code></pre>
 <pre><code>[1] 3823</code></pre>
 <pre class="r"><code>length(unique(OF.stat$allele_symbol)) #3412</code></pre>
 <pre><code>[1] 3868</code></pre>
-<pre class="r"><code>length(unique(OF.stat$proc_param_name)) #15  # number of phenotypes in association statistics data set</code></pre>
+<pre class="r"><code>length(unique(OF.stat$proc_param_name)) #15, number of phenotypes in association statistics data set</code></pre>
 <pre><code>[1] 16</code></pre>
-<pre class="r"><code>length(unique(OF.data$proc_param_name)) #15 # number of phenotypes in final control data</code></pre>
+<pre class="r"><code>length(unique(OF.data$proc_param_name)) #15, number of phenotypes in final control data</code></pre>
 <pre><code>[1] 15</code></pre>
 <pre class="r"><code>pheno.list.stat &lt;- unique(OF.stat$proc_param_name)
 pheno.list.ctrl &lt;- unique(OF.data$proc_param_name)
@@ -1443,7 +1485,7 @@ sum(pheno.list.stat %in% pheno.list.ctrl)</code></pre>
 <pre><code>[1] 14</code></pre>
 <pre class="r"><code>sum(pheno.list.ctrl %in% pheno.list.stat)</code></pre>
 <pre><code>[1] 14</code></pre>
-<pre class="r"><code>## extract common phenotype list
+<pre class="r"><code># Identifying common phenotypes between statistics and control data
 common.pheno.list &lt;- sort(intersect(pheno.list.ctrl, pheno.list.stat))
 common.pheno.list</code></pre>
 <pre><code> [1] &quot;OF_Center average speed&quot;         &quot;OF_Center distance travelled&quot;   
@@ -1455,7 +1497,7 @@ common.pheno.list</code></pre>
 [13] &quot;OF_Whole arena average speed&quot;    &quot;OF_Whole arena resting time&quot;    </code></pre>
 <pre class="r"><code>length(common.pheno.list) # 14 - each data set had one phenotype not present in the other</code></pre>
 <pre><code>[1] 14</code></pre>
-<pre class="r"><code>## Use summary statistics of common phenotypes
+<pre class="r"><code># Filtering summary statistics to contain only common phenotypes
 dim(OF.stat)</code></pre>
 <pre><code>[1] 61854     8</code></pre>
 <pre class="r"><code>OF.stat &lt;- OF.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
@@ -1464,8 +1506,9 @@ dim(OF.stat)</code></pre>
 <pre class="r"><code>length(unique(OF.stat$proc_param_name))</code></pre>
 <pre><code>[1] 14</code></pre>
 </div>
-<div id="duplicates-in-gene-phenotype-pair" class="section level3">
-<h3>Duplicates in gene-phenotype pair</h3>
+<div id="visualizing-gene-phenotype-pair-duplicates"
+class="section level3">
+<h3>Visualizing gene-phenotype pair duplicates</h3>
 <pre class="r"><code>mtest &lt;- table(OF.stat$proc_param_name, OF.stat$marker_symbol)
 mtest &lt;-as.data.frame.matrix(mtest)
 nmax &lt;-max(mtest)
@@ -1474,16 +1517,8 @@ col_fun(seq(0, nmax))</code></pre>
 <pre><code> [1] &quot;#FFFFFFFF&quot; &quot;#FFEAE2FF&quot; &quot;#FFD5C6FF&quot; &quot;#FFBFAAFF&quot; &quot;#FFA98FFF&quot; &quot;#FF9374FF&quot;
  [7] &quot;#FF7B5AFF&quot; &quot;#FF6140FF&quot; &quot;#FF4124FF&quot; &quot;#FF0000FF&quot;</code></pre>
 <pre class="r"><code>ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
-             row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)</code></pre>
-<pre><code>`use_raster` is automatically set to TRUE for a matrix with more than
-2000 columns You can control `use_raster` argument by explicitly
-setting TRUE/FALSE to it.
-
-Set `ht_opt$message = FALSE` to turn off this message.</code></pre>
-<pre><code>&#39;magick&#39; package is suggested to install to give better rasterization.
-
-Set `ht_opt$message = FALSE` to turn off this message.</code></pre>
-<pre class="r"><code>draw(ht)</code></pre>
+             row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)
+draw(ht)</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/gene_pheno_dup-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gene_pheno_dup-1">
@@ -1524,29 +1559,30 @@ statsleelab
 </div>
 </div>
 <div
-id="using-stouffers-method-merge-multiple-z-scores-of-a-gene-phenotype-pair-into-a-z-score"
+id="consolidating-muliple-z-scores-of-a-gene-phenotype-pair-using-stouffers-method"
 class="section level3">
-<h3>Using Stouffer’s method, merge multiple z-scores of a gene-phenotype
-pair into a z-score</h3>
+<h3>Consolidating muliple z-scores of a gene-phenotype pair using
+Stouffer’s Method</h3>
 <pre class="r"><code>## sum(z-score)/sqrt(# of zscore)
 sumz &lt;- function(z){ sum(z)/sqrt(length(z)) }
 OF.z = OF.stat %&gt;%
   dplyr::select(marker_symbol, proc_param_name, z_score) %&gt;%
   na.omit() %&gt;%
   group_by(marker_symbol, proc_param_name) %&gt;% 
-  summarize(zscore = sumz(z_score)) ## combine z-scores</code></pre>
-<pre><code>`summarise()` has grouped output by &#39;marker_symbol&#39;. You can override using the
-`.groups` argument.</code></pre>
-<pre class="r"><code>dim(OF.z)</code></pre>
+  summarize(zscore = sumz(z_score)) ## combine z-scores
+dim(OF.z)</code></pre>
 <pre><code>[1] 49921     3</code></pre>
 </div>
-<div id="make-z-score-matrix-long-to-wide" class="section level3">
-<h3>Make z-score matrix (long to wide)</h3>
-<pre class="r"><code>nan2na &lt;- function(df){ 
+<div id="generating-z-score-matrix-reformatting" class="section level3">
+<h3>Generating Z-score matrix (reformatting)</h3>
+<pre class="r"><code># Function to convert NaN to NA
+nan2na &lt;- function(df){ 
   out &lt;- data.frame(sapply(df, function(x) ifelse(is.nan(x), NA, x))) 
   colnames(out) &lt;- colnames(df)
   out
 }
+
+# Converting the long format of z-scores to a wide format matrix
 OF.zmat = dcast(OF.z, marker_symbol ~ proc_param_name, value.var = &quot;zscore&quot;, 
              fun.aggregate = mean) %&gt;% tibble::column_to_rownames(var=&quot;marker_symbol&quot;)
 OF.zmat = nan2na(OF.zmat) #convert nan to na
@@ -1554,76 +1590,27 @@ dim(OF.zmat)</code></pre>
 <pre><code>[1] 3823   14</code></pre>
 <pre class="r"><code>dim(OF.zmat)</code></pre>
 <pre><code>[1] 3823   14</code></pre>
-<pre class="r"><code>saveRDS(OF.zmat, file = &quot;data/OF.zmat.v16.rds&quot;)
-
+<pre class="r"><code>saveRDS(OF.zmat, file = &quot;data/OF.zmat.v16.rds&quot;)</code></pre>
+</div>
+<div id="visualization-of-phenotype-gene-coverage"
+class="section level3">
+<h3>Visualization of Phenotype-Gene Coverage</h3>
+<p>The heatmap illustrates tested (red) and untested (white)
+gene-phenotype pairs.</p>
+<pre class="r"><code># Generate a matrix indicating where z-scores are present
 id.mat &lt;- 1*(!is.na(OF.zmat)) # multiply 1 to make this matrix numeric
 nrow(as.data.frame(colSums(id.mat)))</code></pre>
 <pre><code>[1] 14</code></pre>
 <pre class="r"><code>dim(id.mat)</code></pre>
 <pre><code>[1] 3823   14</code></pre>
-<pre class="r"><code>## heatmap of gene - phenotype (red: tested, white: untested)
-ht = Heatmap(t(id.mat), 
+<pre class="r"><code>ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows =&quot;binary&quot;,
              cluster_columns = T, clustering_distance_columns = &quot;binary&quot;,
              show_row_dend = F, show_column_dend = F,  # do not show dendrogram
              show_column_names = F, col = c(&quot;white&quot;,&quot;red&quot;),
-             row_names_gp = gpar(fontsize = 10), name=&quot;Missing&quot;)</code></pre>
-<pre><code>`use_raster` is automatically set to TRUE for a matrix with more than
-2000 columns You can control `use_raster` argument by explicitly
-setting TRUE/FALSE to it.
-
-Set `ht_opt$message = FALSE` to turn off this message.</code></pre>
-<pre><code>&#39;magick&#39; package is suggested to install to give better rasterization.
-
-Set `ht_opt$message = FALSE` to turn off this message.</code></pre>
-<pre class="r"><code>draw(ht)</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/unnamed-chunk-4-1.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="z-score-distribution" class="section level3">
-<h3>Z-score Distribution</h3>
-<p>We plot association Z-score distribution for each phenotype.</p>
-<pre class="r"><code>ggplot(melt(OF.zmat), aes(x=value)) + 
-  geom_histogram() + 
-  facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
-  theme(strip.text.x = element_text(size = 6))</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+             row_names_gp = gpar(fontsize = 10), name=&quot;Missing&quot;)
+draw(ht)</code></pre>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
 Past versions of unnamed-chunk-5-1.png
@@ -1662,22 +1649,16 @@ statsleelab
 </div>
 </div>
 </div>
-<div
-id="estimate-genetic-correlation-matrix-between-phenotypes-using-zscores"
+<div id="distribution-of-z-scores-across-phenotypes"
 class="section level3">
-<h3>Estimate genetic correlation matrix between phenotypes using
-Zscores</h3>
-<p>Here, we estimate the genetic correlations between phenotypes using
-association Z-score matrix (num of genes:3983, num of phenotypes
-19).</p>
-<pre class="r"><code>OF.zmat &lt;- OF.zmat[,common.pheno.list]
-OF.zcor = cor(OF.zmat, use=&quot;pairwise.complete.obs&quot;)
-ht = Heatmap(OF.zcor, cluster_rows = T, cluster_columns = T, show_column_names = F, #col = col_fun,
-             row_names_gp = gpar(fontsize = 10),
-             name=&quot;Genetic Corr (Z-score)&quot;
-             )
-draw(ht)</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h3>Distribution of Z-Scores Across Phenotypes</h3>
+<p>The histogram presents the distribution of association Z-scores for
+each phenotype.</p>
+<pre class="r"><code>ggplot(melt(OF.zmat), aes(x=value)) + 
+  geom_histogram() + 
+  facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
+  theme(strip.text.x = element_text(size = 6))</code></pre>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
 Past versions of unnamed-chunk-6-1.png
@@ -1716,13 +1697,72 @@ statsleelab
 </div>
 </div>
 </div>
-<div id="phenotype-corr-vs-genetic-corr-btw-phenotypes"
+<div id="estimation-of-genetic-correlation-matrix-using-z-scores"
 class="section level3">
-<h3>Phenotype Corr VS Genetic Corr btw phenotypes</h3>
-<p>We compare a correlation matrix obtained using control mice phenotype
-data v.s. a genetic correlation matrix estimated using association
-Z-scores. As you can see, both correlation heatmaps have similar
-correlation pattern.</p>
+<h3>Estimation of Genetic Correlation Matrix Using Z-Scores</h3>
+<p>Here, we estimate the genetic correlations between phenotypes
+utilizing the association Z-score matrix.</p>
+<pre class="r"><code># Select common phenotypes
+OF.zmat &lt;- OF.zmat[,common.pheno.list]
+dim(OF.zmat)</code></pre>
+<pre><code>[1] 3823   14</code></pre>
+<pre class="r"><code># Compute genetic correlations
+OF.zcor = cor(OF.zmat, use=&quot;pairwise.complete.obs&quot;)
+
+# Generate heatmap of the correlation matrix
+ht = Heatmap(OF.zcor, cluster_rows = T, cluster_columns = T, show_column_names = F, #col = col_fun,
+             row_names_gp = gpar(fontsize = 10),
+             name=&quot;Genetic Corr (Z-score)&quot;
+             )
+draw(ht)</code></pre>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-1.png" target="_blank">7685a09</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-01-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div
+id="comparison-of-phenotypic-correlation-and-genetic-correlation-among-phenotypes"
+class="section level3">
+<h3>Comparison of Phenotypic Correlation and Genetic Correlation Among
+Phenotypes</h3>
+<p>We will compare the correlation matrix obtained from control mice
+phenotype data and the genetic correlation matrix estimated using
+association Z-scores. As depicted below, both correlation heatmaps show
+similar correlation patterns.</p>
 <pre class="r"><code>OF.cor.rank.fig &lt;- OF.cor.rank[common.pheno.list,common.pheno.list]
 OF.cor.fig &lt;- OF.cor[common.pheno.list,common.pheno.list]
 OF.cor.combat.fig &lt;- OF.cor.combat[common.pheno.list, common.pheno.list]
@@ -1733,11 +1773,8 @@ ht = Heatmap(OF.cor.rank.fig, cluster_rows = TRUE, cluster_columns = TRUE, show_
               show_row_dend = F, show_column_dend = F,  # do not show dendrogram
              row_names_gp = gpar(fontsize = 8), column_title=&quot;Phenotype Corr (RankZ, Pearson)&quot;, column_title_gp = gpar(fontsize = 8),
              name=&quot;Corr&quot;)
-pheno.order &lt;- row_order(ht)</code></pre>
-<pre><code>Warning: The heatmap has not been initialized. You might have different results
-if you repeatedly execute this function, e.g. when row_km/column_km was
-set. It is more suggested to do as `ht = draw(ht); row_order(ht)`.</code></pre>
-<pre class="r"><code>#draw(ht)
+pheno.order &lt;- row_order(ht)
+#draw(ht)
 
 OF.cor.rank.fig &lt;- OF.cor.rank.fig[pheno.order,pheno.order]
 ht1 = Heatmap(OF.cor.rank.fig, cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, #col = col_fun,
@@ -1758,9 +1795,6 @@ ht4 = Heatmap(OF.zcor.fig, cluster_rows = FALSE, cluster_columns = FALSE, show_c
              name=&quot;Corr&quot;
              )
 draw(ht1+ht2+ht3+ht4)</code></pre>
-<pre><code>Warning: Heatmap/annotation names are duplicated: Corr</code></pre>
-<pre><code>Warning: Heatmap/annotation names are duplicated: Corr, Corr</code></pre>
-<pre><code>Warning: Heatmap/annotation names are duplicated: Corr, Corr, Corr</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/comp_pheno_corr_gene_corr-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-comp_pheno_corr_gene_corr-1">
@@ -1805,16 +1839,21 @@ draw(ht1+ht2+ht3+ht4)
 dev.off()
 }</code></pre>
 </div>
-<div id="test-of-the-correlation-between-genetic-correlation-matrices"
+<div
+id="correlation-analysis-between-genetic-correlation-matrices-using-mantels-test"
 class="section level3">
-<h3>Test of the correlation between genetic correlation matrices</h3>
-<p>We use the Mantel’s test for testing the correlation between two
-distance matrices.</p>
+<h3>Correlation Analysis Between Genetic Correlation Matrices Using
+Mantel’s Test</h3>
+<p>To evaluate the correlation between different genetic correlation
+matrices, we apply Mantel’s test, which measures the correlation between
+two distance matrices.</p>
 <pre class="r"><code>####################
 # Use Mantel test 
 # https://stats.idre.ucla.edu/r/faq/how-can-i-perform-a-mantel-test-in-r/
 # install.packages(&quot;ade4&quot;)
 library(ade4)
+
+# Function to extract upper triangular elements of a matrix
 to.upper&lt;-function(X) X[upper.tri(X,diag=FALSE)]
 
 a1 &lt;- to.upper(OF.cor.fig)
@@ -1823,122 +1862,11 @@ a3 &lt;- to.upper(OF.cor.combat.fig)
 a4 &lt;- to.upper(OF.zcor.fig)
 
 plot(a4, a1)</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-1.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(a4, a2)</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
-Past versions of unnamed-chunk-7-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-2.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(a4, a3)</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-3">
-Past versions of unnamed-chunk-7-3.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/unnamed-chunk-7-3.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/kompute_test_OF_v16.Rmd/unnamed-chunk-8-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>mantel.rtest(as.dist(1-OF.cor.fig), as.dist(1-OF.zcor.fig), nrepet = 9999) #nrepet = number of permutations</code></pre>
 <pre><code>Monte-Carlo test
 Call: mantelnoneuclid(m1 = m1, m2 = m2, nrepet = nrepet)
@@ -1977,25 +1905,33 @@ Alternative hypothesis: greater
  8.920438043 -0.001681222  0.012010766 </code></pre>
 </div>
 </div>
-<div id="test-kompute-imputation-algorithm" class="section level2">
-<h2>Test KOMPUTE imputation algorithm</h2>
-<div id="load-kompute-package" class="section level3">
-<h3>Load KOMPUTE package</h3>
-<pre class="r"><code>if(!&quot;kompute&quot; %in% rownames(installed.packages())){
+<div id="evaluating-the-kompute-imputation-algorithm"
+class="section level2">
+<h2>Evaluating the KOMPUTE Imputation Algorithm</h2>
+<div id="initializing-the-kompute-package" class="section level3">
+<h3>Initializing the KOMPUTE Package</h3>
+<pre class="r"><code># Check if KOMPUTE is installed, if not, install it from GitHub using devtools
+if(!&quot;kompute&quot; %in% rownames(installed.packages())){
   library(devtools)
   devtools::install_github(&quot;dleelab/kompute&quot;)
 }
 library(kompute)</code></pre>
 </div>
-<div id="simulation-study---imputed-vs-measured" class="section level3">
-<h3>Simulation study - imputed vs measured</h3>
-<p>We randomly select measured gene-phenotype association z-scores, mask
-those, impute them using KOMPUTE method. Then we compare the imputed
-z-scores to the measured ones.</p>
+<div
+id="simulation-study---comparison-of-imputed-vs-measured-z-score-values"
+class="section level3">
+<h3>Simulation study - Comparison of imputed vs measured z-score
+values</h3>
+<p>In this section, we conduct a simulation study to compare the
+performance of the KOMPUTE method with the measured gene-phenotype
+association z-scores. We randomly select some of these measured
+z-scores, mask them, and then use the KOMPUTE method to impute them. We
+then compare the imputed z-scores with the measured ones.</p>
 <pre class="r"><code>zmat &lt;-t(OF.zmat) 
 dim(zmat)</code></pre>
 <pre><code>[1]   14 3823</code></pre>
-<pre class="r"><code>zmat0 &lt;- is.na(zmat)
+<pre class="r"><code># filter genes with less than 1 missing data point (na)
+zmat0 &lt;- is.na(zmat)
 num.na&lt;-colSums(zmat0)
 summary(num.na)</code></pre>
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -2008,11 +1944,12 @@ summary(num.na)</code></pre>
 <pre><code>[1]   14 3510</code></pre>
 <pre class="r"><code>dim(zmat[,num.na&lt;10])</code></pre>
 <pre><code>[1]   14 3823</code></pre>
-<pre class="r"><code>## filter genes with na &lt; 1
+<pre class="r"><code># filter genes with less than 1 missing data point (na)
 zmat &lt;- zmat[,num.na&lt;1]
 dim(zmat)</code></pre>
 <pre><code>[1]   14 2576</code></pre>
-<pre class="r"><code>#pheno.cor &lt;- OF.cor.fig
+<pre class="r"><code># Set correlation method for phenotypes
+#pheno.cor &lt;- OF.cor.fig
 #pheno.cor &lt;- OF.cor.rank.fig
 pheno.cor &lt;- OF.cor.combat.fig
 #pheno.cor &lt;- OF.zcor.fig
@@ -2044,18 +1981,18 @@ rownames(zmat)</code></pre>
 [13] &quot;OF_Whole arena resting time&quot;     &quot;OF_Periphery resting time&quot;      </code></pre>
 <pre class="r"><code>npheno &lt;- nrow(zmat)
 
-## percentage of missing Z-scores in the original data 
+# calculate the percentage of missing Z-scores in the original data 
 100*sum(is.na(zmat))/(nrow(zmat)*ncol(zmat)) # 0%</code></pre>
 <pre><code>[1] 0</code></pre>
 <pre class="r"><code>nimp &lt;- 1000 # # of missing/imputed Z-scores
 set.seed(1111)
 
-## find index of all measured zscores
+# find index of all measured zscores
 all.i &lt;- 1:(nrow(zmat)*ncol(zmat))
 measured &lt;- as.vector(!is.na(as.matrix(zmat)))
 measured.i &lt;- all.i[measured]
 
-## mask 2000 measured z-scores
+# mask 2000 measured z-scores
 mask.i &lt;- sort(sample(measured.i, nimp))
 org.z = as.matrix(zmat)[mask.i]
 zvec &lt;- as.vector(as.matrix(zmat))
@@ -2065,13 +2002,9 @@ rownames(zmat.imp) &lt;- rownames(zmat)</code></pre>
 </div>
 <div id="run-kompute-method" class="section level3">
 <h3>Run KOMPUTE method</h3>
-<pre class="r"><code>kompute.res &lt;- kompute(zmat.imp, pheno.cor, 0.01)</code></pre>
-<pre><code>
-KOMPute running...</code></pre>
-<pre><code># of genes: 2576</code></pre>
-<pre><code># of phenotypes: 14</code></pre>
-<pre><code># of imputed Z-scores: 1000</code></pre>
-<pre class="r"><code># measured vs imputed
+<pre class="r"><code>kompute.res &lt;- kompute(zmat.imp, pheno.cor, 0.01)
+
+# Compare measured vs imputed z-scores
 length(org.z)</code></pre>
 <pre><code>[1] 1000</code></pre>
 <pre class="r"><code>imp.z &lt;- as.matrix(kompute.res$zmat)[mask.i]
@@ -2115,7 +2048,8 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code>imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
+<pre class="r"><code># Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
 dim(imp)</code></pre>
 <pre><code>[1] 1000    3</code></pre>
 <pre class="r"><code>imp &lt;- imp[complete.cases(imp),]
@@ -2164,7 +2098,8 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code>info.cutoff &lt;- 0.8
+<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
+info.cutoff &lt;- 0.8
 imp.sub &lt;- subset(imp, info&gt;info.cutoff)
 dim(imp.sub)</code></pre>
 <pre><code>[1] 846   3</code></pre>
