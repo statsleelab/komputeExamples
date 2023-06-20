@@ -1,5 +1,5 @@
 ---
-title: "KOMPUTE method testing - BC data"
+title: "Evaluating KOMPUTE - Body Composition Data"
 author: "Coby Warkentin and Donghyung Lee"
 date: "`r Sys.Date()`"
 output: workflowr::wflow_html
@@ -7,9 +7,11 @@ editor_options:
   chunk_output_type: inline
 ---
 
-## Load packages
+## Import necessary packages
 ```{r load_packages, echo=TRUE, message=FALSE}
 rm(list=ls())
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
 library(data.table)
 library(dplyr)
 library(reshape2)
@@ -22,16 +24,16 @@ library(patchwork)
 library(ggpubr)
 ```
 
-## Prep control phenotype data
+## Preparing control phenotype data
 
-### Load Body Composition control phenotypes
+### Importing Body Composition Control Phenotype Dataset
 ```{r load_data, echo=TRUE}
 BC.data <- readRDS("data/BC.data.rds")
 dim(BC.data)
 ```
 
-### Heatmap showing measured phenotypes 
-This heatmaps show phenotypes measured for each control mouse. Columns represent mice and rows represent phenotypes. 
+### Visualizing measured phenotypes via a heatmap 
+The heatmap below presents a visualization of the phenotypic measurements taken for each control mouse. The columns represent individual mice, while the rows correspond to the distinct phenotypes measured. 
 ```{r heatmap_pheno, fig.width=12, fig.height=14}
 mtest <- table(BC.data$proc_param_name_stable_id, BC.data$biological_sample_id)
 mtest <-as.data.frame.matrix(mtest)
@@ -47,7 +49,8 @@ draw(ht)
 }
 ```
 
-### Remove phenotypes with num of obs < 15000
+### Exclude phenotypes with fewer than 15,000 observations
+To maintain data quality and robustness, we will discard any phenotypes that have fewer than 15,000 recorded observations.
 ```{r}
 mtest <- table(BC.data$proc_param_name, BC.data$biological_sample_id)
 dim(mtest)
@@ -64,7 +67,7 @@ dim(BC.data)
 length(unique(BC.data$proc_param_name))
 ```
 
-### Remove samples with num of measured phenotypes < 7
+### Remove samples with fewer than 7 measured phenotypes
 ```{r rmv_samp, echo=TRUE}
 mtest <- table(BC.data$proc_param_name, BC.data$biological_sample_id)
 dim(mtest)
@@ -81,7 +84,7 @@ dim(BC.data)
 length(unique(BC.data$biological_sample_id))
 ```
 
-### Heapmap of measured phenotypes after filtering
+### Heapmap of filtered phenotypes
 ```{r}
 if(FALSE){
 mtest <- table(BC.data$proc_param_name, BC.data$biological_sample_id)
@@ -99,7 +102,9 @@ dev.off()
 }
 ```
 
-### Reshape the data (long to wide)
+### Reforatting the dataset (long to wide)
+
+We restructure our data from a long format to a wide one for further processing and analysis.
 ```{r reshape_pheno}
 BC.mat <- BC.data %>% 
   dplyr::select(biological_sample_id, proc_param_name, data_point, sex, phenotyping_center, strain_name) %>% 
@@ -113,7 +118,7 @@ dim(BC.mat)
 summary(colSums(is.na(BC.mat[,-1:-3])))
 ```
 
-### Distribution of each phenotype
+### Visualizing phenotype distributions 
 ```{r pheno_dist,  fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 ggplot(melt(BC.mat), aes(x=value)) + 
   geom_histogram() + 
@@ -123,6 +128,9 @@ ggplot(melt(BC.mat), aes(x=value)) +
 
 
 ### Rank Z transformation
+
+In this step, we conduct a rank Z transformation on the phenotype data to ensure that the data is normally distributed
+
 ```{r rankZ_trans, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 library(RNOmni)
 BC.mat.rank <- BC.mat
@@ -141,24 +149,30 @@ ggplot(melt(BC.mat.rank), aes(x=value)) +
   theme(strip.text.x = element_text(size = 6))
 ```
 
-### Principal Variance Component Analysis
-Here we conducted a PVCA analysis on the phenotype matrix data and measure the proportion of variance explained by each important covariate (sex, phenotyping_center).
+### Conducting Principal Variance Component Analysis (PVCA)
+
+In this step, we apply Principal Variance Component Analysis (PVCA) on the phenotype matrix data. PVCA is an approach that combines Principal Component Analysis (PCA) and Variance Component Analysis to quantify the proportion of total variance in the data attributed to each important covariate, in this case 'sex' and 'phenotyping_center'.
+
+First, we prepare our metadata which includes our chosen covariates. Any character variables in the metadata are then converted to factors. To avoid potential confounding, we check for associations between our covariates and drop 'strain_name' due to its strong association with 'phenotyping_center'.
+
+Next, we run PVCA on randomly chosen subsets of our phenotype data (for computational efficiency). Finally, we compute the average effect size across all random samples and visualize the results in a PVCA plot.
+
 ```{r PVCA, fig.width=6, fig.height=5, message=FALSE, warning=FALSE}
 source("code/PVCA.R")
 
-meta <- BC.mat.rank[,1:3] ## looking at covariates sex, phenotyping_center, and strain_name
+meta <- BC.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
 head(meta)
 dim(meta)
-summary(meta) # variables are still characters
+summary(meta) # variables are currently characters
 meta[sapply(meta, is.character)] <- lapply(meta[sapply(meta, is.character)], as.factor)
 summary(meta) # now all variables are converted to factors
 
 chisq.test(meta[,1],meta[,2])
 chisq.test(meta[,2],meta[,3]) 
 
-meta<-meta[,-3] # phenotyping_center and strain_name strongly associated and this caused confouding in PVCA analysis so strain_name dropped.
+meta<-meta[,-3] # phenotyping_center and strain_name strongly associated which could cause confounding in the PVCA analysis, so we drop 'strain_name'.
 
-G <- t(BC.mat.rank[,-1:-3]) ## phenotype matrix data
+G <- t(BC.mat.rank[,-1:-3]) ## preparing the phenotype matrix data
 
 set.seed(09302021)
 
@@ -169,11 +183,11 @@ for (i in 1:10){
   pvca.res[i,] <- PVCA(G[,sample], meta[sample,], threshold=0.6, inter=FALSE)
 }
 
-# Average effect size across samples
+# Compute average effect size across the 10 random samples
 pvca.means <- colMeans(pvca.res)
 names(pvca.means) <- c(colnames(meta), "resid")
 
-# Plot PVCA
+# Create PVCA plot
 pvca.plot <- PlotPVCA(pvca.means, "PVCA of Phenotype Matrix Data")
 pvca.plot
 png(file="docs/figure/figures.Rmd/pvca_BC_1_v16.png", width=600, height=350)
@@ -181,8 +195,8 @@ pvca.plot
 dev.off()
 ```
 
-### Removing batch effects using ComBat
-We remove the center effect using ComBat.
+### Batch effect removal using ComBat
+We remove batch effects (the center effect) in the phenotype data set by using the ComBat method.
 ```{r combat}
 library(sva)
 combat_komp = ComBat(dat=G, batch=meta$phenotyping_center, par.prior=TRUE, prior.plots=TRUE, mod=NULL)
@@ -191,22 +205,22 @@ combat_komp[1:5,1:5]
 G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G
 ```
 
-### PVCA on residuals from ComBat 
-The center effect should be much lower.
+### PVCA on ComBat residuals 
+After using ComBat to account for batch effects, we perform a PVCA on the residuals. We expect to observe a significantly reduced effect from the phenotyping centers.
 ```{r PVCA_resid, fig.width=6, fig.height=5, message=FALSE, warning=FALSE}
 set.seed(09302021)
-# Perform PVCA for 10 samples (more computationally efficient)
+# Perform PVCA for 10 random samples (more computationally efficient)
 pvca.res.nobatch <- matrix(nrow=10, ncol=3)
 for (i in 1:10){
   sample <- sample(1:ncol(combat_komp), 1000, replace=FALSE)
   pvca.res.nobatch[i,] <- PVCA(combat_komp[,sample], meta[sample,], threshold=0.6, inter=FALSE)
 }
 
-# Average effect size across samples
+# Compute average effect size across samples
 pvca.means.nobatch <- colMeans(pvca.res.nobatch)
 names(pvca.means.nobatch) <- c(colnames(meta), "resid")
 
-# Plot PVCA
+# Generate PVCA plot
 pvca.plot.nobatch <- PlotPVCA(pvca.means.nobatch, "PVCA of Phenotype Matrix Data with Reduced Batch Effect")
 pvca.plot.nobatch
 
@@ -215,6 +229,8 @@ pvca.plot.nobatch
 dev.off()
 ```
 
+
+### Supplementary figure
 ```{r}
 # Supplementary Figure 1
 pvca.plot <- pvca.plot +
@@ -234,8 +250,10 @@ pvca.plots
 dev.off()
 ```
 
-### Compute correlations between phenotypes
-```{r, fig.width=6, fig.height=3}
+### Computing phenotypic correlations
+We compute the phenotype correlations using different methods and compare them.
+
+```{r, fig.width=6, fig.height=2.5}
 BC.cor.rank <- cor(BC.mat.rank[,-1:-3], use="pairwise.complete.obs") # pearson correlation coefficient
 BC.cor <- cor(BC.mat[,-1:-3], use="pairwise.complete.obs", method="spearman") # spearman
 BC.cor.combat <- cor(t(combat_komp), use="pairwise.complete.obs")
@@ -250,9 +268,9 @@ draw(ht3)
 ```
 
 
-## Prep IMPC summary stat
+## Preparation of IMPC summary statistics data
 
-### Read BC summary stat (IMPCv10.1)
+### Loading Body Composition summary stat (IMPCv16)
 ```{r KOMP_stats}
 BC.stat <- readRDS("data/BC.stat.v16.rds")
 dim(BC.stat)
@@ -260,27 +278,27 @@ table(BC.stat$parameter_name, BC.stat$procedure_name)
 
 length(unique(BC.stat$marker_symbol)) #6145
 length(unique(BC.stat$allele_symbol)) #6313
-length(unique(BC.stat$proc_param_name)) #9  # number of phenotypes in association statistics data set
-length(unique(BC.data$proc_param_name)) #10 # number of phenotypes in final control data
+length(unique(BC.stat$proc_param_name)) #9, number of phenotypes in association statistics data set
+length(unique(BC.data$proc_param_name)) #10, number of phenotypes in final control data
+
 
 pheno.list.stat <- unique(BC.stat$proc_param_name)
 pheno.list.ctrl <- unique(BC.data$proc_param_name)
 sum(pheno.list.stat %in% pheno.list.ctrl)
 sum(pheno.list.ctrl %in% pheno.list.stat)
 
-## extract common phenotype list
+# Identifying common phenotypes between statistics and control data
 common.pheno.list <- sort(intersect(pheno.list.ctrl, pheno.list.stat))
 length(common.pheno.list) # 9 - each data set had one phenotype not present in the other
 
-
-
-## Use summary statistics of common phenotypes
+# Filtering summary statistics to contain only common phenotypes
 dim(BC.stat)
 BC.stat <- BC.stat %>% filter(proc_param_name %in% common.pheno.list)
 dim(BC.stat)
 length(unique(BC.stat$proc_param_name))
 
-## only 2884 genes available in Fat mass so filter this out.
+# Exclude 'Fat mass' due to limited gene availability
+# only 2884 genes available in Fat mass
 BC.stat <- BC.stat %>% filter(parameter_name != "Fat mass") 
 dim(BC.stat)
 length(unique(BC.stat$proc_param_name))
@@ -289,7 +307,7 @@ common.pheno.list <- common.pheno.list[-6]
 common.pheno.list
 ```
 
-### Duplicates in gene-phenotype pair 
+### Visualizing gene-phenotype pair duplicates 
 ```{r gene_pheno_dup, fig.width=6, fig.height=2}
 mtest <- table(BC.stat$proc_param_name, BC.stat$marker_symbol)
 mtest <-as.data.frame.matrix(mtest)
@@ -301,7 +319,7 @@ ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, sh
 draw(ht)
 ```
 
-### Using Stouffer's method, merge multiple z-scores of a gene-phenotype pair into a z-score
+### Consolidating muliple z-scores of a gene-phenotype pair using Stouffer's Method
 ```{r Stouffer}
 ## sum(z-score)/sqrt(# of zscore)
 sumz <- function(z){ sum(z)/sqrt(length(z)) }
@@ -314,25 +332,33 @@ dim(BC.z)
 
 ```
 
-### Make z-score matrix (long to wide)
-```{r, fig.width=6, fig.height=2.5}
+### Generating Z-score matrix (reformatting)
+```{r}
+# Function to convert NaN to NA
 nan2na <- function(df){ 
   out <- data.frame(sapply(df, function(x) ifelse(is.nan(x), NA, x))) 
   colnames(out) <- colnames(df)
   out
 }
+
+# Converting the long format of z-scores to a wide format matrix
 BC.zmat = dcast(BC.z, marker_symbol ~ proc_param_name, value.var = "zscore", 
              fun.aggregate = mean) %>% tibble::column_to_rownames(var="marker_symbol")
 BC.zmat = nan2na(BC.zmat) #convert nan to na
 
 dim(BC.zmat)
 saveRDS(BC.zmat, file = "data/BC.zmat.v16.rds")
+```
 
+### Visualization of Phenotype-Gene Coverage
+The heatmap illustrates tested (red) and untested (white) gene-phenotype pairs.
+
+```{r, fig.width=6, fig.height=2.5}
+# Generate a matrix indicating where z-scores are present
 id.mat <- 1*(!is.na(BC.zmat)) # multiply 1 to make this matrix numeric
 nrow(as.data.frame(colSums(id.mat)))
 dim(id.mat)
 
-## heatmap of gene - phenotype (red: tested, white: untested)
 ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows ="binary",
              cluster_columns = T, clustering_distance_columns = "binary",
@@ -342,8 +368,8 @@ ht = Heatmap(t(id.mat),
 draw(ht)
 ```
 
-### Z-score Distribution
-We plot association Z-score distribution for each phenotype.
+### Distribution of Z-Scores Across Phenotypes
+The histogram presents the distribution of association Z-scores for each phenotype.
 ```{r, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 ggplot(melt(BC.zmat), aes(x=value)) + 
   geom_histogram() + 
@@ -352,12 +378,18 @@ ggplot(melt(BC.zmat), aes(x=value)) +
 ```
 
 
-### Estimate genetic correlation matrix between phenotypes using Zscores
+### Estimation of Genetic Correlation Matrix Using Z-Scores
 
-Here, we estimate the genetic correlations between phenotypes using association Z-score matrix (num of genes:3983, num of phenotypes 19).
+Here, we estimate the genetic correlations between phenotypes utilizing the association Z-score matrix.
 ```{r, fig.width=7, fig.height=3}
+# Select common phenotypes
 BC.zmat <- BC.zmat[,common.pheno.list]
+dim(BC.zmat)
+
+# Compute genetic correlations
 BC.zcor = cor(BC.zmat, use="pairwise.complete.obs")
+
+# Generate heatmap of the correlation matrix
 ht = Heatmap(BC.zcor, cluster_rows = T, cluster_columns = T, show_column_names = F, #col = col_fun,
              row_names_gp = gpar(fontsize = 10),
              name="Genetic Corr (Z-score)"
@@ -366,10 +398,11 @@ draw(ht)
 ```
 
 
-### Phenotype Corr VS Genetic Corr btw phenotypes
+### Comparison of Phenotypic Correlation and Genetic Correlation Among Phenotypes
 
-We compare a correlation matrix obtained using control mice phenotype data v.s. a genetic correlation matrix estimated using association Z-scores. As you can see, both correlation heatmaps have similar correlation pattern. 
-```{r comp_pheno_corr_gene_corr, fig.width=12, fig.height=3}
+We will compare the correlation matrix obtained from control mice phenotype data and the genetic correlation matrix estimated using association Z-scores. As depicted below, both correlation heatmaps show similar correlation patterns.
+
+```{r comp_pheno_corr_gene_corr, fig.width=12, fig.height=2.6}
 
 BC.cor.rank.fig <- BC.cor.rank[common.pheno.list,common.pheno.list]
 BC.cor.fig <- BC.cor[common.pheno.list,common.pheno.list]
@@ -434,15 +467,17 @@ draw(ht4+ht3)
 dev.off()
 ```
 
-### Test of the correlation between genetic correlation matrices
+### Correlation Analysis Between Genetic Correlation Matrices Using Mantel's Test
 
-We use the Mantel's test for testing the correlation between two distance matrices.
+To evaluate the correlation between different genetic correlation matrices, we apply Mantel's test, which measures the correlation between two distance matrices.
 ```{r}
 ####################
 # Use Mantel test 
 # https://stats.idre.ucla.edu/r/faq/how-can-i-perform-a-mantel-test-in-r/
 # install.packages("ade4")
 library(ade4)
+
+# Function to extract upper triangular elements of a matrix
 to.upper<-function(X) X[upper.tri(X,diag=FALSE)]
 
 a1 <- to.upper(BC.cor.fig)
@@ -460,10 +495,11 @@ mantel.rtest(as.dist(1-BC.cor.combat.fig), as.dist(1-BC.zcor.fig), nrepet = 9999
 ```
 
 
-## Test KOMPUTE imputation algorithm 
+## Evaluating the KOMPUTE Imputation Algorithm
 
-### Load KOMPUTE package 
+### Initializing the KOMPUTE Package
 ```{r kompute_load}
+# Check if KOMPUTE is installed, if not, install it from GitHub using devtools
 if(!"kompute" %in% rownames(installed.packages())){
   library(devtools)
   devtools::install_github("dleelab/kompute")
@@ -472,14 +508,15 @@ library(kompute)
 ```
 
 
-### Simulation study - imputed vs measured
+### Simulation study - Comparison of imputed vs measured z-score values
 
-We randomly select measured gene-phenotype association z-scores, mask those, impute them using KOMPUTE method. Then we compare the imputed z-scores to the measured ones.  
+In this section, we conduct a simulation study to compare the performance of the KOMPUTE method with the measured gene-phenotype association z-scores. We randomly select some of these measured z-scores, mask them, and then use the KOMPUTE method to impute them. We then compare the imputed z-scores with the measured ones.
+
 ```{r}
 zmat <-t(BC.zmat) 
 dim(zmat)
 
-## filter genes with na < 1
+# filter genes with less than 1 missing data point (na)
 zmat0 <- is.na(zmat)
 num.na<-colSums(zmat0)
 summary(num.na)
@@ -488,10 +525,11 @@ dim(zmat[,num.na<1])
 dim(zmat[,num.na<5])
 dim(zmat[,num.na<10])
 
-## filter genes with na < 1
+# filter genes with less than 1 missing data point (na)
 zmat <- zmat[,num.na<1]
 dim(zmat)
 
+# Set correlation method for phenotypes
 #pheno.cor <- BC.cor.fig
 #pheno.cor <- BC.cor.rank.fig
 pheno.cor <- BC.cor.combat.fig
@@ -503,7 +541,7 @@ rownames(pheno.cor)
 colnames(pheno.cor)
 npheno <- nrow(zmat)
 
-## percentage of missing Z-scores in the original data 
+# calculate the percentage of missing Z-scores in the original data 
 100*sum(is.na(zmat))/(nrow(zmat)*ncol(zmat)) # 0%
 nimp <- 1000 # # of missing/imputed Z-scores
 set.seed(1234)
@@ -526,12 +564,13 @@ rownames(zmat.imp) <- rownames(zmat)
 ```{r KOMPUTE_res, fig.width=5, fig.height=4}
 kompute.res <- kompute(zmat.imp, pheno.cor, 0.01)
 
-# measured vs imputed
+# Compare measured vs imputed z-scores
 length(org.z)
 imp.z <- as.matrix(kompute.res$zmat)[mask.i]
 imp.info <- as.matrix(kompute.res$infomat)[mask.i]  
 plot(imp.z, org.z)
 
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
 imp <- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
 dim(imp)
 imp <- imp[complete.cases(imp),]
@@ -541,6 +580,7 @@ cor.val <- round(cor(imp$imp.z, imp$org.z), digits=3)
 cor.val
 plot(imp$imp.z, imp$org.z)
 
+# Set a cutoff for information content and filter the data accordingly
 info.cutoff <- 0.8
 imp.sub <- subset(imp, info>info.cutoff)
 dim(imp.sub)
