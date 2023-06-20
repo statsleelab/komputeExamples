@@ -8,16 +8,22 @@ editor_options:
 ---
 
 
-## Import the necessary packages and source functions for the analysis
+## Import the necessary packages
 ```{r}
 library(MASS)
 library(kompute)
 library(kableExtra)
+```
+
+## Import source functions for the analysis
+```{r}
 source("code/svd_impute.R")
 source("code/sim_function.R")
 ```
 
-## Load the phenotypic correlation matrix specific to the Body Composition domain and set initial parameters
+## Load the phenotypic correlation matrix 
+
+Load the phenotypic correlation matrix specific to the Body Composition domain and set initial parameters
 ```{r}
 pheno.cor <- readRDS("data/BC_pheno_cor.RDS")
 n.genes <- 10000 # number of genes
