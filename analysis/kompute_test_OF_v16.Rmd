@@ -482,6 +482,9 @@ dim(zmat)
 pheno.cor <- OF.cor.combat.fig
 #pheno.cor <- OF.zcor.fig
 
+#save phenotype correlation matrix 
+saveRDS(pheno.cor, file = "data/OF.pheno.cor.v16.rds")
+
 zmat <- zmat[rownames(pheno.cor),,drop=FALSE]
 rownames(zmat)
 rownames(pheno.cor)
