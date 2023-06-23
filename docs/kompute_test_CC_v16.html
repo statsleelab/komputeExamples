@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-21" />
+<meta name="date" content="2023-06-23" />
 
 <title>Evaluating KOMPUTE - Clinical Chemistry data</title>
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">Evaluating KOMPUTE - Clinical Chemistry
 data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-21</h4>
+<h4 class="date">2023-06-23</h4>
 
 </div>
 
@@ -380,6 +380,9 @@ id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Sim
 study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
+<li><a href="#save-z-score-matrix-and-phenotype-correlation-matrix"
+id="toc-save-z-score-matrix-and-phenotype-correlation-matrix">Save
+z-score matrix and phenotype correlation matrix</a></li>
 </ul></li>
 </ul>
 </div>
@@ -408,7 +411,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-21
+<strong>Last updated:</strong> 2023-06-23
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -539,15 +542,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreee7a365f2b92c6ab6a86d596b13e93908c8534factargetblanke7a365fa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/e7a365f2b92c6ab6a86d596b13e93908c8534fac" target="_blank">e7a365f</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreee7a365f2b92c6ab6a86d596b13e93908c8534factargetblanke7a365fa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -557,7 +560,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/e7a365f2b92c6ab6a86d596b13e93908c8534fac" target="_blank">e7a365f</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -622,6 +625,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/fbd0f5c6d44a523201f2a46c03e59b12210b3a71/analysis/kompute_test_CC_v16.Rmd" target="_blank">fbd0f5c</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-23
+</td>
+<td>
+kompute input format changed
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/dcb3b0d68e808eee82f84b9d811695421e51bb8a/docs/kompute_test_CC_v16.html" target="_blank">dcb3b0d</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-21
+</td>
+<td>
+pheno.cor added
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1694,9 +1731,6 @@ CC.zmat = dcast(CC.z, marker_symbol ~ proc_param_name, value.var = &quot;zscore&
 CC.zmat = nan2na(CC.zmat) #convert nan to na
 dim(CC.zmat)</code></pre>
 <pre><code>[1] 5342   19</code></pre>
-<pre class="r"><code>dim(CC.zmat)</code></pre>
-<pre><code>[1] 5342   19</code></pre>
-<pre class="r"><code>saveRDS(CC.zmat, file = &quot;data/CC.zmat.v16.rds&quot;)</code></pre>
 </div>
 <div id="visualization-of-phenotype-gene-coverage"
 class="section level3">
@@ -2214,8 +2248,6 @@ dim(zmat)</code></pre>
 pheno.cor &lt;- CC.cor.combat.fig
 #pheno.cor &lt;- CC.zcor.fig
 
-#save phenotype correlation matrix 
-saveRDS(pheno.cor, file = &quot;data/CC.pheno.cor.v16.rds&quot;)
 
 zmat &lt;- zmat[rownames(pheno.cor),,drop=FALSE]
 rownames(zmat)</code></pre>
@@ -2274,13 +2306,13 @@ rownames(zmat.imp) &lt;- rownames(zmat)</code></pre>
 </div>
 <div id="run-kompute-method" class="section level3">
 <h3>Run KOMPUTE method</h3>
-<pre class="r"><code>kompute.res &lt;- kompute(zmat.imp, pheno.cor, 0.01)
+<pre class="r"><code>kompute.res &lt;- kompute(t(zmat.imp), pheno.cor, 0.01)
 
 # Compare measured vs imputed z-scores
 length(org.z)</code></pre>
 <pre><code>[1] 1000</code></pre>
-<pre class="r"><code>imp.z &lt;- as.matrix(kompute.res$zmat)[mask.i]
-imp.info &lt;- as.matrix(kompute.res$infomat)[mask.i]  
+<pre class="r"><code>imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
+imp.info &lt;- as.matrix(t(kompute.res$infomat))[mask.i]  
 plot(imp.z, org.z)</code></pre>
 <p><img src="figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
@@ -2478,6 +2510,16 @@ fig2.2 &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme_bw() +
   theme(legend.position=&quot;none&quot;, plot.title=element_text(hjust=0.5))
 save(fig2.2, file=&quot;docs/figure/figures.Rmd/sim_CC_v16.rdata&quot;)</code></pre>
+</div>
+<div id="save-z-score-matrix-and-phenotype-correlation-matrix"
+class="section level3">
+<h3>Save z-score matrix and phenotype correlation matrix</h3>
+<pre class="r"><code>plist &lt;- sort(colnames(CC.zmat))
+CC_Zscore_Mat &lt;- as.matrix(CC.zmat[,plist])
+save(CC_Zscore_Mat, file = &quot;data/CC.zmat.v16.RData&quot;)
+
+CC_Pheno_Cor &lt;- pheno.cor[plist,plist]
+save(CC_Pheno_Cor, file = &quot;data/CC.pheno.cor.v16.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2509,42 +2551,44 @@ other attached packages:
 [10] RNOmni_1.0.1          ComplexHeatmap_2.12.1 circlize_0.4.15      
 [13] RColorBrewer_1.1-3    tidyr_1.2.0           ggplot2_3.4.1        
 [16] reshape2_1.4.4        dplyr_1.0.9           data.table_1.14.2    
+[19] workflowr_1.7.0.1    
 
 loaded via a namespace (and not attached):
-  [1] bitops_1.0-7           matrixStats_0.62.0     fs_1.5.2              
-  [4] bit64_4.0.5            doParallel_1.0.17      httr_1.4.3            
-  [7] GenomeInfoDb_1.32.3    rprojroot_2.0.3        tools_4.2.1           
- [10] bslib_0.4.0            utf8_1.2.3             R6_2.5.1              
- [13] DBI_1.1.3              BiocGenerics_0.42.0    colorspace_2.1-0      
- [16] GetoptLong_1.0.5       withr_2.5.0            tidyselect_1.2.0      
- [19] bit_4.0.4              compiler_4.2.1         git2r_0.30.1          
- [22] cli_3.6.0              Biobase_2.56.0         labeling_0.4.2        
- [25] sass_0.4.2             scales_1.2.1           stringr_1.4.0         
- [28] digest_0.6.29          minqa_1.2.5            rmarkdown_2.14        
- [31] XVector_0.36.0         pkgconfig_2.0.3        htmltools_0.5.3       
- [34] limma_3.52.4           fastmap_1.1.0          highr_0.9             
- [37] rlang_1.0.6            GlobalOptions_0.1.2    RSQLite_2.2.15        
- [40] rstudioapi_0.13        shape_1.4.6            jquerylib_0.1.4       
- [43] farver_2.1.1           generics_0.1.3         jsonlite_1.8.0        
- [46] RCurl_1.98-1.8         magrittr_2.0.3         GenomeInfoDbData_1.2.8
- [49] Rcpp_1.0.10            munsell_0.5.0          S4Vectors_0.34.0      
- [52] fansi_1.0.4            lifecycle_1.0.3        edgeR_3.38.4          
- [55] stringi_1.7.8          whisker_0.4            yaml_2.3.5            
- [58] zlibbioc_1.42.0        MASS_7.3-58.1          plyr_1.8.7            
- [61] blob_1.2.3             parallel_4.2.1         promises_1.2.0.1      
- [64] crayon_1.5.1           lattice_0.20-45        Biostrings_2.64.0     
- [67] splines_4.2.1          annotate_1.74.0        KEGGREST_1.36.3       
- [70] locfit_1.5-9.6         knitr_1.39             pillar_1.8.1          
- [73] boot_1.3-28            rjson_0.2.21           codetools_0.2-18      
- [76] stats4_4.2.1           XML_3.99-0.10          glue_1.6.2            
- [79] evaluate_0.16          png_0.1-8              vctrs_0.5.2           
- [82] nloptr_2.0.3           httpuv_1.6.5           foreach_1.5.2         
- [85] gtable_0.3.1           purrr_0.3.4            clue_0.3-62           
- [88] assertthat_0.2.1       cachem_1.0.6           xfun_0.31             
- [91] xtable_1.8-4           later_1.3.0            survival_3.3-1        
- [94] tibble_3.1.8           iterators_1.0.14       memoise_2.0.1         
- [97] AnnotationDbi_1.58.0   IRanges_2.30.0         workflowr_1.7.0.1     
-[100] cluster_2.1.3         </code></pre>
+  [1] minqa_1.2.5            colorspace_2.1-0       rjson_0.2.21          
+  [4] rprojroot_2.0.3        XVector_0.36.0         GlobalOptions_0.1.2   
+  [7] fs_1.5.2               clue_0.3-62            rstudioapi_0.13       
+ [10] farver_2.1.1           bit64_4.0.5            AnnotationDbi_1.58.0  
+ [13] fansi_1.0.4            codetools_0.2-18       splines_4.2.1         
+ [16] doParallel_1.0.17      cachem_1.0.6           knitr_1.39            
+ [19] jsonlite_1.8.0         nloptr_2.0.3           annotate_1.74.0       
+ [22] cluster_2.1.3          png_0.1-8              compiler_4.2.1        
+ [25] httr_1.4.3             assertthat_0.2.1       fastmap_1.1.0         
+ [28] limma_3.52.4           cli_3.6.0              later_1.3.0           
+ [31] htmltools_0.5.3        tools_4.2.1            gtable_0.3.1          
+ [34] glue_1.6.2             GenomeInfoDbData_1.2.8 Rcpp_1.0.10           
+ [37] Biobase_2.56.0         jquerylib_0.1.4        vctrs_0.5.2           
+ [40] Biostrings_2.64.0      iterators_1.0.14       xfun_0.31             
+ [43] stringr_1.4.0          ps_1.7.1               lifecycle_1.0.3       
+ [46] XML_3.99-0.10          edgeR_3.38.4           getPass_0.2-2         
+ [49] MASS_7.3-58.1          zlibbioc_1.42.0        scales_1.2.1          
+ [52] promises_1.2.0.1       parallel_4.2.1         yaml_2.3.5            
+ [55] memoise_2.0.1          sass_0.4.2             stringi_1.7.8         
+ [58] RSQLite_2.2.15         highr_0.9              S4Vectors_0.34.0      
+ [61] foreach_1.5.2          BiocGenerics_0.42.0    boot_1.3-28           
+ [64] shape_1.4.6            GenomeInfoDb_1.32.3    rlang_1.0.6           
+ [67] pkgconfig_2.0.3        matrixStats_0.62.0     bitops_1.0-7          
+ [70] evaluate_0.16          lattice_0.20-45        purrr_0.3.4           
+ [73] labeling_0.4.2         bit_4.0.4              processx_3.7.0        
+ [76] tidyselect_1.2.0       plyr_1.8.7             magrittr_2.0.3        
+ [79] R6_2.5.1               IRanges_2.30.0         generics_0.1.3        
+ [82] DBI_1.1.3              pillar_1.8.1           whisker_0.4           
+ [85] withr_2.5.0            survival_3.3-1         KEGGREST_1.36.3       
+ [88] RCurl_1.98-1.8         tibble_3.1.8           crayon_1.5.1          
+ [91] utf8_1.2.3             rmarkdown_2.14         GetoptLong_1.0.5      
+ [94] locfit_1.5-9.6         blob_1.2.3             callr_3.7.1           
+ [97] git2r_0.30.1           digest_0.6.29          xtable_1.8-4          
+[100] httpuv_1.6.5           stats4_4.2.1           munsell_0.5.0         
+[103] bslib_0.4.0           </code></pre>
 </div>
 </div>
 </div>

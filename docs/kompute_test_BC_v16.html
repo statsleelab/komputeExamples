@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-21" />
+<meta name="date" content="2023-06-23" />
 
 <title>Evaluating KOMPUTE - Body Composition Data</title>
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">Evaluating KOMPUTE - Body Composition
 Data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-21</h4>
+<h4 class="date">2023-06-23</h4>
 
 </div>
 
@@ -382,6 +382,9 @@ id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Sim
 study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
+<li><a href="#save-z-score-matrix-and-phenotype-correlation-matrix"
+id="toc-save-z-score-matrix-and-phenotype-correlation-matrix">Save
+z-score matrix and phenotype correlation matrix</a></li>
 </ul></li>
 </ul>
 </div>
@@ -410,7 +413,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-21
+<strong>Last updated:</strong> 2023-06-23
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,15 +544,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefd859e3c29d961d8c0f16a6cdda58a8d18f89b2ftargetblankfd859e3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/fd859e3c29d961d8c0f16a6cdda58a8d18f89b2f" target="_blank">fd859e3</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefd859e3c29d961d8c0f16a6cdda58a8d18f89b2ftargetblankfd859e3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -559,7 +562,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/fd859e3c29d961d8c0f16a6cdda58a8d18f89b2f" target="_blank">fd859e3</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -578,6 +581,7 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/figure/
     Ignored:    code/.DS_Store
 
 </code></pre>
@@ -624,6 +628,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/fbd0f5c6d44a523201f2a46c03e59b12210b3a71/analysis/kompute_test_BC_v16.Rmd" target="_blank">fbd0f5c</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-23
+</td>
+<td>
+kompute input format changed
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/e7a365f2b92c6ab6a86d596b13e93908c8534fac/docs/kompute_test_BC_v16.html" target="_blank">e7a365f</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-21
+</td>
+<td>
+pheno.cor added
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1681,7 +1719,6 @@ BC.zmat = nan2na(BC.zmat) #convert nan to na
 
 dim(BC.zmat)</code></pre>
 <pre><code>[1] 6145    8</code></pre>
-<pre class="r"><code>saveRDS(BC.zmat, file = &quot;data/BC.zmat.v16.rds&quot;)</code></pre>
 </div>
 <div id="visualization-of-phenotype-gene-coverage"
 class="section level3">
@@ -2227,8 +2264,6 @@ dim(zmat)</code></pre>
 pheno.cor &lt;- BC.cor.combat.fig
 #pheno.cor &lt;- BC.zcor.fig
 
-#save phenotype correlation matrix 
-saveRDS(pheno.cor, file = &quot;data/BC.pheno.cor.v16.rds&quot;)
 
 zmat &lt;- zmat[rownames(pheno.cor),,drop=FALSE]
 rownames(zmat)</code></pre>
@@ -2281,13 +2316,13 @@ rownames(zmat.imp) &lt;- rownames(zmat)</code></pre>
 </div>
 <div id="run-kompute-method" class="section level3">
 <h3>Run KOMPUTE method</h3>
-<pre class="r"><code>kompute.res &lt;- kompute(zmat.imp, pheno.cor, 0.01)
+<pre class="r"><code>kompute.res &lt;- kompute(t(zmat.imp), pheno.cor, 0.01)
 
 # Compare measured vs imputed z-scores
 length(org.z)</code></pre>
 <pre><code>[1] 1000</code></pre>
-<pre class="r"><code>imp.z &lt;- as.matrix(kompute.res$zmat)[mask.i]
-imp.info &lt;- as.matrix(kompute.res$infomat)[mask.i]  
+<pre class="r"><code>imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
+imp.info &lt;- as.matrix(t(kompute.res$infomat))[mask.i]  
 plot(imp.z, org.z)</code></pre>
 <p><img src="figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
@@ -2485,6 +2520,16 @@ fig2.1 &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme_bw() +
   theme(legend.position=&quot;none&quot;, plot.title=element_text(hjust=0.5))
 save(fig2.1, file=&quot;docs/figure/figures.Rmd/sim_BC_v16.rdata&quot;)</code></pre>
+</div>
+<div id="save-z-score-matrix-and-phenotype-correlation-matrix"
+class="section level3">
+<h3>Save z-score matrix and phenotype correlation matrix</h3>
+<pre class="r"><code>plist &lt;- sort(colnames(BC.zmat))
+BC_Zscore_Mat &lt;- as.matrix(BC.zmat[,plist])
+save(BC_Zscore_Mat, file = &quot;data/BC.zmat.v16.RData&quot;)
+
+BC_Pheno_Cor &lt;- pheno.cor[plist,plist]
+save(BC_Pheno_Cor, file = &quot;data/BC.pheno.cor.v16.RData&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
