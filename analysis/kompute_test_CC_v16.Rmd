@@ -314,9 +314,6 @@ CC.zmat = dcast(CC.z, marker_symbol ~ proc_param_name, value.var = "zscore",
              fun.aggregate = mean) %>% tibble::column_to_rownames(var="marker_symbol")
 CC.zmat = nan2na(CC.zmat) #convert nan to na
 dim(CC.zmat)
-
-dim(CC.zmat)
-saveRDS(CC.zmat, file = "data/CC.zmat.v16.rds")
 ```
 
 ### Visualization of Phenotype-Gene Coverage
@@ -476,8 +473,6 @@ dim(zmat)
 pheno.cor <- CC.cor.combat.fig
 #pheno.cor <- CC.zcor.fig
 
-#save phenotype correlation matrix 
-saveRDS(pheno.cor, file = "data/CC.pheno.cor.v16.rds")
 
 zmat <- zmat[rownames(pheno.cor),,drop=FALSE]
 rownames(zmat)
@@ -506,12 +501,12 @@ rownames(zmat.imp) <- rownames(zmat)
 
 ### Run KOMPUTE method
 ```{r KOMPUTE_res, fig.width=5, fig.height=4}
-kompute.res <- kompute(zmat.imp, pheno.cor, 0.01)
+kompute.res <- kompute(t(zmat.imp), pheno.cor, 0.01)
 
 # Compare measured vs imputed z-scores
 length(org.z)
-imp.z <- as.matrix(kompute.res$zmat)[mask.i]
-imp.info <- as.matrix(kompute.res$infomat)[mask.i]  
+imp.z <- as.matrix(t(kompute.res$zmat))[mask.i]
+imp.info <- as.matrix(t(kompute.res$infomat))[mask.i]  
 plot(imp.z, org.z)
 
 # Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
@@ -557,3 +552,15 @@ fig2.2 <- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme(legend.position="none", plot.title=element_text(hjust=0.5))
 save(fig2.2, file="docs/figure/figures.Rmd/sim_CC_v16.rdata")
 ```
+
+
+### Save z-score matrix and phenotype correlation matrix
+```{r}
+plist <- sort(colnames(CC.zmat))
+CC_Zscore_Mat <- as.matrix(CC.zmat[,plist])
+save(CC_Zscore_Mat, file = "data/CC.zmat.v16.RData")
+
+CC_Pheno_Cor <- pheno.cor[plist,plist]
+save(CC_Pheno_Cor, file = "data/CC.pheno.cor.v16.RData")
+```
+
