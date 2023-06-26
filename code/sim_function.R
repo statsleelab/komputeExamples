@@ -44,10 +44,10 @@ simulation <- function(n.genes, pheno.cor, mask.prop, method="mc", info.cutoff=0
     imp.z <- mc.res[mask.i]
 
   } else if(method=="kompute"){ # KOMPUTE method
-    kompute.res <- kompute(zmat.imp, pheno.cor, 0.01)
+    kompute.res <- kompute(t(zmat.imp), pheno.cor, 0.01)
 
-    imp.z <- as.matrix(kompute.res$zmat)[mask.i]
-    imp.info <- as.matrix(kompute.res$infomat)[mask.i]
+    imp.z <- as.matrix(t(kompute.res$zmat))[mask.i]
+    imp.info <- as.matrix(t(kompute.res$infomat))[mask.i]
 
     imp <- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
     imp <- imp[complete.cases(imp),]
