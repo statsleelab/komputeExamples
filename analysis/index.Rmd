@@ -23,6 +23,7 @@ To further evaluate the effectiveness of KOMPUTE in more realistic scenarios, we
 * [Analysis 2) Evaluate KOMPUTE using Body Composition data](kompute_test_BC_v16.html)
 * [Analysis 3) Evaluate KOMPUTE using Clinical Chemistry data](kompute_test_CC_v16.html)
 * [Analysis 4) Evaluate KOMPUTE using Open Field data](kompute_test_OF_v16.html)
+* [(Supplementary Figure) Application study: KOMPUTE vs. Matrix Completion](kompute_test_app_v16.html)
 
 
 <br>
