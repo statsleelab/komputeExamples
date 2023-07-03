@@ -578,7 +578,13 @@ imp <- subset(imp, info>=0 & info <= 1)
 dim(imp)
 cor.val <- round(cor(imp$imp.z, imp$org.z), digits=3)
 cor.val
-plot(imp$imp.z, imp$org.z)
+
+g <- ggplot(imp, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0("IMPC BC Data, Cor=",cor.val),
+      x="Imputed Z-scores", y = "Measured Z-scores") +
+    theme_minimal()
+g
 
 # Set a cutoff for information content and filter the data accordingly
 info.cutoff <- 0.8
@@ -613,6 +619,45 @@ fig2.1 <- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme(legend.position="none", plot.title=element_text(hjust=0.5))
 save(fig2.1, file="docs/figure/figures.Rmd/sim_BC_v16.rdata")
 ```
+
+### Run SVD Matrix Completion method
+```{r SVDMC_res, fig.width=5, fig.height=4}
+# load SVD Matrix Completion function
+source("code/svd_impute.R")
+r <- 6
+mc.res <- svd.impute(zmat.imp, r)
+
+# Compare measured vs imputed z-scores
+length(org.z)
+imp.z <- mc.res[mask.i]
+plot(imp.z, org.z)
+cor(imp.z, org.z)
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp2 <- data.frame(org.z=org.z, imp.z=imp.z)
+dim(imp2)
+imp2 <- imp2[complete.cases(imp2),]
+cor.val <- round(cor(imp2$imp.z, imp2$org.z), digits=3)
+cor.val
+plot(imp2$imp.z, imp2$org.z)
+
+g <- ggplot(imp2, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0("IMPC BC Data, Cor=",cor.val),
+      x="Imputed Z-scores", y = "Measured Z-scores") +
+    theme_minimal()
+g
+```
+
+### Save imputation results
+```{r}
+imp$method <- "Kompute"
+imp2$method <- "SVD-MC"
+imp2$info <- NA 
+BC_Imputation_Result <- rbind(imp, imp2)
+save(BC_Imputation_Result, file = "data/BC.imp.res.v16.RData")
+```
+
 ### Save z-score matrix and phenotype correlation matrix
 ```{r}
 plist <- sort(colnames(BC.zmat))
