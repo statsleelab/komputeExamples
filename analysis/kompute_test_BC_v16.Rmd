@@ -568,16 +568,15 @@ kompute.res <- kompute(t(zmat.imp), pheno.cor, 0.01)
 length(org.z)
 imp.z <- as.matrix(t(kompute.res$zmat))[mask.i]
 imp.info <- as.matrix(t(kompute.res$infomat))[mask.i]  
-plot(imp.z, org.z)
 
 # Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
 imp <- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
-dim(imp)
+#dim(imp)
 imp <- imp[complete.cases(imp),]
 imp <- subset(imp, info>=0 & info <= 1)
-dim(imp)
+#dim(imp)
 cor.val <- round(cor(imp$imp.z, imp$org.z), digits=3)
-cor.val
+#cor.val
 
 g <- ggplot(imp, aes(x=imp.z, y=org.z)) +
     geom_point() +
@@ -589,12 +588,12 @@ g
 # Set a cutoff for information content and filter the data accordingly
 info.cutoff <- 0.8
 imp.sub <- subset(imp, info>info.cutoff)
-dim(imp.sub)
-summary(imp.sub$imp.z)
-summary(imp.sub$info)
+#dim(imp.sub)
+#summary(imp.sub$imp.z)
+#summary(imp.sub$info)
 
 cor.val <- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
-cor.val
+#cor.val
 g <- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
     geom_point() +
     labs(title=paste0("IMPC BC Data, Info>", info.cutoff, ", Cor=",cor.val),
@@ -630,16 +629,15 @@ mc.res <- svd.impute(zmat.imp, r)
 # Compare measured vs imputed z-scores
 length(org.z)
 imp.z <- mc.res[mask.i]
-plot(imp.z, org.z)
-cor(imp.z, org.z)
+#plot(imp.z, org.z)
+#cor(imp.z, org.z)
 
 # Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
 imp2 <- data.frame(org.z=org.z, imp.z=imp.z)
-dim(imp2)
+#dim(imp2)
 imp2 <- imp2[complete.cases(imp2),]
 cor.val <- round(cor(imp2$imp.z, imp2$org.z), digits=3)
-cor.val
-plot(imp2$imp.z, imp2$org.z)
+#cor.val
 
 g <- ggplot(imp2, aes(x=imp.z, y=org.z)) +
     geom_point() +
