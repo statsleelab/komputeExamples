@@ -595,7 +595,7 @@ g
 
 ### Save imputation results
 ```{r}
-imp$method <- "Kompute"
+imp$method <- "KOMPUTE"
 imp2$method <- "SVD-MC"
 imp2$info <- NA 
 OF_Imputation_Result <- rbind(imp, imp2)
