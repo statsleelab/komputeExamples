@@ -29,7 +29,7 @@ library(ggpubr)
 ### Importing Body Composition Control Phenotype Dataset
 ```{r load_data, echo=TRUE}
 BC.data <- readRDS("data/BC.data.rds")
-dim(BC.data)
+#dim(BC.data)
 ```
 
 ### Visualizing measured phenotypes via a heatmap 
@@ -37,7 +37,7 @@ The heatmap below presents a visualization of the phenotypic measurements taken 
 ```{r heatmap_pheno, fig.width=12, fig.height=14}
 mtest <- table(BC.data$proc_param_name_stable_id, BC.data$biological_sample_id)
 mtest <-as.data.frame.matrix(mtest)
-dim(mtest)
+#dim(mtest)
 if(FALSE){
 nmax <-max(mtest)
 library(circlize)
@@ -53,35 +53,35 @@ draw(ht)
 To maintain data quality and robustness, we will discard any phenotypes that have fewer than 15,000 recorded observations.
 ```{r}
 mtest <- table(BC.data$proc_param_name, BC.data$biological_sample_id)
-dim(mtest)
+#dim(mtest)
 #head(mtest[,1:10])
 mtest0 <- mtest>0
 #head(mtest0[,1:10])
-rowSums(mtest0)
+#rowSums(mtest0)
 rmv.pheno.list <- rownames(mtest)[rowSums(mtest0)<15000]
 #rmv.pheno.list
-dim(BC.data)
+#dim(BC.data)
 BC.data <- BC.data %>% filter(!(proc_param_name %in% rmv.pheno.list))
-dim(BC.data)
+#dim(BC.data)
 # number of phenotypes left
-length(unique(BC.data$proc_param_name))
+#length(unique(BC.data$proc_param_name))
 ```
 
 ### Remove samples with fewer than 7 measured phenotypes
 ```{r rmv_samp, echo=TRUE}
 mtest <- table(BC.data$proc_param_name, BC.data$biological_sample_id)
-dim(mtest)
-head(mtest[,1:10])
+#dim(mtest)
+#head(mtest[,1:10])
 mtest0 <- mtest>0
-head(mtest0[,1:10])
-summary(colSums(mtest0))
+#head(mtest0[,1:10])
+#summary(colSums(mtest0))
 rmv.sample.list <- colnames(mtest)[colSums(mtest0)<7]
-length(rmv.sample.list)
-dim(BC.data)
+#length(rmv.sample.list)
+#dim(BC.data)
 BC.data <- BC.data %>% filter(!(biological_sample_id %in% rmv.sample.list))
-dim(BC.data)
+#dim(BC.data)
 # number of observations to use
-length(unique(BC.data$biological_sample_id))
+#length(unique(BC.data$biological_sample_id))
 ```
 
 ### Heapmap of filtered phenotypes
@@ -114,8 +114,8 @@ BC.mat <- BC.data %>%
   spread(proc_param_name, data_point) %>%
   tibble::column_to_rownames(var="biological_sample_id")
 head(BC.mat)
-dim(BC.mat)
-summary(colSums(is.na(BC.mat[,-1:-3])))
+#dim(BC.mat)
+#summary(colSums(is.na(BC.mat[,-1:-3])))
 ```
 
 ### Visualizing phenotype distributions 
@@ -134,13 +134,13 @@ In this step, we conduct a rank Z transformation on the phenotype data to ensure
 ```{r rankZ_trans, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 library(RNOmni)
 BC.mat.rank <- BC.mat
-dim(BC.mat.rank)
+#dim(BC.mat.rank)
 BC.mat.rank <- BC.mat.rank[complete.cases(BC.mat.rank),]
-dim(BC.mat.rank)
+#dim(BC.mat.rank)
 
-dim(BC.mat)
+#dim(BC.mat)
 BC.mat <- BC.mat[complete.cases(BC.mat),]
-dim(BC.mat)
+#dim(BC.mat)
 
 BC.mat.rank <- cbind(BC.mat.rank[,1:3], apply(BC.mat.rank[,-1:-3], 2, RankNorm))
 ggplot(melt(BC.mat.rank), aes(x=value)) + 
@@ -161,11 +161,11 @@ Next, we run PVCA on randomly chosen subsets of our phenotype data (for computat
 source("code/PVCA.R")
 
 meta <- BC.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
-head(meta)
-dim(meta)
-summary(meta) # variables are currently characters
+#head(meta)
+#dim(meta)
+#summary(meta) # variables are currently characters
 meta[sapply(meta, is.character)] <- lapply(meta[sapply(meta, is.character)], as.factor)
-summary(meta) # now all variables are converted to factors
+#summary(meta) # now all variables are converted to factors
 
 chisq.test(meta[,1],meta[,2])
 chisq.test(meta[,2],meta[,3]) 
@@ -201,8 +201,8 @@ We remove batch effects (the center effect) in the phenotype data set by using t
 library(sva)
 combat_komp = ComBat(dat=G, batch=meta$phenotyping_center, par.prior=TRUE, prior.plots=TRUE, mod=NULL)
 
-combat_komp[1:5,1:5]
-G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G
+#combat_komp[1:5,1:5]
+#G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G
 ```
 
 ### PVCA on ComBat residuals 
@@ -273,35 +273,34 @@ draw(ht3)
 ### Loading Body Composition summary stat (IMPCv16)
 ```{r KOMP_stats}
 BC.stat <- readRDS("data/BC.stat.v16.rds")
-dim(BC.stat)
+#dim(BC.stat)
 table(BC.stat$parameter_name, BC.stat$procedure_name)
 
-length(unique(BC.stat$marker_symbol)) #6145
-length(unique(BC.stat$allele_symbol)) #6313
-length(unique(BC.stat$proc_param_name)) #9, number of phenotypes in association statistics data set
-length(unique(BC.data$proc_param_name)) #10, number of phenotypes in final control data
-
+#length(unique(BC.stat$marker_symbol)) #6145
+#length(unique(BC.stat$allele_symbol)) #6313
+#length(unique(BC.stat$proc_param_name)) #9, number of phenotypes in association statistics data set
+#length(unique(BC.data$proc_param_name)) #10, number of phenotypes in final control data
 
 pheno.list.stat <- unique(BC.stat$proc_param_name)
 pheno.list.ctrl <- unique(BC.data$proc_param_name)
-sum(pheno.list.stat %in% pheno.list.ctrl)
-sum(pheno.list.ctrl %in% pheno.list.stat)
+#sum(pheno.list.stat %in% pheno.list.ctrl)
+#sum(pheno.list.ctrl %in% pheno.list.stat)
 
 # Identifying common phenotypes between statistics and control data
 common.pheno.list <- sort(intersect(pheno.list.ctrl, pheno.list.stat))
-length(common.pheno.list) # 9 - each data set had one phenotype not present in the other
+#length(common.pheno.list) # 9 - each data set had one phenotype not present in the other
 
 # Filtering summary statistics to contain only common phenotypes
-dim(BC.stat)
+#dim(BC.stat)
 BC.stat <- BC.stat %>% filter(proc_param_name %in% common.pheno.list)
-dim(BC.stat)
-length(unique(BC.stat$proc_param_name))
+#dim(BC.stat)
+#length(unique(BC.stat$proc_param_name))
 
 # Exclude 'Fat mass' due to limited gene availability
 # only 2884 genes available in Fat mass
 BC.stat <- BC.stat %>% filter(parameter_name != "Fat mass") 
-dim(BC.stat)
-length(unique(BC.stat$proc_param_name))
+#dim(BC.stat)
+#length(unique(BC.stat$proc_param_name))
 table(BC.stat$parameter_name, BC.stat$procedure_name)
 common.pheno.list <- common.pheno.list[-6] 
 common.pheno.list
@@ -313,7 +312,7 @@ mtest <- table(BC.stat$proc_param_name, BC.stat$marker_symbol)
 mtest <-as.data.frame.matrix(mtest)
 nmax <-max(mtest)
 col_fun = colorRamp2(c(0, nmax), c("white", "red"))
-col_fun(seq(0, nmax))
+#col_fun(seq(0, nmax))
 ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
              row_names_gp = gpar(fontsize = 8), name="Count")
 draw(ht)
@@ -328,7 +327,7 @@ BC.z = BC.stat %>%
   na.omit() %>%
   group_by(marker_symbol, proc_param_name) %>% 
   summarize(zscore = sumz(z_score)) ## combine z-scores
-dim(BC.z)
+#dim(BC.z)
 
 ```
 
@@ -346,7 +345,7 @@ BC.zmat = dcast(BC.z, marker_symbol ~ proc_param_name, value.var = "zscore",
              fun.aggregate = mean) %>% tibble::column_to_rownames(var="marker_symbol")
 BC.zmat = nan2na(BC.zmat) #convert nan to na
 
-dim(BC.zmat)
+#dim(BC.zmat)
 ```
 
 ### Visualization of Phenotype-Gene Coverage
@@ -355,8 +354,8 @@ The heatmap illustrates tested (red) and untested (white) gene-phenotype pairs.
 ```{r, fig.width=6, fig.height=2.5}
 # Generate a matrix indicating where z-scores are present
 id.mat <- 1*(!is.na(BC.zmat)) # multiply 1 to make this matrix numeric
-nrow(as.data.frame(colSums(id.mat)))
-dim(id.mat)
+#nrow(as.data.frame(colSums(id.mat)))
+#dim(id.mat)
 
 ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows ="binary",
@@ -383,7 +382,7 @@ Here, we estimate the genetic correlations between phenotypes utilizing the asso
 ```{r, fig.width=7, fig.height=3}
 # Select common phenotypes
 BC.zmat <- BC.zmat[,common.pheno.list]
-dim(BC.zmat)
+#dim(BC.zmat)
 
 # Compute genetic correlations
 BC.zcor = cor(BC.zmat, use="pairwise.complete.obs")
@@ -518,15 +517,15 @@ dim(zmat)
 # filter genes with less than 1 missing data point (na)
 zmat0 <- is.na(zmat)
 num.na<-colSums(zmat0)
-summary(num.na)
-dim(zmat)
-dim(zmat[,num.na<1])
-dim(zmat[,num.na<5])
-dim(zmat[,num.na<10])
+#summary(num.na)
+#dim(zmat)
+#dim(zmat[,num.na<1])
+#dim(zmat[,num.na<5])
+#dim(zmat[,num.na<10])
 
 # filter genes with less than 1 missing data point (na)
 zmat <- zmat[,num.na<1]
-dim(zmat)
+#dim(zmat)
 
 # Set correlation method for phenotypes
 #pheno.cor <- BC.cor.fig
@@ -536,9 +535,9 @@ pheno.cor <- BC.cor.combat.fig
 
 
 zmat <- zmat[rownames(pheno.cor),,drop=FALSE]
-rownames(zmat)
-rownames(pheno.cor)
-colnames(pheno.cor)
+#rownames(zmat)
+#rownames(pheno.cor)
+#colnames(pheno.cor)
 npheno <- nrow(zmat)
 
 # calculate the percentage of missing Z-scores in the original data 
