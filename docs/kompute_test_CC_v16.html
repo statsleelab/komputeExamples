@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-23" />
+<meta name="date" content="2023-07-03" />
 
 <title>Evaluating KOMPUTE - Clinical Chemistry data</title>
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">Evaluating KOMPUTE - Clinical Chemistry
 data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-23</h4>
+<h4 class="date">2023-07-03</h4>
 
 </div>
 
@@ -380,6 +380,11 @@ id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Sim
 study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
+<li><a href="#run-svd-matrix-completion-method"
+id="toc-run-svd-matrix-completion-method">Run SVD Matrix Completion
+method</a></li>
+<li><a href="#save-imputation-results"
+id="toc-save-imputation-results">Save imputation results</a></li>
 <li><a href="#save-z-score-matrix-and-phenotype-correlation-matrix"
 id="toc-save-z-score-matrix-and-phenotype-correlation-matrix">Save
 z-score matrix and phenotype correlation matrix</a></li>
@@ -411,7 +416,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-23
+<strong>Last updated:</strong> 2023-07-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -542,15 +547,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -560,7 +565,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -580,6 +585,9 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    code/.DS_Store
+
+Untracked files:
+    Untracked:  data/CC.imp.res.v16.RData
 
 </code></pre>
 <p>
@@ -625,6 +633,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/dbdfbcac8e2ac99c62cfc24350779426ecfc5294/analysis/kompute_test_CC_v16.Rmd" target="_blank">dbdfbca</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+svd mc added
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/0ad952c2778d2cc12c300d344e2ad2e8f340006c/docs/kompute_test_CC_v16.html" target="_blank">0ad952c</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-23
+</td>
+<td>
+kompute function input format changed
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -805,8 +847,7 @@ library(ComplexHeatmap)</code></pre>
 class="section level3">
 <h3>Importing Clinical Chemistry Control Phenotype Dataset</h3>
 <pre class="r"><code>CC.data &lt;- readRDS(&quot;data/CC.data.rds&quot;)
-dim(CC.data)</code></pre>
-<pre><code>[1] 679047     10</code></pre>
+#dim(CC.data)</code></pre>
 </div>
 <div id="visualizing-measured-phenotypes-via-a-heatmap"
 class="section level3">
@@ -817,9 +858,8 @@ individual mice, while the rows correspond to the distinct phenotypes
 measured.</p>
 <pre class="r"><code>mtest &lt;- table(CC.data$proc_param_name_stable_id, CC.data$biological_sample_id)
 mtest &lt;-as.data.frame.matrix(mtest)
-dim(mtest)</code></pre>
-<pre><code>[1]   155 34952</code></pre>
-<pre class="r"><code>if(FALSE){
+#dim(mtest)
+if(FALSE){
 nmax &lt;-max(mtest)
 library(circlize)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
@@ -835,142 +875,35 @@ class="section level3">
 <p>To maintain data quality and robustness, we will discard any
 phenotypes that have fewer than 20,000 recorded observations.</p>
 <pre class="r"><code>mtest &lt;- table(CC.data$proc_param_name, CC.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    36 34952</code></pre>
-<pre class="r"><code>#head(mtest[,1:10])
+#dim(mtest)
+#head(mtest[,1:10])
 mtest0 &lt;- mtest&gt;0
 #head(mtest0[,1:10])
-rowSums(mtest0)</code></pre>
-<pre><code>                CC_Alanine aminotransferase 
-                                      34633 
-                                 CC_Albumin 
-                                      34594 
-                    CC_Alkaline phosphatase 
-                                      34450 
-                           CC_Alpha-amylase 
-                                      22077 
-              CC_Aspartate aminotransferase 
-                                      34078 
-                                 CC_Calcium 
-                                      34526 
-                                CC_Chloride 
-                                      24604 
-                       CC_Cholesterol ratio 
-                                         25 
-                         CC_Creatine kinase 
-                                      15761 
-                              CC_Creatinine 
-                                      29741 
-                                CC_Ferretin 
-                                        150 
-                         CC_Free fatty acid 
-                                       4338 
-                        CC_Free fatty acids 
-                                       6147 
-                            CC_Fructosamine 
-                                      12867 
-                                 CC_Glucose 
-                                      34118 
-                                CC_Glycerol 
-                                       7509 
-     CC_Glycosilated hemoglobin A1c (HbA1c) 
-                                       1698 
-                         CC_HDL-cholesterol 
-                                      28478 
-                                    CC_Iron 
-                                      25602 
-                   CC_Lactate dehydrogenase 
-                                       8967 
-                         CC_LDL-cholesterol 
-                                      11387 
-                                  CC_Lipase 
-                                       2777 
-                               CC_Magnesium 
-                                       7682 
-                              CC_Phosphorus 
-                                      34361 
-                               CC_Potassium 
-                                      24401 
-                                  CC_Sodium 
-                                      24609 
-                               CC_Thyroxine 
-                                       3540 
-                         CC_Total bilirubin 
-                                      29694 
-                       CC_Total cholesterol 
-                                      34394 
-                           CC_Total protein 
-                                      34429 
-                             CC_Transferrin 
-                                        169 
-                           CC_Triglycerides 
-                                      33795 
-CC_UIBC (unsaturated iron binding capacity) 
-                                       2801 
-                                    CC_Urea 
-                                       8296 
-        CC_Urea (Blood Urea Nitrogen - BUN) 
-                                      26272 
-                               CC_Uric acid 
-                                       4299 </code></pre>
-<pre class="r"><code>rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;20000]
+#rowSums(mtest0)
+rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;20000]
 #rmv.pheno.list
-dim(CC.data)</code></pre>
-<pre><code>[1] 679047     10</code></pre>
-<pre class="r"><code>CC.data &lt;- CC.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
-dim(CC.data)</code></pre>
-<pre><code>[1] 580566     10</code></pre>
-<pre class="r"><code># number of phenotypes left
-length(unique(CC.data$proc_param_name))</code></pre>
-<pre><code>[1] 19</code></pre>
+#dim(CC.data)
+CC.data &lt;- CC.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
+#dim(CC.data)
+# number of phenotypes left
+#length(unique(CC.data$proc_param_name))</code></pre>
 </div>
 <div id="remove-samples-with-fewer-than-15-measured-phenotypes"
 class="section level3">
 <h3>Remove samples with fewer than 15 measured phenotypes</h3>
 <pre class="r"><code>mtest &lt;- table(CC.data$proc_param_name, CC.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    19 34925</code></pre>
-<pre class="r"><code>head(mtest[,1:10])</code></pre>
-<pre><code>                               
-                                21 22 24 25 26 27 28 29 30 31
-  CC_Alanine aminotransferase    1  1  1  1  1  1  1  0  1  1
-  CC_Albumin                     1  1  1  1  1  1  1  0  1  1
-  CC_Alkaline phosphatase        1  1  1  1  1  1  1  0  1  1
-  CC_Alpha-amylase               1  1  1  1  1  1  1  0  1  1
-  CC_Aspartate aminotransferase  1  1  1  1  1  1  1  1  1  1
-  CC_Calcium                     1  1  1  1  1  1  1  1  1  1</code></pre>
-<pre class="r"><code>mtest0 &lt;- mtest&gt;0
-head(mtest0[,1:10])</code></pre>
-<pre><code>                               
-                                  21   22   24   25   26   27   28    29   30
-  CC_Alanine aminotransferase   TRUE TRUE TRUE TRUE TRUE TRUE TRUE FALSE TRUE
-  CC_Albumin                    TRUE TRUE TRUE TRUE TRUE TRUE TRUE FALSE TRUE
-  CC_Alkaline phosphatase       TRUE TRUE TRUE TRUE TRUE TRUE TRUE FALSE TRUE
-  CC_Alpha-amylase              TRUE TRUE TRUE TRUE TRUE TRUE TRUE FALSE TRUE
-  CC_Aspartate aminotransferase TRUE TRUE TRUE TRUE TRUE TRUE TRUE  TRUE TRUE
-  CC_Calcium                    TRUE TRUE TRUE TRUE TRUE TRUE TRUE  TRUE TRUE
-                               
-                                  31
-  CC_Alanine aminotransferase   TRUE
-  CC_Albumin                    TRUE
-  CC_Alkaline phosphatase       TRUE
-  CC_Alpha-amylase              TRUE
-  CC_Aspartate aminotransferase TRUE
-  CC_Calcium                    TRUE</code></pre>
-<pre class="r"><code>summary(colSums(mtest0))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   15.00   17.00   16.57   19.00   19.00 </code></pre>
-<pre class="r"><code>rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;15]
-length(rmv.sample.list)</code></pre>
-<pre><code>[1] 8380</code></pre>
-<pre class="r"><code>dim(CC.data)</code></pre>
-<pre><code>[1] 580566     10</code></pre>
-<pre class="r"><code>CC.data &lt;- CC.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
-dim(CC.data)</code></pre>
-<pre><code>[1] 472110     10</code></pre>
-<pre class="r"><code># number of observations to use
-length(unique(CC.data$biological_sample_id))</code></pre>
-<pre><code>[1] 26545</code></pre>
+#dim(mtest)
+#head(mtest[,1:10])
+mtest0 &lt;- mtest&gt;0
+#head(mtest0[,1:10])
+#summary(colSums(mtest0))
+rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;15]
+#length(rmv.sample.list)
+#dim(CC.data)
+CC.data &lt;- CC.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
+#dim(CC.data)
+# number of observations to use
+#length(unique(CC.data$biological_sample_id))</code></pre>
 </div>
 <div id="heapmap-of-filtered-phenotypes" class="section level3">
 <h3>Heapmap of filtered phenotypes</h3>
@@ -1043,11 +976,8 @@ head(CC.mat)</code></pre>
 25                                  NA
 26                                  NA
 27                                  NA</code></pre>
-<pre class="r"><code>dim(CC.mat)</code></pre>
-<pre><code>[1] 26545    22</code></pre>
-<pre class="r"><code>summary(colSums(is.na(CC.mat[,-1:-3])))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-     25      61     134    1784    2930    7853 </code></pre>
+<pre class="r"><code>#dim(CC.mat)
+#summary(colSums(is.na(CC.mat[,-1:-3])))</code></pre>
 </div>
 <div id="visualizing-phenotype-distributions" class="section level3">
 <h3>Visualizing phenotype distributions</h3>
@@ -1100,17 +1030,15 @@ statsleelab
 data to ensure that the data is normally distributed</p>
 <pre class="r"><code>library(RNOmni)
 CC.mat.rank &lt;- CC.mat
-dim(CC.mat.rank)</code></pre>
-<pre><code>[1] 26545    22</code></pre>
-<pre class="r"><code>CC.mat.rank &lt;- CC.mat.rank[complete.cases(CC.mat.rank),]
-dim(CC.mat.rank)</code></pre>
-<pre><code>[1] 11663    22</code></pre>
-<pre class="r"><code>dim(CC.mat)</code></pre>
-<pre><code>[1] 26545    22</code></pre>
-<pre class="r"><code>CC.mat &lt;- CC.mat[complete.cases(CC.mat),]
-dim(CC.mat)</code></pre>
-<pre><code>[1] 11663    22</code></pre>
-<pre class="r"><code>CC.mat.rank &lt;- cbind(CC.mat.rank[,1:3], apply(CC.mat.rank[,-1:-3], 2, RankNorm))
+#dim(CC.mat.rank)
+CC.mat.rank &lt;- CC.mat.rank[complete.cases(CC.mat.rank),]
+#dim(CC.mat.rank)
+
+#dim(CC.mat)
+CC.mat &lt;- CC.mat[complete.cases(CC.mat),]
+#dim(CC.mat)
+
+CC.mat.rank &lt;- cbind(CC.mat.rank[,1:3], apply(CC.mat.rank[,-1:-3], 2, RankNorm))
 ggplot(melt(CC.mat.rank), aes(x=value)) + 
   geom_histogram() + 
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
@@ -1174,29 +1102,13 @@ plot.</p>
 <pre class="r"><code>source(&quot;code/PVCA.R&quot;)
 
 meta &lt;- CC.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
-head(meta)</code></pre>
-<pre><code>         sex phenotyping_center strain_name
-39638 female        MRC Harwell C57BL/6NTac
-39639 female               HMGU C57BL/6NCrl
-39640 female               HMGU C57BL/6NTac
-39643 female               HMGU C57BL/6NCrl
-39650 female               HMGU C57BL/6NTac
-39657   male               HMGU C57BL/6NCrl</code></pre>
-<pre class="r"><code>dim(meta)</code></pre>
-<pre><code>[1] 11663     3</code></pre>
-<pre class="r"><code>summary(meta) # variables are still characters</code></pre>
-<pre><code>     sex            phenotyping_center strain_name       
- Length:11663       Length:11663       Length:11663      
- Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character  </code></pre>
-<pre class="r"><code>meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
-summary(meta) # now all variables are converted to factors</code></pre>
-<pre><code>     sex         phenotyping_center                     strain_name  
- female:5850   HMGU       :2552     B6Brd;B6Dnk;B6N-Tyr&lt;c-Brd&gt;: 164  
- male  :5813   MRC Harwell:4801     C57BL/6N                  :4146  
-               WTSI       :4310     C57BL/6NCrl               : 891  
-                                    C57BL/6NTac               :6462  </code></pre>
-<pre class="r"><code>chisq.test(meta[,1],meta[,2])</code></pre>
+#head(meta)
+#dim(meta)
+#summary(meta) # variables are still characters
+meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
+#summary(meta) # now all variables are converted to factors
+
+chisq.test(meta[,1],meta[,2])</code></pre>
 <pre><code>
     Pearson&#39;s Chi-squared test
 
@@ -1316,32 +1228,8 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code>combat_komp[1:5,1:5]</code></pre>
-<pre><code>                                  39638      39639     39640      39643
-CC_Alanine aminotransferase   0.9340988 -0.5544734 0.6666494 -0.9010928
-CC_Albumin                    2.5845338  1.2282189 0.2400336  0.5834969
-CC_Alkaline phosphatase       1.8038375  0.7077080 0.6239891  0.4510424
-CC_Alpha-amylase              0.3151157 -0.3139508 0.3021379  0.3236144
-CC_Aspartate aminotransferase 0.9536882  0.2034362 1.0860320  0.5575948
-                                   39650
-CC_Alanine aminotransferase   -1.1876876
-CC_Albumin                    -0.4044527
-CC_Alkaline phosphatase        0.2895801
-CC_Alpha-amylase              -1.4941108
-CC_Aspartate aminotransferase -2.4362255</code></pre>
-<pre class="r"><code>G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
-<pre><code>                                  39638      39639     39640      39643
-CC_Alanine aminotransferase   0.6215108 -1.3455580 0.2437437 -1.7966860
-CC_Albumin                    2.8129728  2.0400251 0.9990476  1.3608599
-CC_Alkaline phosphatase       1.8346659  1.1364171 1.0485945  0.8671703
-CC_Alpha-amylase              0.3053479 -0.4417481 0.1869870  0.2089043
-CC_Aspartate aminotransferase 0.5629829  0.1714807 1.1471404  0.5629829
-                                   39650
-CC_Alanine aminotransferase   -2.1696915
-CC_Albumin                     0.3201306
-CC_Alkaline phosphatase        0.6977934
-CC_Alpha-amylase              -1.6461331
-CC_Aspartate aminotransferase -2.7465161</code></pre>
+<pre class="r"><code>#combat_komp[1:5,1:5]
+#G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
 </div>
 <div id="pvca-on-combat-residuals" class="section level3">
 <h3>PVCA on ComBat residuals</h3>
@@ -1578,9 +1466,8 @@ class="section level2">
 class="section level3">
 <h3>Loading Clinical Chemistry summary stat (IMPCv16)</h3>
 <pre class="r"><code>CC.stat &lt;- readRDS(&quot;data/CC.stat.v16.rds&quot;)
-dim(CC.stat)</code></pre>
-<pre><code>[1] 118974      8</code></pre>
-<pre class="r"><code>table(CC.stat$parameter_name, CC.stat$procedure_name)</code></pre>
+#dim(CC.stat)
+table(CC.stat$parameter_name, CC.stat$procedure_name)</code></pre>
 <pre><code>                                  
                                      CC
   Alanine aminotransferase         6312
@@ -1610,21 +1497,17 @@ dim(CC.stat)</code></pre>
   Total protein                    6278
   Triglycerides                    5473
   Urea (Blood Urea Nitrogen - BUN) 5523</code></pre>
-<pre class="r"><code>length(unique(CC.stat$marker_symbol)) #3983</code></pre>
-<pre><code>[1] 5342</code></pre>
-<pre class="r"><code>length(unique(CC.stat$allele_symbol)) #4152</code></pre>
-<pre><code>[1] 5563</code></pre>
-<pre class="r"><code>length(unique(CC.stat$proc_param_name)) #27, number of phenotypes in association statistics data set</code></pre>
-<pre><code>[1] 27</code></pre>
-<pre class="r"><code>length(unique(CC.data$proc_param_name)) #19, number of phenotypes in final control data</code></pre>
-<pre><code>[1] 19</code></pre>
-<pre class="r"><code>pheno.list.stat &lt;- unique(CC.stat$proc_param_name)
+<pre class="r"><code>#length(unique(CC.stat$marker_symbol)) #3983
+#length(unique(CC.stat$allele_symbol)) #4152
+#length(unique(CC.stat$proc_param_name)) #27, number of phenotypes in association statistics data set
+#length(unique(CC.data$proc_param_name)) #19, number of phenotypes in final control data
+
+pheno.list.stat &lt;- unique(CC.stat$proc_param_name)
 pheno.list.ctrl &lt;- unique(CC.data$proc_param_name)
-sum(pheno.list.stat %in% pheno.list.ctrl)</code></pre>
-<pre><code>[1] 19</code></pre>
-<pre class="r"><code>sum(pheno.list.ctrl %in% pheno.list.stat)</code></pre>
-<pre><code>[1] 19</code></pre>
-<pre class="r"><code># Identifying common phenotypes between statistics and control data
+#sum(pheno.list.stat %in% pheno.list.ctrl)
+#sum(pheno.list.ctrl %in% pheno.list.stat)
+
+# Identifying common phenotypes between statistics and control data
 common.pheno.list &lt;- sort(intersect(pheno.list.ctrl, pheno.list.stat))
 common.pheno.list</code></pre>
 <pre><code> [1] &quot;CC_Alanine aminotransferase&quot;         &quot;CC_Albumin&quot;                         
@@ -1637,16 +1520,13 @@ common.pheno.list</code></pre>
 [15] &quot;CC_Total bilirubin&quot;                  &quot;CC_Total cholesterol&quot;               
 [17] &quot;CC_Total protein&quot;                    &quot;CC_Triglycerides&quot;                   
 [19] &quot;CC_Urea (Blood Urea Nitrogen - BUN)&quot;</code></pre>
-<pre class="r"><code>length(common.pheno.list)</code></pre>
-<pre><code>[1] 19</code></pre>
-<pre class="r"><code># Filtering summary statistics to contain only common phenotypes
-dim(CC.stat)</code></pre>
-<pre><code>[1] 118974      8</code></pre>
-<pre class="r"><code>CC.stat &lt;- CC.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
-dim(CC.stat)</code></pre>
-<pre><code>[1] 103792      8</code></pre>
-<pre class="r"><code>length(unique(CC.stat$proc_param_name))</code></pre>
-<pre><code>[1] 19</code></pre>
+<pre class="r"><code>#length(common.pheno.list)
+
+# Filtering summary statistics to contain only common phenotypes
+#dim(CC.stat)
+CC.stat &lt;- CC.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
+#dim(CC.stat)
+#length(unique(CC.stat$proc_param_name))</code></pre>
 </div>
 <div id="visualizing-gene-phenotype-pair-duplicates"
 class="section level3">
@@ -1655,11 +1535,8 @@ class="section level3">
 mtest &lt;-as.data.frame.matrix(mtest)
 nmax &lt;-max(mtest)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
-col_fun(seq(0, nmax))</code></pre>
-<pre><code> [1] &quot;#FFFFFFFF&quot; &quot;#FFF2EEFF&quot; &quot;#FFE6DCFF&quot; &quot;#FFD9CBFF&quot; &quot;#FFCCBBFF&quot; &quot;#FFBFAAFF&quot;
- [7] &quot;#FFB299FF&quot; &quot;#FFA589FF&quot; &quot;#FF9779FF&quot; &quot;#FF8969FF&quot; &quot;#FF7B5AFF&quot; &quot;#FF6C4AFF&quot;
-[13] &quot;#FF5B3AFF&quot; &quot;#FF482AFF&quot; &quot;#FF3118FF&quot; &quot;#FF0000FF&quot;</code></pre>
-<pre class="r"><code>ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
+#col_fun(seq(0, nmax))
+ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
              row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_CC_v16.Rmd/gene_pheno_dup-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -1713,8 +1590,7 @@ CC.z = CC.stat %&gt;%
   na.omit() %&gt;%
   group_by(marker_symbol, proc_param_name) %&gt;% 
   summarize(zscore = sumz(z_score)) ## combine z-scores
-dim(CC.z)</code></pre>
-<pre><code>[1] 88636     3</code></pre>
+#dim(CC.z)</code></pre>
 </div>
 <div id="generating-z-score-matrix-reformatting" class="section level3">
 <h3>Generating Z-score matrix (reformatting)</h3>
@@ -1729,8 +1605,7 @@ nan2na &lt;- function(df){
 CC.zmat = dcast(CC.z, marker_symbol ~ proc_param_name, value.var = &quot;zscore&quot;, 
              fun.aggregate = mean) %&gt;% tibble::column_to_rownames(var=&quot;marker_symbol&quot;)
 CC.zmat = nan2na(CC.zmat) #convert nan to na
-dim(CC.zmat)</code></pre>
-<pre><code>[1] 5342   19</code></pre>
+#dim(CC.zmat)</code></pre>
 </div>
 <div id="visualization-of-phenotype-gene-coverage"
 class="section level3">
@@ -1739,11 +1614,10 @@ class="section level3">
 gene-phenotype pairs.</p>
 <pre class="r"><code># Generate a matrix indicating where z-scores are present
 id.mat &lt;- 1*(!is.na(CC.zmat)) # multiply 1 to make this matrix numeric
-nrow(as.data.frame(colSums(id.mat)))</code></pre>
-<pre><code>[1] 19</code></pre>
-<pre class="r"><code>dim(id.mat)</code></pre>
-<pre><code>[1] 5342   19</code></pre>
-<pre class="r"><code>## heatmap of gene - phenotype (red: tested, white: untested)
+#nrow(as.data.frame(colSums(id.mat)))
+#dim(id.mat)
+
+## heatmap of gene - phenotype (red: tested, white: untested)
 ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows =&quot;binary&quot;,
              cluster_columns = T, clustering_distance_columns = &quot;binary&quot;,
@@ -1867,9 +1741,9 @@ class="section level3">
 utilizing the association Z-score matrix.</p>
 <pre class="r"><code># Select common phenotypes
 CC.zmat &lt;- CC.zmat[,common.pheno.list]
-dim(CC.zmat)</code></pre>
-<pre><code>[1] 5342   19</code></pre>
-<pre class="r"><code># Compute genetic correlations
+#dim(CC.zmat)
+
+# Compute genetic correlations
 CC.zcor = cor(CC.zmat, use=&quot;pairwise.complete.obs&quot;)
 
 # Generate heatmap of the correlation matrix
@@ -2227,22 +2101,17 @@ dim(zmat)</code></pre>
 <pre class="r"><code># filter genes with less than 1 missing data point (na)
 zmat0 &lt;- is.na(zmat)
 num.na&lt;-colSums(zmat0)
-summary(num.na)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  0.000   0.000   2.000   2.408   5.000  17.000 </code></pre>
-<pre class="r"><code>dim(zmat)</code></pre>
-<pre><code>[1]   19 5342</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;1])</code></pre>
-<pre><code>[1]   19 1641</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;5])</code></pre>
-<pre><code>[1]   19 3995</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;10])</code></pre>
-<pre><code>[1]   19 5336</code></pre>
-<pre class="r"><code># filter genes with less than 1 missing data point (na)
+#summary(num.na)
+#dim(zmat)
+#dim(zmat[,num.na&lt;1])
+#dim(zmat[,num.na&lt;5])
+#dim(zmat[,num.na&lt;10])
+
+# filter genes with less than 1 missing data point (na)
 zmat &lt;- zmat[,num.na&lt;1]
-dim(zmat)</code></pre>
-<pre><code>[1]   19 1641</code></pre>
-<pre class="r"><code># Set correlation method for phenotypes
+#dim(zmat)
+
+# Set correlation method for phenotypes
 #pheno.cor &lt;- CC.cor.fig
 #pheno.cor &lt;- CC.cor.rank.fig
 pheno.cor &lt;- CC.cor.combat.fig
@@ -2250,40 +2119,10 @@ pheno.cor &lt;- CC.cor.combat.fig
 
 
 zmat &lt;- zmat[rownames(pheno.cor),,drop=FALSE]
-rownames(zmat)</code></pre>
-<pre><code> [1] &quot;CC_Urea (Blood Urea Nitrogen - BUN)&quot; &quot;CC_Sodium&quot;                          
- [3] &quot;CC_Triglycerides&quot;                    &quot;CC_Potassium&quot;                       
- [5] &quot;CC_Calcium&quot;                          &quot;CC_Total protein&quot;                   
- [7] &quot;CC_Albumin&quot;                          &quot;CC_Iron&quot;                            
- [9] &quot;CC_Chloride&quot;                         &quot;CC_Alkaline phosphatase&quot;            
-[11] &quot;CC_Total bilirubin&quot;                  &quot;CC_Aspartate aminotransferase&quot;      
-[13] &quot;CC_Alanine aminotransferase&quot;         &quot;CC_Phosphorus&quot;                      
-[15] &quot;CC_Creatinine&quot;                       &quot;CC_Alpha-amylase&quot;                   
-[17] &quot;CC_Total cholesterol&quot;                &quot;CC_HDL-cholesterol&quot;                 
-[19] &quot;CC_Glucose&quot;                         </code></pre>
-<pre class="r"><code>rownames(pheno.cor)</code></pre>
-<pre><code> [1] &quot;CC_Urea (Blood Urea Nitrogen - BUN)&quot; &quot;CC_Sodium&quot;                          
- [3] &quot;CC_Triglycerides&quot;                    &quot;CC_Potassium&quot;                       
- [5] &quot;CC_Calcium&quot;                          &quot;CC_Total protein&quot;                   
- [7] &quot;CC_Albumin&quot;                          &quot;CC_Iron&quot;                            
- [9] &quot;CC_Chloride&quot;                         &quot;CC_Alkaline phosphatase&quot;            
-[11] &quot;CC_Total bilirubin&quot;                  &quot;CC_Aspartate aminotransferase&quot;      
-[13] &quot;CC_Alanine aminotransferase&quot;         &quot;CC_Phosphorus&quot;                      
-[15] &quot;CC_Creatinine&quot;                       &quot;CC_Alpha-amylase&quot;                   
-[17] &quot;CC_Total cholesterol&quot;                &quot;CC_HDL-cholesterol&quot;                 
-[19] &quot;CC_Glucose&quot;                         </code></pre>
-<pre class="r"><code>colnames(pheno.cor)</code></pre>
-<pre><code> [1] &quot;CC_Urea (Blood Urea Nitrogen - BUN)&quot; &quot;CC_Sodium&quot;                          
- [3] &quot;CC_Triglycerides&quot;                    &quot;CC_Potassium&quot;                       
- [5] &quot;CC_Calcium&quot;                          &quot;CC_Total protein&quot;                   
- [7] &quot;CC_Albumin&quot;                          &quot;CC_Iron&quot;                            
- [9] &quot;CC_Chloride&quot;                         &quot;CC_Alkaline phosphatase&quot;            
-[11] &quot;CC_Total bilirubin&quot;                  &quot;CC_Aspartate aminotransferase&quot;      
-[13] &quot;CC_Alanine aminotransferase&quot;         &quot;CC_Phosphorus&quot;                      
-[15] &quot;CC_Creatinine&quot;                       &quot;CC_Alpha-amylase&quot;                   
-[17] &quot;CC_Total cholesterol&quot;                &quot;CC_HDL-cholesterol&quot;                 
-[19] &quot;CC_Glucose&quot;                         </code></pre>
-<pre class="r"><code>npheno &lt;- nrow(zmat)
+#rownames(zmat)
+#rownames(pheno.cor)
+#colnames(pheno.cor)
+npheno &lt;- nrow(zmat)
 
 ## calculate the percentage of missing Z-scores in the original data 
 100*sum(is.na(zmat))/(nrow(zmat)*ncol(zmat)) # 0%</code></pre>
@@ -2313,7 +2152,22 @@ length(org.z)</code></pre>
 <pre><code>[1] 1000</code></pre>
 <pre class="r"><code>imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
 imp.info &lt;- as.matrix(t(kompute.res$infomat))[mask.i]  
-plot(imp.z, org.z)</code></pre>
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
+#dim(imp)
+imp &lt;- imp[complete.cases(imp),]
+imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
+#dim(imp)
+cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC CC Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-1">
@@ -2363,18 +2217,21 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
-imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>imp &lt;- imp[complete.cases(imp),]
-imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.486</code></pre>
-<pre class="r"><code>plot(imp$imp.z, imp$org.z)</code></pre>
+<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
+info.cutoff &lt;- 0.8
+imp.sub &lt;- subset(imp, info&gt;info.cutoff)
+#dim(imp.sub)
+#summary(imp.sub$imp.z)
+#summary(imp.sub$info)
+
+cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
+#cor.val
+g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC Behavior Data (CC), Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-2">
@@ -2424,75 +2281,6 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
-info.cutoff &lt;- 0.8
-imp.sub &lt;- subset(imp, info&gt;info.cutoff)
-dim(imp.sub)</code></pre>
-<pre><code>[1] 113   3</code></pre>
-<pre class="r"><code>summary(imp.sub$imp.z)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--5.0505 -1.1858 -0.1241 -0.2458  0.6759  5.2871 </code></pre>
-<pre class="r"><code>summary(imp.sub$info)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.8724  0.8801  0.8801  0.8799  0.8804  0.8804 </code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.874</code></pre>
-<pre class="r"><code>g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
-    geom_point() +
-    labs(title=paste0(&quot;IMPC Behavior Data (CC), Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
-      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
-    theme_minimal()
-g</code></pre>
-<p><img src="figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-3.png" width="480" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-3">
-Past versions of KOMPUTE_res-3.png
-</button>
-</p>
-<div id="fig-KOMPUTE_res-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/f4e1ab96962e4e3061367a49df521b7dd22ec014/docs/figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-3.png" target="_blank">f4e1ab9</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_CC_v16.Rmd/KOMPUTE_res-3.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <pre class="r"><code># save plot
 png(file=&quot;docs/figure/figures.Rmd/sim_results_CC_v16.png&quot;, width=600, height=350)
 g
@@ -2510,6 +2298,43 @@ fig2.2 &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme_bw() +
   theme(legend.position=&quot;none&quot;, plot.title=element_text(hjust=0.5))
 save(fig2.2, file=&quot;docs/figure/figures.Rmd/sim_CC_v16.rdata&quot;)</code></pre>
+</div>
+<div id="run-svd-matrix-completion-method" class="section level3">
+<h3>Run SVD Matrix Completion method</h3>
+<pre class="r"><code># load SVD Matrix Completion function
+source(&quot;code/svd_impute.R&quot;)
+r &lt;- 6
+mc.res &lt;- svd.impute(zmat.imp, r)
+
+# Compare measured vs imputed z-scores
+length(org.z)</code></pre>
+<pre><code>[1] 1000</code></pre>
+<pre class="r"><code>imp.z &lt;- mc.res[mask.i]
+#plot(imp.z, org.z)
+#cor(imp.z, org.z)
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp2 &lt;- data.frame(org.z=org.z, imp.z=imp.z)
+#dim(imp2)
+imp2 &lt;- imp2[complete.cases(imp2),]
+cor.val &lt;- round(cor(imp2$imp.z, imp2$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp2, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC CC Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
+<p><img src="figure/kompute_test_CC_v16.Rmd/SVDMC_res-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-imputation-results" class="section level3">
+<h3>Save imputation results</h3>
+<pre class="r"><code>imp$method &lt;- &quot;Kompute&quot;
+imp2$method &lt;- &quot;SVD-MC&quot;
+imp2$info &lt;- NA 
+CC_Imputation_Result &lt;- rbind(imp, imp2)
+save(CC_Imputation_Result, file = &quot;data/CC.imp.res.v16.RData&quot;)</code></pre>
 </div>
 <div id="save-z-score-matrix-and-phenotype-correlation-matrix"
 class="section level3">

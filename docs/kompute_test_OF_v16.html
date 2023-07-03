@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-23" />
+<meta name="date" content="2023-07-03" />
 
 <title>Evaluating KOMPUTE - Open Field Data</title>
 
@@ -281,7 +281,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Evaluating KOMPUTE - Open Field Data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-23</h4>
+<h4 class="date">2023-07-03</h4>
 
 </div>
 
@@ -379,6 +379,11 @@ id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Sim
 study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
+<li><a href="#run-svd-matrix-completion-method"
+id="toc-run-svd-matrix-completion-method">Run SVD Matrix Completion
+method</a></li>
+<li><a href="#save-imputation-results"
+id="toc-save-imputation-results">Save imputation results</a></li>
 <li><a href="#save-z-score-matrix-and-phenotype-correlation-matrix"
 id="toc-save-z-score-matrix-and-phenotype-correlation-matrix">Save
 z-score matrix and phenotype correlation matrix</a></li>
@@ -410,7 +415,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-23
+<strong>Last updated:</strong> 2023-07-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -541,15 +546,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -559,7 +564,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -579,6 +584,9 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    code/.DS_Store
+
+Untracked files:
+    Untracked:  data/CC.imp.res.v16.RData
 
 </code></pre>
 <p>
@@ -624,6 +632,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/dbdfbcac8e2ac99c62cfc24350779426ecfc5294/analysis/kompute_test_OF_v16.Rmd" target="_blank">dbdfbca</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+svd mc added
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/0ad952c2778d2cc12c300d344e2ad2e8f340006c/docs/kompute_test_OF_v16.html" target="_blank">0ad952c</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-23
+</td>
+<td>
+kompute function input format changed
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -804,8 +846,7 @@ library(ComplexHeatmap)</code></pre>
 class="section level3">
 <h3>Importing Open Field Control Phenotype Dataset</h3>
 <pre class="r"><code>OF.data &lt;- readRDS(&quot;data/OF.data.rds&quot;)
-dim(OF.data)</code></pre>
-<pre><code>[1] 344844     10</code></pre>
+#dim(OF.data)</code></pre>
 </div>
 <div id="visualizing-measured-phenotypes-via-a-heatmap"
 class="section level3">
@@ -816,9 +857,8 @@ individual mice, while the rows correspond to the distinct phenotypes
 measured.</p>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name_stable_id, OF.data$biological_sample_id)
 mtest &lt;-as.data.frame.matrix(mtest)
-dim(mtest)</code></pre>
-<pre><code>[1]    51 24604</code></pre>
-<pre class="r"><code>if(FALSE){
+#dim(mtest)
+if(FALSE){
 nmax &lt;-max(mtest)
 library(circlize)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
@@ -834,94 +874,35 @@ class="section level3">
 <p>To maintain data quality and robustness, we will discard any
 phenotypes that have fewer than 15,000 recorded observations.</p>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name, OF.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    16 24604</code></pre>
-<pre class="r"><code>#head(mtest[,1:10])
+#dim(mtest)
+#head(mtest[,1:10])
 mtest0 &lt;- mtest&gt;0
 #head(mtest0[,1:10])
-rowSums(mtest0)</code></pre>
-<pre><code>        OF_Center average speed    OF_Center distance travelled 
-                          22856                           23638 
-      OF_Center permanence time          OF_Center resting time 
-                          24599                           17698 
-  OF_Distance travelled - total      OF_Latency to center entry 
-                          21805                           17883 
-    OF_Number of center entries      OF_Number of rears - total 
-                          17892                           12814 
-      OF_Percentage center time      OF_Periphery average speed 
-                          21730                           22857 
-OF_Periphery distance travelled    OF_Periphery permanence time 
-                          23639                           24600 
-      OF_Periphery resting time    OF_Whole arena average speed 
-                          17699                           24603 
-      OF_Whole arena permanence     OF_Whole arena resting time 
-                          23821                           24593 </code></pre>
-<pre class="r"><code>rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;15000]
+#rowSums(mtest0)
+rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;15000]
 #rmv.pheno.list
-dim(OF.data)</code></pre>
-<pre><code>[1] 344844     10</code></pre>
-<pre class="r"><code>OF.data &lt;- OF.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
-dim(OF.data)</code></pre>
-<pre><code>[1] 332030     10</code></pre>
-<pre class="r"><code># number of phenotypes left
-length(unique(OF.data$proc_param_name))</code></pre>
-<pre><code>[1] 15</code></pre>
+#dim(OF.data)
+OF.data &lt;- OF.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
+#dim(OF.data)
+# number of phenotypes left
+#length(unique(OF.data$proc_param_name))</code></pre>
 </div>
 <div id="remove-samples-with-fewer-than-10-measured-phenotypes"
 class="section level3">
 <h3>Remove samples with fewer than 10 measured phenotypes</h3>
 <pre class="r"><code>mtest &lt;- table(OF.data$proc_param_name, OF.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    15 24604</code></pre>
-<pre class="r"><code>head(mtest[,1:10])</code></pre>
-<pre><code>                               
-                                21653 21713 21742 21745 21747 21751 21753 21756
-  OF_Center average speed           1     1     1     1     1     1     1     1
-  OF_Center distance travelled      1     1     1     1     1     1     1     1
-  OF_Center permanence time         1     1     1     1     1     1     1     1
-  OF_Center resting time            1     1     1     1     1     1     1     1
-  OF_Distance travelled - total     0     0     0     0     0     0     0     0
-  OF_Latency to center entry        1     1     1     1     1     1     1     1
-                               
-                                21759 21800
-  OF_Center average speed           1     1
-  OF_Center distance travelled      1     1
-  OF_Center permanence time         1     1
-  OF_Center resting time            1     1
-  OF_Distance travelled - total     0     0
-  OF_Latency to center entry        1     1</code></pre>
-<pre class="r"><code>mtest0 &lt;- mtest&gt;0
-head(mtest0[,1:10])</code></pre>
-<pre><code>                               
-                                21653 21713 21742 21745 21747 21751 21753 21756
-  OF_Center average speed        TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  OF_Center distance travelled   TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  OF_Center permanence time      TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  OF_Center resting time         TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  OF_Distance travelled - total FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-  OF_Latency to center entry     TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-                               
-                                21759 21800
-  OF_Center average speed        TRUE  TRUE
-  OF_Center distance travelled   TRUE  TRUE
-  OF_Center permanence time      TRUE  TRUE
-  OF_Center resting time         TRUE  TRUE
-  OF_Distance travelled - total FALSE FALSE
-  OF_Latency to center entry     TRUE  TRUE</code></pre>
-<pre class="r"><code>summary(colSums(mtest0))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00   11.00   15.00   13.41   15.00   15.00 </code></pre>
-<pre class="r"><code>rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;10]
-length(rmv.sample.list)</code></pre>
-<pre><code>[1] 1747</code></pre>
-<pre class="r"><code>dim(OF.data)</code></pre>
-<pre><code>[1] 332030     10</code></pre>
-<pre class="r"><code>OF.data &lt;- OF.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
-dim(OF.data)</code></pre>
-<pre><code>[1] 319816     10</code></pre>
-<pre class="r"><code># number of observations to use
-length(unique(OF.data$biological_sample_id))</code></pre>
-<pre><code>[1] 22857</code></pre>
+#dim(mtest)
+#head(mtest[,1:10])
+mtest0 &lt;- mtest&gt;0
+#head(mtest0[,1:10])
+#summary(colSums(mtest0))
+rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;10]
+#length(rmv.sample.list)
+#dim(OF.data)
+OF.data &lt;- OF.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
+#dim(OF.data)
+# number of observations to use
+#length(unique(OF.data$biological_sample_id))</code></pre>
 </div>
 <div id="heapmap-of-filtered-phenotypes" class="section level3">
 <h3>Heapmap of filtered phenotypes</h3>
@@ -1015,11 +996,8 @@ head(OF.mat)</code></pre>
 21745                         224
 21747                         193
 21751                         314</code></pre>
-<pre class="r"><code>dim(OF.mat)</code></pre>
-<pre><code>[1] 22857    18</code></pre>
-<pre class="r"><code>summary(colSums(is.na(OF.mat[,-1:-3])))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-      0       0       1    1677    3882    5159 </code></pre>
+<pre class="r"><code>#dim(OF.mat)
+#summary(colSums(is.na(OF.mat[,-1:-3])))</code></pre>
 </div>
 <div id="visualizing-phenotype-distributions" class="section level3">
 <h3>Visualizing phenotype distributions</h3>
@@ -1072,17 +1050,15 @@ statsleelab
 data to ensure that the data is normally distributed</p>
 <pre class="r"><code>library(RNOmni)
 OF.mat.rank &lt;- OF.mat
-dim(OF.mat.rank)</code></pre>
-<pre><code>[1] 22857    18</code></pre>
-<pre class="r"><code>OF.mat.rank &lt;- OF.mat.rank[complete.cases(OF.mat.rank),]
-dim(OF.mat.rank)</code></pre>
-<pre><code>[1] 14863    18</code></pre>
-<pre class="r"><code>dim(OF.mat)</code></pre>
-<pre><code>[1] 22857    18</code></pre>
-<pre class="r"><code>OF.mat &lt;- OF.mat[complete.cases(OF.mat),]
-dim(OF.mat)</code></pre>
-<pre><code>[1] 14863    18</code></pre>
-<pre class="r"><code>OF.mat.rank &lt;- cbind(OF.mat.rank[,1:3], apply(OF.mat.rank[,-1:-3], 2, RankNorm))
+#dim(OF.mat.rank)
+OF.mat.rank &lt;- OF.mat.rank[complete.cases(OF.mat.rank),]
+#dim(OF.mat.rank)
+
+#dim(OF.mat)
+OF.mat &lt;- OF.mat[complete.cases(OF.mat),]
+#dim(OF.mat)
+
+OF.mat.rank &lt;- cbind(OF.mat.rank[,1:3], apply(OF.mat.rank[,-1:-3], 2, RankNorm))
 ggplot(melt(OF.mat.rank), aes(x=value)) + 
   geom_histogram() + 
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
@@ -1146,32 +1122,13 @@ plot.</p>
 <pre class="r"><code>source(&quot;code/PVCA.R&quot;)
 
 meta &lt;- OF.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
-head(meta)</code></pre>
-<pre><code>         sex phenotyping_center strain_name
-39638 female        MRC Harwell C57BL/6NTac
-39639 female               HMGU C57BL/6NCrl
-39640 female               HMGU C57BL/6NTac
-39641   male               HMGU C57BL/6NCrl
-39642 female        MRC Harwell C57BL/6NTac
-39643 female               HMGU C57BL/6NCrl</code></pre>
-<pre class="r"><code>dim(meta)</code></pre>
-<pre><code>[1] 14863     3</code></pre>
-<pre class="r"><code>summary(meta) # variables are currently characters</code></pre>
-<pre><code>     sex            phenotyping_center strain_name       
- Length:14863       Length:14863       Length:14863      
- Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character  </code></pre>
-<pre class="r"><code>meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
-summary(meta) # now all variables are converted to factors</code></pre>
-<pre><code>     sex         phenotyping_center      strain_name  
- female:7428   MRC Harwell:4532     C57BL/6N   :3655  
- male  :7435   HMGU       :3119     C57BL/6NCrl:3510  
-               ICS        :2417     C57BL/6NJcl: 459  
-               RBRC       :1323     C57BL/6NTac:7239  
-               CCP-IMG    :1141                       
-               TCP        :1093                       
-               (Other)    :1238                       </code></pre>
-<pre class="r"><code>chisq.test(meta[,1],meta[,2])</code></pre>
+#head(meta)
+#dim(meta)
+#summary(meta) # variables are currently characters
+meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
+#summary(meta) # now all variables are converted to factors
+
+chisq.test(meta[,1],meta[,2])</code></pre>
 <pre><code>
     Pearson&#39;s Chi-squared test
 
@@ -1292,32 +1249,8 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code>combat_komp[1:5,1:5]</code></pre>
-<pre><code>                                   39638      39639      39640      39641
-OF_Center average speed       0.59446136 -0.1046728 0.12751142  0.2488662
-OF_Center distance travelled  0.49851881 -0.3961273 0.26323301 -0.1860701
-OF_Center permanence time     0.05536160 -0.5740468 0.28108074 -0.3840993
-OF_Center resting time        0.09818595 -0.9419518 0.58940330 -0.4078182
-OF_Distance travelled - total 0.03620577 -0.0705752 0.03808406  0.4042278
-                                    39642
-OF_Center average speed       -0.16244236
-OF_Center distance travelled  -0.98532415
-OF_Center permanence time     -0.81014937
-OF_Center resting time         0.05024321
-OF_Distance travelled - total -0.11281875</code></pre>
-<pre class="r"><code>G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
-<pre><code>                                     39638        39639     39640      39641
-OF_Center average speed        0.425513501  1.234197021 1.5167530  1.6644355
-OF_Center distance travelled   0.129374222  0.997641495 1.5808081  1.1834251
-OF_Center permanence time     -0.515972599  0.009697299 0.8574740  0.1980120
-OF_Center resting time         0.001686461 -1.202492878 0.3483423 -0.6615647
-OF_Distance travelled - total -0.470073474  1.298879853 1.4120914  1.7935746
-                                    39642
-OF_Center average speed       -0.44088826
-OF_Center distance travelled  -1.46426536
-OF_Center permanence time     -1.37773801
-OF_Center resting time        -0.04360882
-OF_Distance travelled - total -0.61963422</code></pre>
+<pre class="r"><code>#combat_komp[1:5,1:5]
+#G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
 </div>
 <div id="pvca-on-combat-residuals" class="section level3">
 <h3>PVCA on ComBat residuals</h3>
@@ -1542,21 +1475,17 @@ dim(OF.stat)</code></pre>
   Periphery resting time          3529
   Whole arena average speed       4275
   Whole arena resting time        4274</code></pre>
-<pre class="r"><code>length(unique(OF.stat$marker_symbol)) #3362</code></pre>
-<pre><code>[1] 3823</code></pre>
-<pre class="r"><code>length(unique(OF.stat$allele_symbol)) #3412</code></pre>
-<pre><code>[1] 3868</code></pre>
-<pre class="r"><code>length(unique(OF.stat$proc_param_name)) #15, number of phenotypes in association statistics data set</code></pre>
-<pre><code>[1] 16</code></pre>
-<pre class="r"><code>length(unique(OF.data$proc_param_name)) #15, number of phenotypes in final control data</code></pre>
-<pre><code>[1] 15</code></pre>
-<pre class="r"><code>pheno.list.stat &lt;- unique(OF.stat$proc_param_name)
+<pre class="r"><code>#length(unique(OF.stat$marker_symbol)) #3362
+#length(unique(OF.stat$allele_symbol)) #3412
+#length(unique(OF.stat$proc_param_name)) #15, number of phenotypes in association statistics data set
+#length(unique(OF.data$proc_param_name)) #15, number of phenotypes in final control data
+
+pheno.list.stat &lt;- unique(OF.stat$proc_param_name)
 pheno.list.ctrl &lt;- unique(OF.data$proc_param_name)
-sum(pheno.list.stat %in% pheno.list.ctrl)</code></pre>
-<pre><code>[1] 14</code></pre>
-<pre class="r"><code>sum(pheno.list.ctrl %in% pheno.list.stat)</code></pre>
-<pre><code>[1] 14</code></pre>
-<pre class="r"><code># Identifying common phenotypes between statistics and control data
+#sum(pheno.list.stat %in% pheno.list.ctrl)
+#sum(pheno.list.ctrl %in% pheno.list.stat)
+
+# Identifying common phenotypes between statistics and control data
 common.pheno.list &lt;- sort(intersect(pheno.list.ctrl, pheno.list.stat))
 common.pheno.list</code></pre>
 <pre><code> [1] &quot;OF_Center average speed&quot;         &quot;OF_Center distance travelled&quot;   
@@ -1566,16 +1495,13 @@ common.pheno.list</code></pre>
  [9] &quot;OF_Periphery average speed&quot;      &quot;OF_Periphery distance travelled&quot;
 [11] &quot;OF_Periphery permanence time&quot;    &quot;OF_Periphery resting time&quot;      
 [13] &quot;OF_Whole arena average speed&quot;    &quot;OF_Whole arena resting time&quot;    </code></pre>
-<pre class="r"><code>length(common.pheno.list) # 14 - each data set had one phenotype not present in the other</code></pre>
-<pre><code>[1] 14</code></pre>
-<pre class="r"><code># Filtering summary statistics to contain only common phenotypes
-dim(OF.stat)</code></pre>
-<pre><code>[1] 61854     8</code></pre>
-<pre class="r"><code>OF.stat &lt;- OF.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
-dim(OF.stat)</code></pre>
-<pre><code>[1] 55701     8</code></pre>
-<pre class="r"><code>length(unique(OF.stat$proc_param_name))</code></pre>
-<pre><code>[1] 14</code></pre>
+<pre class="r"><code>#length(common.pheno.list) # 14 - each data set had one phenotype not present in the other
+
+# Filtering summary statistics to contain only common phenotypes
+#dim(OF.stat)
+OF.stat &lt;- OF.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
+#dim(OF.stat)
+#length(unique(OF.stat$proc_param_name))</code></pre>
 </div>
 <div id="visualizing-gene-phenotype-pair-duplicates"
 class="section level3">
@@ -1584,10 +1510,8 @@ class="section level3">
 mtest &lt;-as.data.frame.matrix(mtest)
 nmax &lt;-max(mtest)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
-col_fun(seq(0, nmax))</code></pre>
-<pre><code> [1] &quot;#FFFFFFFF&quot; &quot;#FFEAE2FF&quot; &quot;#FFD5C6FF&quot; &quot;#FFBFAAFF&quot; &quot;#FFA98FFF&quot; &quot;#FF9374FF&quot;
- [7] &quot;#FF7B5AFF&quot; &quot;#FF6140FF&quot; &quot;#FF4124FF&quot; &quot;#FF0000FF&quot;</code></pre>
-<pre class="r"><code>ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
+#col_fun(seq(0, nmax))
+ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
              row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/gene_pheno_dup-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -1641,8 +1565,7 @@ OF.z = OF.stat %&gt;%
   na.omit() %&gt;%
   group_by(marker_symbol, proc_param_name) %&gt;% 
   summarize(zscore = sumz(z_score)) ## combine z-scores
-dim(OF.z)</code></pre>
-<pre><code>[1] 49921     3</code></pre>
+#dim(OF.z)</code></pre>
 </div>
 <div id="generating-z-score-matrix-reformatting" class="section level3">
 <h3>Generating Z-score matrix (reformatting)</h3>
@@ -1657,8 +1580,8 @@ nan2na &lt;- function(df){
 OF.zmat = dcast(OF.z, marker_symbol ~ proc_param_name, value.var = &quot;zscore&quot;, 
              fun.aggregate = mean) %&gt;% tibble::column_to_rownames(var=&quot;marker_symbol&quot;)
 OF.zmat = nan2na(OF.zmat) #convert nan to na
-dim(OF.zmat)</code></pre>
-<pre><code>[1] 3823   14</code></pre>
+
+#dim(OF.zmat)</code></pre>
 </div>
 <div id="visualization-of-phenotype-gene-coverage"
 class="section level3">
@@ -1667,11 +1590,10 @@ class="section level3">
 gene-phenotype pairs.</p>
 <pre class="r"><code># Generate a matrix indicating where z-scores are present
 id.mat &lt;- 1*(!is.na(OF.zmat)) # multiply 1 to make this matrix numeric
-nrow(as.data.frame(colSums(id.mat)))</code></pre>
-<pre><code>[1] 14</code></pre>
-<pre class="r"><code>dim(id.mat)</code></pre>
-<pre><code>[1] 3823   14</code></pre>
-<pre class="r"><code>ht = Heatmap(t(id.mat), 
+#nrow(as.data.frame(colSums(id.mat)))
+#dim(id.mat)
+
+ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows =&quot;binary&quot;,
              cluster_columns = T, clustering_distance_columns = &quot;binary&quot;,
              show_row_dend = F, show_column_dend = F,  # do not show dendrogram
@@ -1794,9 +1716,9 @@ class="section level3">
 utilizing the association Z-score matrix.</p>
 <pre class="r"><code># Select common phenotypes
 OF.zmat &lt;- OF.zmat[,common.pheno.list]
-dim(OF.zmat)</code></pre>
-<pre><code>[1] 3823   14</code></pre>
-<pre class="r"><code># Compute genetic correlations
+#dim(OF.zmat)
+
+# Compute genetic correlations
 OF.zcor = cor(OF.zmat, use=&quot;pairwise.complete.obs&quot;)
 
 # Generate heatmap of the correlation matrix
@@ -2156,53 +2078,27 @@ dim(zmat)</code></pre>
 <pre class="r"><code># filter genes with less than 1 missing data point (na)
 zmat0 &lt;- is.na(zmat)
 num.na&lt;-colSums(zmat0)
-summary(num.na)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.0000  0.0000  0.0000  0.9419  1.0000  8.0000 </code></pre>
-<pre class="r"><code>dim(zmat)</code></pre>
-<pre><code>[1]   14 3823</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;1])</code></pre>
-<pre><code>[1]   14 2576</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;5])</code></pre>
-<pre><code>[1]   14 3510</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;10])</code></pre>
-<pre><code>[1]   14 3823</code></pre>
-<pre class="r"><code># filter genes with less than 1 missing data point (na)
+#summary(num.na)
+#dim(zmat)
+#dim(zmat[,num.na&lt;1])
+#dim(zmat[,num.na&lt;5])
+#dim(zmat[,num.na&lt;10])
+
+# filter genes with less than 1 missing data point (na)
 zmat &lt;- zmat[,num.na&lt;1]
-dim(zmat)</code></pre>
-<pre><code>[1]   14 2576</code></pre>
-<pre class="r"><code># Set correlation method for phenotypes
+#dim(zmat)
+
+# Set correlation method for phenotypes
 #pheno.cor &lt;- OF.cor.fig
 #pheno.cor &lt;- OF.cor.rank.fig
 pheno.cor &lt;- OF.cor.combat.fig
 #pheno.cor &lt;- OF.zcor.fig
 
 zmat &lt;- zmat[rownames(pheno.cor),,drop=FALSE]
-rownames(zmat)</code></pre>
-<pre><code> [1] &quot;OF_Center distance travelled&quot;    &quot;OF_Number of center entries&quot;    
- [3] &quot;OF_Whole arena average speed&quot;    &quot;OF_Periphery average speed&quot;     
- [5] &quot;OF_Distance travelled - total&quot;   &quot;OF_Periphery distance travelled&quot;
- [7] &quot;OF_Center average speed&quot;         &quot;OF_Percentage center time&quot;      
- [9] &quot;OF_Center permanence time&quot;       &quot;OF_Center resting time&quot;         
-[11] &quot;OF_Latency to center entry&quot;      &quot;OF_Periphery permanence time&quot;   
-[13] &quot;OF_Whole arena resting time&quot;     &quot;OF_Periphery resting time&quot;      </code></pre>
-<pre class="r"><code>rownames(pheno.cor)</code></pre>
-<pre><code> [1] &quot;OF_Center distance travelled&quot;    &quot;OF_Number of center entries&quot;    
- [3] &quot;OF_Whole arena average speed&quot;    &quot;OF_Periphery average speed&quot;     
- [5] &quot;OF_Distance travelled - total&quot;   &quot;OF_Periphery distance travelled&quot;
- [7] &quot;OF_Center average speed&quot;         &quot;OF_Percentage center time&quot;      
- [9] &quot;OF_Center permanence time&quot;       &quot;OF_Center resting time&quot;         
-[11] &quot;OF_Latency to center entry&quot;      &quot;OF_Periphery permanence time&quot;   
-[13] &quot;OF_Whole arena resting time&quot;     &quot;OF_Periphery resting time&quot;      </code></pre>
-<pre class="r"><code>colnames(pheno.cor)</code></pre>
-<pre><code> [1] &quot;OF_Center distance travelled&quot;    &quot;OF_Number of center entries&quot;    
- [3] &quot;OF_Whole arena average speed&quot;    &quot;OF_Periphery average speed&quot;     
- [5] &quot;OF_Distance travelled - total&quot;   &quot;OF_Periphery distance travelled&quot;
- [7] &quot;OF_Center average speed&quot;         &quot;OF_Percentage center time&quot;      
- [9] &quot;OF_Center permanence time&quot;       &quot;OF_Center resting time&quot;         
-[11] &quot;OF_Latency to center entry&quot;      &quot;OF_Periphery permanence time&quot;   
-[13] &quot;OF_Whole arena resting time&quot;     &quot;OF_Periphery resting time&quot;      </code></pre>
-<pre class="r"><code>npheno &lt;- nrow(zmat)
+#rownames(zmat)
+#rownames(pheno.cor)
+#colnames(pheno.cor)
+npheno &lt;- nrow(zmat)
 
 # calculate the percentage of missing Z-scores in the original data 
 100*sum(is.na(zmat))/(nrow(zmat)*ncol(zmat)) # 0%</code></pre>
@@ -2228,11 +2124,25 @@ rownames(zmat.imp) &lt;- rownames(zmat)</code></pre>
 <pre class="r"><code>kompute.res &lt;- kompute(t(zmat.imp), pheno.cor, 0.01)
 
 # Compare measured vs imputed z-scores
-length(org.z)</code></pre>
-<pre><code>[1] 1000</code></pre>
-<pre class="r"><code>imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
+#length(org.z)
+imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
 imp.info &lt;- as.matrix(t(kompute.res$infomat))[mask.i]  
-plot(imp.z, org.z)</code></pre>
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
+#dim(imp)
+imp &lt;- imp[complete.cases(imp),]
+imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
+#dim(imp)
+cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC OF Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-1">
@@ -2271,18 +2181,21 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
-imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>imp &lt;- imp[complete.cases(imp),]
-imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.929</code></pre>
-<pre class="r"><code>plot(imp$imp.z, imp$org.z)</code></pre>
+<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
+info.cutoff &lt;- 0.8
+imp.sub &lt;- subset(imp, info&gt;info.cutoff)
+#dim(imp.sub)
+#summary(imp.sub$imp.z)
+#summary(imp.sub$info)
+
+cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
+#cor.val
+g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC Behavior Data (OF), Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_OF_v16.Rmd/KOMPUTE_res-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-2">
@@ -2321,64 +2234,6 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
-info.cutoff &lt;- 0.8
-imp.sub &lt;- subset(imp, info&gt;info.cutoff)
-dim(imp.sub)</code></pre>
-<pre><code>[1] 846   3</code></pre>
-<pre class="r"><code>summary(imp.sub$imp.z)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--6.0260 -1.1783 -0.2011 -0.1391  0.7985 16.7432 </code></pre>
-<pre class="r"><code>summary(imp.sub$info)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.8051  0.8547  0.9209  0.9119  0.9653  0.9878 </code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.961</code></pre>
-<pre class="r"><code>g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
-    geom_point() +
-    labs(title=paste0(&quot;IMPC Behavior Data (OF), Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
-      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
-    theme_minimal()
-g</code></pre>
-<p><img src="figure/kompute_test_OF_v16.Rmd/KOMPUTE_res-3.png" width="480" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-3">
-Past versions of KOMPUTE_res-3.png
-</button>
-</p>
-<div id="fig-KOMPUTE_res-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_OF_v16.Rmd/KOMPUTE_res-3.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <pre class="r"><code># save plot
 png(file=&quot;docs/figure/figures.Rmd/sim_results_OF_v16.png&quot;, width=600, height=350)
 g
@@ -2397,6 +2252,43 @@ fig2.3 &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   #theme(legend.position=&quot;none&quot;, plot.title=element_text(hjust=0.5))
   theme(plot.title=element_text(hjust=0.5))
 save(fig2.3, file=&quot;docs/figure/figures.Rmd/sim_OF_v16.rdata&quot;)</code></pre>
+</div>
+<div id="run-svd-matrix-completion-method" class="section level3">
+<h3>Run SVD Matrix Completion method</h3>
+<pre class="r"><code># load SVD Matrix Completion function
+source(&quot;code/svd_impute.R&quot;)
+r &lt;- 6
+mc.res &lt;- svd.impute(zmat.imp, r)
+
+# Compare measured vs imputed z-scores
+length(org.z)</code></pre>
+<pre><code>[1] 1000</code></pre>
+<pre class="r"><code>imp.z &lt;- mc.res[mask.i]
+#plot(imp.z, org.z)
+#cor(imp.z, org.z)
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp2 &lt;- data.frame(org.z=org.z, imp.z=imp.z)
+#dim(imp2)
+imp2 &lt;- imp2[complete.cases(imp2),]
+cor.val &lt;- round(cor(imp2$imp.z, imp2$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp2, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC OF Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
+<p><img src="figure/kompute_test_OF_v16.Rmd/SVDMC_res-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-imputation-results" class="section level3">
+<h3>Save imputation results</h3>
+<pre class="r"><code>imp$method &lt;- &quot;Kompute&quot;
+imp2$method &lt;- &quot;SVD-MC&quot;
+imp2$info &lt;- NA 
+OF_Imputation_Result &lt;- rbind(imp, imp2)
+save(OF_Imputation_Result, file = &quot;data/OF.imp.res.v16.RData&quot;)</code></pre>
 </div>
 <div id="save-z-score-matrix-and-phenotype-correlation-matrix"
 class="section level3">

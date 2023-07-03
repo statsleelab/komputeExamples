@@ -11,7 +11,7 @@
 
 <meta name="author" content="Coby Warkentin and Donghyung Lee" />
 
-<meta name="date" content="2023-06-23" />
+<meta name="date" content="2023-07-03" />
 
 <title>Evaluating KOMPUTE - Body Composition Data</title>
 
@@ -282,7 +282,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">Evaluating KOMPUTE - Body Composition
 Data</h1>
 <h4 class="author">Coby Warkentin and Donghyung Lee</h4>
-<h4 class="date">2023-06-23</h4>
+<h4 class="date">2023-07-03</h4>
 
 </div>
 
@@ -382,6 +382,11 @@ id="toc-simulation-study---comparison-of-imputed-vs-measured-z-score-values">Sim
 study - Comparison of imputed vs measured z-score values</a></li>
 <li><a href="#run-kompute-method" id="toc-run-kompute-method">Run
 KOMPUTE method</a></li>
+<li><a href="#run-svd-matrix-completion-method"
+id="toc-run-svd-matrix-completion-method">Run SVD Matrix Completion
+method</a></li>
+<li><a href="#save-imputation-results"
+id="toc-save-imputation-results">Save imputation results</a></li>
 <li><a href="#save-z-score-matrix-and-phenotype-correlation-matrix"
 id="toc-save-z-score-matrix-and-phenotype-correlation-matrix">Save
 z-score matrix and phenotype correlation matrix</a></li>
@@ -413,7 +418,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-23
+<strong>Last updated:</strong> 2023-07-03
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -544,15 +549,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreefbd0f5c6d44a523201f2a46c03e59b12210b3a71targetblankfbd0f5ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomstatsleelabkomputeExamplestreedbdfbcac8e2ac99c62cfc24350779426ecfc5294targetblankdbdfbcaa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -562,7 +567,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/statsleelab/komputeExamples/tree/fbd0f5c6d44a523201f2a46c03e59b12210b3a71" target="_blank">fbd0f5c</a>.
+<a href="https://github.com/statsleelab/komputeExamples/tree/dbdfbcac8e2ac99c62cfc24350779426ecfc5294" target="_blank">dbdfbca</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -581,8 +586,10 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/figure/
     Ignored:    code/.DS_Store
+
+Untracked files:
+    Untracked:  data/CC.imp.res.v16.RData
 
 </code></pre>
 <p>
@@ -628,6 +635,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/dbdfbcac8e2ac99c62cfc24350779426ecfc5294/analysis/kompute_test_BC_v16.Rmd" target="_blank">dbdfbca</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+svd mc added
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/16fe14d1a89dce517edfa03453d7732b3e20a012/analysis/kompute_test_BC_v16.Rmd" target="_blank">16fe14d</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+updated
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/e938a7491e174ec937e7276910350a7959a3b33d/analysis/kompute_test_BC_v16.Rmd" target="_blank">e938a74</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+updated
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/statsleelab/komputeExamples/blob/7ea04d7e3de8916a0363df526864dc78b6e7c27e/analysis/kompute_test_BC_v16.Rmd" target="_blank">7ea04d7</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-07-03
+</td>
+<td>
+svd mc added
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/statsleelab/komputeExamples/0ad952c2778d2cc12c300d344e2ad2e8f340006c/docs/kompute_test_BC_v16.html" target="_blank">0ad952c</a>
+</td>
+<td>
+statsleelab
+</td>
+<td>
+2023-06-23
+</td>
+<td>
+kompute function input format changed
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -827,8 +919,7 @@ library(ggpubr)</code></pre>
 class="section level3">
 <h3>Importing Body Composition Control Phenotype Dataset</h3>
 <pre class="r"><code>BC.data &lt;- readRDS(&quot;data/BC.data.rds&quot;)
-dim(BC.data)</code></pre>
-<pre><code>[1] 243532     10</code></pre>
+#dim(BC.data)</code></pre>
 </div>
 <div id="visualizing-measured-phenotypes-via-a-heatmap"
 class="section level3">
@@ -839,9 +930,8 @@ individual mice, while the rows correspond to the distinct phenotypes
 measured.</p>
 <pre class="r"><code>mtest &lt;- table(BC.data$proc_param_name_stable_id, BC.data$biological_sample_id)
 mtest &lt;-as.data.frame.matrix(mtest)
-dim(mtest)</code></pre>
-<pre><code>[1]    51 25690</code></pre>
-<pre class="r"><code>if(FALSE){
+#dim(mtest)
+if(FALSE){
 nmax &lt;-max(mtest)
 library(circlize)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
@@ -857,98 +947,35 @@ class="section level3">
 <p>To maintain data quality and robustness, we will discard any
 phenotypes that have fewer than 15,000 recorded observations.</p>
 <pre class="r"><code>mtest &lt;- table(BC.data$proc_param_name, BC.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    10 25690</code></pre>
-<pre class="r"><code>#head(mtest[,1:10])
+#dim(mtest)
+#head(mtest[,1:10])
 mtest0 &lt;- mtest&gt;0
 #head(mtest0[,1:10])
-rowSums(mtest0)</code></pre>
-<pre><code>                       BC_BMC/Body weight 
-                                    24446 
-                           BC_Body length 
-                                    19233 
-                           BC_Body weight 
-                                    25675 
-                             BC_Bone Area 
-                                    24461 
-BC_Bone Mineral Content (excluding skull) 
-                                    24714 
-BC_Bone Mineral Density (excluding skull) 
-                                    24715 
-                              BC_Fat mass 
-                                    24950 
-                       BC_Fat/Body weight 
-                                    24682 
-                             BC_Lean mass 
-                                    24952 
-                      BC_Lean/Body weight 
-                                    24684 </code></pre>
-<pre class="r"><code>rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;15000]
+#rowSums(mtest0)
+rmv.pheno.list &lt;- rownames(mtest)[rowSums(mtest0)&lt;15000]
 #rmv.pheno.list
-dim(BC.data)</code></pre>
-<pre><code>[1] 243532     10</code></pre>
-<pre class="r"><code>BC.data &lt;- BC.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
-dim(BC.data)</code></pre>
-<pre><code>[1] 243532     10</code></pre>
-<pre class="r"><code># number of phenotypes left
-length(unique(BC.data$proc_param_name))</code></pre>
-<pre><code>[1] 10</code></pre>
+#dim(BC.data)
+BC.data &lt;- BC.data %&gt;% filter(!(proc_param_name %in% rmv.pheno.list))
+#dim(BC.data)
+# number of phenotypes left
+#length(unique(BC.data$proc_param_name))</code></pre>
 </div>
 <div id="remove-samples-with-fewer-than-7-measured-phenotypes"
 class="section level3">
 <h3>Remove samples with fewer than 7 measured phenotypes</h3>
 <pre class="r"><code>mtest &lt;- table(BC.data$proc_param_name, BC.data$biological_sample_id)
-dim(mtest)</code></pre>
-<pre><code>[1]    10 25690</code></pre>
-<pre class="r"><code>head(mtest[,1:10])</code></pre>
-<pre><code>                                           
-                                            39638 39639 39640 39641 39642 39643
-  BC_BMC/Body weight                            1     1     1     1     1     1
-  BC_Body length                                0     0     0     1     0     1
-  BC_Body weight                                2     1     1     1     1     1
-  BC_Bone Area                                  1     1     1     1     1     1
-  BC_Bone Mineral Content (excluding skull)     2     1     1     1     1     1
-  BC_Bone Mineral Density (excluding skull)     2     1     1     1     1     1
-                                           
-                                            39650 39651 39652 39657
-  BC_BMC/Body weight                            1     1     1     1
-  BC_Body length                                1     0     0     1
-  BC_Body weight                                1     1     1     1
-  BC_Bone Area                                  1     1     1     1
-  BC_Bone Mineral Content (excluding skull)     1     1     1     1
-  BC_Bone Mineral Density (excluding skull)     1     1     1     1</code></pre>
-<pre class="r"><code>mtest0 &lt;- mtest&gt;0
-head(mtest0[,1:10])</code></pre>
-<pre><code>                                           
-                                            39638 39639 39640 39641 39642 39643
-  BC_BMC/Body weight                         TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  BC_Body length                            FALSE FALSE FALSE  TRUE FALSE  TRUE
-  BC_Body weight                             TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  BC_Bone Area                               TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  BC_Bone Mineral Content (excluding skull)  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-  BC_Bone Mineral Density (excluding skull)  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-                                           
-                                            39650 39651 39652 39657
-  BC_BMC/Body weight                         TRUE  TRUE  TRUE  TRUE
-  BC_Body length                             TRUE FALSE FALSE  TRUE
-  BC_Body weight                             TRUE  TRUE  TRUE  TRUE
-  BC_Bone Area                               TRUE  TRUE  TRUE  TRUE
-  BC_Bone Mineral Content (excluding skull)  TRUE  TRUE  TRUE  TRUE
-  BC_Bone Mineral Density (excluding skull)  TRUE  TRUE  TRUE  TRUE</code></pre>
-<pre class="r"><code>summary(colSums(mtest0))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   1.00    9.00   10.00    9.44   10.00   10.00 </code></pre>
-<pre class="r"><code>rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;7]
-length(rmv.sample.list)</code></pre>
-<pre><code>[1] 1829</code></pre>
-<pre class="r"><code>dim(BC.data)</code></pre>
-<pre><code>[1] 243532     10</code></pre>
-<pre class="r"><code>BC.data &lt;- BC.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
-dim(BC.data)</code></pre>
-<pre><code>[1] 234305     10</code></pre>
-<pre class="r"><code># number of observations to use
-length(unique(BC.data$biological_sample_id))</code></pre>
-<pre><code>[1] 23861</code></pre>
+#dim(mtest)
+#head(mtest[,1:10])
+mtest0 &lt;- mtest&gt;0
+#head(mtest0[,1:10])
+#summary(colSums(mtest0))
+rmv.sample.list &lt;- colnames(mtest)[colSums(mtest0)&lt;7]
+#length(rmv.sample.list)
+#dim(BC.data)
+BC.data &lt;- BC.data %&gt;% filter(!(biological_sample_id %in% rmv.sample.list))
+#dim(BC.data)
+# number of observations to use
+#length(unique(BC.data$biological_sample_id))</code></pre>
 </div>
 <div id="heapmap-of-filtered-phenotypes" class="section level3">
 <h3>Heapmap of filtered phenotypes</h3>
@@ -1007,11 +1034,8 @@ head(BC.mat)</code></pre>
 39641      21.7000            0.730640
 39642      20.5392            0.812790
 39643      15.3000            0.629630</code></pre>
-<pre class="r"><code>dim(BC.mat)</code></pre>
-<pre><code>[1] 23861    13</code></pre>
-<pre class="r"><code>summary(colSums(is.na(BC.mat[,-1:-3])))</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   0.00    0.00    0.00  532.50    0.75 5323.00 </code></pre>
+<pre class="r"><code>#dim(BC.mat)
+#summary(colSums(is.na(BC.mat[,-1:-3])))</code></pre>
 </div>
 <div id="visualizing-phenotype-distributions" class="section level3">
 <h3>Visualizing phenotype distributions</h3>
@@ -1064,17 +1088,15 @@ statsleelab
 data to ensure that the data is normally distributed</p>
 <pre class="r"><code>library(RNOmni)
 BC.mat.rank &lt;- BC.mat
-dim(BC.mat.rank)</code></pre>
-<pre><code>[1] 23861    13</code></pre>
-<pre class="r"><code>BC.mat.rank &lt;- BC.mat.rank[complete.cases(BC.mat.rank),]
-dim(BC.mat.rank)</code></pre>
-<pre><code>[1] 18538    13</code></pre>
-<pre class="r"><code>dim(BC.mat)</code></pre>
-<pre><code>[1] 23861    13</code></pre>
-<pre class="r"><code>BC.mat &lt;- BC.mat[complete.cases(BC.mat),]
-dim(BC.mat)</code></pre>
-<pre><code>[1] 18538    13</code></pre>
-<pre class="r"><code>BC.mat.rank &lt;- cbind(BC.mat.rank[,1:3], apply(BC.mat.rank[,-1:-3], 2, RankNorm))
+#dim(BC.mat.rank)
+BC.mat.rank &lt;- BC.mat.rank[complete.cases(BC.mat.rank),]
+#dim(BC.mat.rank)
+
+#dim(BC.mat)
+BC.mat &lt;- BC.mat[complete.cases(BC.mat),]
+#dim(BC.mat)
+
+BC.mat.rank &lt;- cbind(BC.mat.rank[,1:3], apply(BC.mat.rank[,-1:-3], 2, RankNorm))
 ggplot(melt(BC.mat.rank), aes(x=value)) + 
   geom_histogram() + 
   facet_wrap(~variable, scales=&quot;free&quot;, ncol=5)+
@@ -1138,32 +1160,13 @@ plot.</p>
 <pre class="r"><code>source(&quot;code/PVCA.R&quot;)
 
 meta &lt;- BC.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
-head(meta)</code></pre>
-<pre><code>         sex phenotyping_center strain_name
-39641   male               HMGU C57BL/6NCrl
-39643 female               HMGU C57BL/6NCrl
-39657   male               HMGU C57BL/6NCrl
-39750 female               HMGU C57BL/6NCrl
-39763 female               HMGU C57BL/6NCrl
-39773 female               HMGU C57BL/6NCrl</code></pre>
-<pre class="r"><code>dim(meta)</code></pre>
-<pre><code>[1] 18538     3</code></pre>
-<pre class="r"><code>summary(meta) # variables are currently characters</code></pre>
-<pre><code>     sex            phenotyping_center strain_name       
- Length:18538       Length:18538       Length:18538      
- Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character  </code></pre>
-<pre class="r"><code>meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
-summary(meta) # now all variables are converted to factors</code></pre>
-<pre><code>     sex       phenotyping_center                     strain_name  
- female:9282   WTSI    :4573      B6Brd;B6Dnk;B6N-Tyr&lt;c-Brd&gt;: 176  
- male  :9256   JAX     :3675      C57BL/6N                  :9127  
-               ICS     :2075      C57BL/6NCrl               :2997  
-               BCM     :1832      C57BL/6NJ                 :3675  
-               RBRC    :1692      C57BL/6NJcl               : 728  
-               UC Davis:1441      C57BL/6NTac               :1835  
-               (Other) :3250                                       </code></pre>
-<pre class="r"><code>chisq.test(meta[,1],meta[,2])</code></pre>
+#head(meta)
+#dim(meta)
+#summary(meta) # variables are currently characters
+meta[sapply(meta, is.character)] &lt;- lapply(meta[sapply(meta, is.character)], as.factor)
+#summary(meta) # now all variables are converted to factors
+
+chisq.test(meta[,1],meta[,2])</code></pre>
 <pre><code>
     Pearson&#39;s Chi-squared test
 
@@ -1283,32 +1286,8 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code>combat_komp[1:5,1:5]</code></pre>
-<pre><code>                                               39641      39643      39657
-BC_BMC/Body weight                        -0.5446577  0.7624261 -0.8478037
-BC_Body length                             0.2371464 -0.1563519  0.2371464
-BC_Body weight                             0.9069478 -0.3865968  0.9844317
-BC_Bone Area                               0.4188173  0.1510426  1.0646332
-BC_Bone Mineral Content (excluding skull)  0.5872088  0.1561049  0.3622582
-                                                39750       39763
-BC_BMC/Body weight                        -0.06815544  0.14454428
-BC_Body length                            -0.28891231 -0.01379022
-BC_Body weight                            -0.59375686 -0.59375686
-BC_Bone Area                              -0.51719766 -0.29607359
-BC_Bone Mineral Content (excluding skull) -0.84928634 -0.64311406</code></pre>
-<pre class="r"><code>G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
-<pre><code>                                                39641      39643      39657
-BC_BMC/Body weight                         0.61537676  1.3908581 0.43552296
-BC_Body length                             0.04917004 -0.1811585 0.04917004
-BC_Body weight                             0.72940618 -0.3554534 0.79438976
-BC_Bone Area                              -0.05160698 -0.2731793 0.48277848
-BC_Bone Mineral Content (excluding skull)  1.43981495  1.1313384 1.27885140
-                                               39750       39763
-BC_BMC/Body weight                         0.8980814  1.02427422
-BC_Body length                            -0.2587508 -0.09771206
-BC_Body weight                            -0.5291927 -0.52919275
-BC_Bone Area                              -0.8261201 -0.64314918
-BC_Bone Mineral Content (excluding skull)  0.4119303  0.55945691</code></pre>
+<pre class="r"><code>#combat_komp[1:5,1:5]
+#G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G</code></pre>
 </div>
 <div id="pvca-on-combat-residuals" class="section level3">
 <h3>PVCA on ComBat residuals</h3>
@@ -1566,9 +1545,8 @@ class="section level2">
 class="section level3">
 <h3>Loading Body Composition summary stat (IMPCv16)</h3>
 <pre class="r"><code>BC.stat &lt;- readRDS(&quot;data/BC.stat.v16.rds&quot;)
-dim(BC.stat)</code></pre>
-<pre><code>[1] 56743     8</code></pre>
-<pre class="r"><code>table(BC.stat$parameter_name, BC.stat$procedure_name)</code></pre>
+#dim(BC.stat)
+table(BC.stat$parameter_name, BC.stat$procedure_name)</code></pre>
 <pre><code>                                        
                                            BC
   BMC/Body weight                        6943
@@ -1580,40 +1558,42 @@ dim(BC.stat)</code></pre>
   Fat/Body weight                        7026
   Lean mass                              7028
   Lean/Body weight                       7026</code></pre>
-<pre class="r"><code>length(unique(BC.stat$marker_symbol)) #6145</code></pre>
-<pre><code>[1] 6145</code></pre>
-<pre class="r"><code>length(unique(BC.stat$allele_symbol)) #6313</code></pre>
-<pre><code>[1] 6313</code></pre>
-<pre class="r"><code>length(unique(BC.stat$proc_param_name)) #9, number of phenotypes in association statistics data set</code></pre>
-<pre><code>[1] 9</code></pre>
-<pre class="r"><code>length(unique(BC.data$proc_param_name)) #10, number of phenotypes in final control data</code></pre>
-<pre><code>[1] 10</code></pre>
-<pre class="r"><code>pheno.list.stat &lt;- unique(BC.stat$proc_param_name)
+<pre class="r"><code>#length(unique(BC.stat$marker_symbol)) #6145
+#length(unique(BC.stat$allele_symbol)) #6313
+#length(unique(BC.stat$proc_param_name)) #9, number of phenotypes in association statistics data set
+#length(unique(BC.data$proc_param_name)) #10, number of phenotypes in final control data
+
+pheno.list.stat &lt;- unique(BC.stat$proc_param_name)
 pheno.list.ctrl &lt;- unique(BC.data$proc_param_name)
-sum(pheno.list.stat %in% pheno.list.ctrl)</code></pre>
-<pre><code>[1] 9</code></pre>
-<pre class="r"><code>sum(pheno.list.ctrl %in% pheno.list.stat)</code></pre>
-<pre><code>[1] 9</code></pre>
-<pre class="r"><code># Identifying common phenotypes between statistics and control data
+#sum(pheno.list.stat %in% pheno.list.ctrl)
+#sum(pheno.list.ctrl %in% pheno.list.stat)
+
+# Identifying common phenotypes between statistics and control data
 common.pheno.list &lt;- sort(intersect(pheno.list.ctrl, pheno.list.stat))
-length(common.pheno.list) # 9 - each data set had one phenotype not present in the other</code></pre>
-<pre><code>[1] 9</code></pre>
-<pre class="r"><code># Filtering summary statistics to contain only common phenotypes
-dim(BC.stat)</code></pre>
-<pre><code>[1] 56743     8</code></pre>
-<pre class="r"><code>BC.stat &lt;- BC.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
-dim(BC.stat)</code></pre>
-<pre><code>[1] 56743     8</code></pre>
-<pre class="r"><code>length(unique(BC.stat$proc_param_name))</code></pre>
-<pre><code>[1] 9</code></pre>
-<pre class="r"><code># Exclude &#39;Fat mass&#39; due to limited gene availability
+common.pheno.list</code></pre>
+<pre><code>[1] &quot;BC_BMC/Body weight&quot;                       
+[2] &quot;BC_Body length&quot;                           
+[3] &quot;BC_Bone Area&quot;                             
+[4] &quot;BC_Bone Mineral Content (excluding skull)&quot;
+[5] &quot;BC_Bone Mineral Density (excluding skull)&quot;
+[6] &quot;BC_Fat mass&quot;                              
+[7] &quot;BC_Fat/Body weight&quot;                       
+[8] &quot;BC_Lean mass&quot;                             
+[9] &quot;BC_Lean/Body weight&quot;                      </code></pre>
+<pre class="r"><code>#length(common.pheno.list) # 9 - each data set had one phenotype not present in the other
+
+# Filtering summary statistics to contain only common phenotypes
+#dim(BC.stat)
+BC.stat &lt;- BC.stat %&gt;% filter(proc_param_name %in% common.pheno.list)
+#dim(BC.stat)
+#length(unique(BC.stat$proc_param_name))
+
+# Exclude &#39;Fat mass&#39; due to limited gene availability
 # only 2884 genes available in Fat mass
 BC.stat &lt;- BC.stat %&gt;% filter(parameter_name != &quot;Fat mass&quot;) 
-dim(BC.stat)</code></pre>
-<pre><code>[1] 53859     8</code></pre>
-<pre class="r"><code>length(unique(BC.stat$proc_param_name))</code></pre>
-<pre><code>[1] 8</code></pre>
-<pre class="r"><code>table(BC.stat$parameter_name, BC.stat$procedure_name)</code></pre>
+#dim(BC.stat)
+#length(unique(BC.stat$proc_param_name))
+table(BC.stat$parameter_name, BC.stat$procedure_name)</code></pre>
 <pre><code>                                        
                                            BC
   BMC/Body weight                        6943
@@ -1642,11 +1622,8 @@ class="section level3">
 mtest &lt;-as.data.frame.matrix(mtest)
 nmax &lt;-max(mtest)
 col_fun = colorRamp2(c(0, nmax), c(&quot;white&quot;, &quot;red&quot;))
-col_fun(seq(0, nmax))</code></pre>
-<pre><code> [1] &quot;#FFFFFFFF&quot; &quot;#FFF1ECFF&quot; &quot;#FFE4DAFF&quot; &quot;#FFD6C8FF&quot; &quot;#FFC8B6FF&quot; &quot;#FFBAA4FF&quot;
- [7] &quot;#FFAC93FF&quot; &quot;#FF9E81FF&quot; &quot;#FF8F70FF&quot; &quot;#FF805FFF&quot; &quot;#FF704FFF&quot; &quot;#FF5F3EFF&quot;
-[13] &quot;#FF4B2DFF&quot; &quot;#FF331AFF&quot; &quot;#FF0000FF&quot;</code></pre>
-<pre class="r"><code>ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
+#col_fun(seq(0, nmax))
+ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
              row_names_gp = gpar(fontsize = 8), name=&quot;Count&quot;)
 draw(ht)</code></pre>
 <p><img src="figure/kompute_test_BC_v16.Rmd/gene_pheno_dup-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -1700,8 +1677,7 @@ BC.z = BC.stat %&gt;%
   na.omit() %&gt;%
   group_by(marker_symbol, proc_param_name) %&gt;% 
   summarize(zscore = sumz(z_score)) ## combine z-scores
-dim(BC.z)</code></pre>
-<pre><code>[1] 46767     3</code></pre>
+#dim(BC.z)</code></pre>
 </div>
 <div id="generating-z-score-matrix-reformatting" class="section level3">
 <h3>Generating Z-score matrix (reformatting)</h3>
@@ -1717,8 +1693,7 @@ BC.zmat = dcast(BC.z, marker_symbol ~ proc_param_name, value.var = &quot;zscore&
              fun.aggregate = mean) %&gt;% tibble::column_to_rownames(var=&quot;marker_symbol&quot;)
 BC.zmat = nan2na(BC.zmat) #convert nan to na
 
-dim(BC.zmat)</code></pre>
-<pre><code>[1] 6145    8</code></pre>
+#dim(BC.zmat)</code></pre>
 </div>
 <div id="visualization-of-phenotype-gene-coverage"
 class="section level3">
@@ -1727,11 +1702,10 @@ class="section level3">
 gene-phenotype pairs.</p>
 <pre class="r"><code># Generate a matrix indicating where z-scores are present
 id.mat &lt;- 1*(!is.na(BC.zmat)) # multiply 1 to make this matrix numeric
-nrow(as.data.frame(colSums(id.mat)))</code></pre>
-<pre><code>[1] 8</code></pre>
-<pre class="r"><code>dim(id.mat)</code></pre>
-<pre><code>[1] 6145    8</code></pre>
-<pre class="r"><code>ht = Heatmap(t(id.mat), 
+#nrow(as.data.frame(colSums(id.mat)))
+#dim(id.mat)
+
+ht = Heatmap(t(id.mat), 
              cluster_rows = T, clustering_distance_rows =&quot;binary&quot;,
              cluster_columns = T, clustering_distance_columns = &quot;binary&quot;,
              show_row_dend = F, show_column_dend = F,  # do not show dendrogram
@@ -1854,9 +1828,9 @@ class="section level3">
 utilizing the association Z-score matrix.</p>
 <pre class="r"><code># Select common phenotypes
 BC.zmat &lt;- BC.zmat[,common.pheno.list]
-dim(BC.zmat)</code></pre>
-<pre><code>[1] 6145    8</code></pre>
-<pre class="r"><code># Compute genetic correlations
+#dim(BC.zmat)
+
+# Compute genetic correlations
 BC.zcor = cor(BC.zmat, use=&quot;pairwise.complete.obs&quot;)
 
 # Generate heatmap of the correlation matrix
@@ -2243,22 +2217,17 @@ dim(zmat)</code></pre>
 <pre class="r"><code># filter genes with less than 1 missing data point (na)
 zmat0 &lt;- is.na(zmat)
 num.na&lt;-colSums(zmat0)
-summary(num.na)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.0000  0.0000  0.0000  0.3894  1.0000  7.0000 </code></pre>
-<pre class="r"><code>dim(zmat)</code></pre>
-<pre><code>[1]    8 6145</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;1])</code></pre>
-<pre><code>[1]    8 4350</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;5])</code></pre>
-<pre><code>[1]    8 6025</code></pre>
-<pre class="r"><code>dim(zmat[,num.na&lt;10])</code></pre>
-<pre><code>[1]    8 6145</code></pre>
-<pre class="r"><code># filter genes with less than 1 missing data point (na)
+#summary(num.na)
+#dim(zmat)
+#dim(zmat[,num.na&lt;1])
+#dim(zmat[,num.na&lt;5])
+#dim(zmat[,num.na&lt;10])
+
+# filter genes with less than 1 missing data point (na)
 zmat &lt;- zmat[,num.na&lt;1]
-dim(zmat)</code></pre>
-<pre><code>[1]    8 4350</code></pre>
-<pre class="r"><code># Set correlation method for phenotypes
+#dim(zmat)
+
+# Set correlation method for phenotypes
 #pheno.cor &lt;- BC.cor.fig
 #pheno.cor &lt;- BC.cor.rank.fig
 pheno.cor &lt;- BC.cor.combat.fig
@@ -2266,34 +2235,10 @@ pheno.cor &lt;- BC.cor.combat.fig
 
 
 zmat &lt;- zmat[rownames(pheno.cor),,drop=FALSE]
-rownames(zmat)</code></pre>
-<pre><code>[1] &quot;BC_Bone Area&quot;                             
-[2] &quot;BC_Lean mass&quot;                             
-[3] &quot;BC_Body length&quot;                           
-[4] &quot;BC_Fat/Body weight&quot;                       
-[5] &quot;BC_Bone Mineral Content (excluding skull)&quot;
-[6] &quot;BC_Bone Mineral Density (excluding skull)&quot;
-[7] &quot;BC_BMC/Body weight&quot;                       
-[8] &quot;BC_Lean/Body weight&quot;                      </code></pre>
-<pre class="r"><code>rownames(pheno.cor)</code></pre>
-<pre><code>[1] &quot;BC_Bone Area&quot;                             
-[2] &quot;BC_Lean mass&quot;                             
-[3] &quot;BC_Body length&quot;                           
-[4] &quot;BC_Fat/Body weight&quot;                       
-[5] &quot;BC_Bone Mineral Content (excluding skull)&quot;
-[6] &quot;BC_Bone Mineral Density (excluding skull)&quot;
-[7] &quot;BC_BMC/Body weight&quot;                       
-[8] &quot;BC_Lean/Body weight&quot;                      </code></pre>
-<pre class="r"><code>colnames(pheno.cor)</code></pre>
-<pre><code>[1] &quot;BC_Bone Area&quot;                             
-[2] &quot;BC_Lean mass&quot;                             
-[3] &quot;BC_Body length&quot;                           
-[4] &quot;BC_Fat/Body weight&quot;                       
-[5] &quot;BC_Bone Mineral Content (excluding skull)&quot;
-[6] &quot;BC_Bone Mineral Density (excluding skull)&quot;
-[7] &quot;BC_BMC/Body weight&quot;                       
-[8] &quot;BC_Lean/Body weight&quot;                      </code></pre>
-<pre class="r"><code>npheno &lt;- nrow(zmat)
+#rownames(zmat)
+#rownames(pheno.cor)
+#colnames(pheno.cor)
+npheno &lt;- nrow(zmat)
 
 # calculate the percentage of missing Z-scores in the original data 
 100*sum(is.na(zmat))/(nrow(zmat)*ncol(zmat)) # 0%</code></pre>
@@ -2323,7 +2268,22 @@ length(org.z)</code></pre>
 <pre><code>[1] 1000</code></pre>
 <pre class="r"><code>imp.z &lt;- as.matrix(t(kompute.res$zmat))[mask.i]
 imp.info &lt;- as.matrix(t(kompute.res$infomat))[mask.i]  
-plot(imp.z, org.z)</code></pre>
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
+#dim(imp)
+imp &lt;- imp[complete.cases(imp),]
+imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
+#dim(imp)
+cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC BC Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-1">
@@ -2373,18 +2333,21 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
-imp &lt;- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>imp &lt;- imp[complete.cases(imp),]
-imp &lt;- subset(imp, info&gt;=0 &amp; info &lt;= 1)
-dim(imp)</code></pre>
-<pre><code>[1] 1000    3</code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp$imp.z, imp$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.793</code></pre>
-<pre class="r"><code>plot(imp$imp.z, imp$org.z)</code></pre>
+<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
+info.cutoff &lt;- 0.8
+imp.sub &lt;- subset(imp, info&gt;info.cutoff)
+#dim(imp.sub)
+#summary(imp.sub$imp.z)
+#summary(imp.sub$info)
+
+cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
+#cor.val
+g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC BC Data, Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
+    theme_minimal()
+g</code></pre>
 <p><img src="figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-2.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-2">
@@ -2434,75 +2397,6 @@ statsleelab
 </table>
 </div>
 </div>
-<pre class="r"><code># Set a cutoff for information content and filter the data accordingly
-info.cutoff &lt;- 0.8
-imp.sub &lt;- subset(imp, info&gt;info.cutoff)
-dim(imp.sub)</code></pre>
-<pre><code>[1] 583   3</code></pre>
-<pre class="r"><code>summary(imp.sub$imp.z)</code></pre>
-<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
--9.83798 -0.78293  0.09257  0.03896  0.96072  6.43130 </code></pre>
-<pre class="r"><code>summary(imp.sub$info)</code></pre>
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.8081  0.8478  0.8517  0.8648  0.8748  0.9297 </code></pre>
-<pre class="r"><code>cor.val &lt;- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
-cor.val</code></pre>
-<pre><code>[1] 0.841</code></pre>
-<pre class="r"><code>g &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
-    geom_point() +
-    labs(title=paste0(&quot;IMPC BC Data, Info&gt;&quot;, info.cutoff, &quot;, Cor=&quot;,cor.val),
-      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;, col=&quot;Info&quot;) +
-    theme_minimal()
-g</code></pre>
-<p><img src="figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-3.png" width="480" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-KOMPUTE_res-3">
-Past versions of KOMPUTE_res-3.png
-</button>
-</p>
-<div id="fig-KOMPUTE_res-3" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/989feb60f6281fb4eaf2cfcfce252144832ee843/docs/figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-3.png" target="_blank">989feb6</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/statsleelab/komputeExamples/blob/7685a0969564d21706311b2c9c3aa70da7ebd2d4/docs/figure/kompute_test_BC_v16.Rmd/KOMPUTE_res-3.png" target="_blank">7685a09</a>
-</td>
-<td>
-statsleelab
-</td>
-<td>
-2023-01-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <pre class="r"><code># save plot
 png(file=&quot;docs/figure/figures.Rmd/sim_results_BC_v16.png&quot;, width=600, height=350)
 g
@@ -2520,6 +2414,43 @@ fig2.1 &lt;- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
   theme_bw() +
   theme(legend.position=&quot;none&quot;, plot.title=element_text(hjust=0.5))
 save(fig2.1, file=&quot;docs/figure/figures.Rmd/sim_BC_v16.rdata&quot;)</code></pre>
+</div>
+<div id="run-svd-matrix-completion-method" class="section level3">
+<h3>Run SVD Matrix Completion method</h3>
+<pre class="r"><code># load SVD Matrix Completion function
+source(&quot;code/svd_impute.R&quot;)
+r &lt;- 6
+mc.res &lt;- svd.impute(zmat.imp, r)
+
+# Compare measured vs imputed z-scores
+length(org.z)</code></pre>
+<pre><code>[1] 1000</code></pre>
+<pre class="r"><code>imp.z &lt;- mc.res[mask.i]
+#plot(imp.z, org.z)
+#cor(imp.z, org.z)
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp2 &lt;- data.frame(org.z=org.z, imp.z=imp.z)
+#dim(imp2)
+imp2 &lt;- imp2[complete.cases(imp2),]
+cor.val &lt;- round(cor(imp2$imp.z, imp2$org.z), digits=3)
+#cor.val
+
+g &lt;- ggplot(imp2, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0(&quot;IMPC BC Data, Cor=&quot;,cor.val),
+      x=&quot;Imputed Z-scores&quot;, y = &quot;Measured Z-scores&quot;) +
+    theme_minimal()
+g</code></pre>
+<p><img src="figure/kompute_test_BC_v16.Rmd/SVDMC_res-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-imputation-results" class="section level3">
+<h3>Save imputation results</h3>
+<pre class="r"><code>imp$method &lt;- &quot;Kompute&quot;
+imp2$method &lt;- &quot;SVD-MC&quot;
+imp2$info &lt;- NA 
+BC_Imputation_Result &lt;- rbind(imp, imp2)
+save(BC_Imputation_Result, file = &quot;data/BC.imp.res.v16.RData&quot;)</code></pre>
 </div>
 <div id="save-z-score-matrix-and-phenotype-correlation-matrix"
 class="section level3">
