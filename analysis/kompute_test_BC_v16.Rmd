@@ -288,6 +288,7 @@ pheno.list.ctrl <- unique(BC.data$proc_param_name)
 
 # Identifying common phenotypes between statistics and control data
 common.pheno.list <- sort(intersect(pheno.list.ctrl, pheno.list.stat))
+common.pheno.list
 #length(common.pheno.list) # 9 - each data set had one phenotype not present in the other
 
 # Filtering summary statistics to contain only common phenotypes

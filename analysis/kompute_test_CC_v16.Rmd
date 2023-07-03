@@ -27,7 +27,7 @@ library(ComplexHeatmap)
 ### Importing Clinical Chemistry Control Phenotype Dataset
 ```{r load_data, echo=TRUE}
 CC.data <- readRDS("data/CC.data.rds")
-dim(CC.data)
+#dim(CC.data)
 ```
 
 ### Visualizing measured phenotypes via a heatmap 
@@ -35,7 +35,7 @@ The heatmap below presents a visualization of the phenotypic measurements taken 
 ```{r heatmap_pheno, fig.width=12, fig.height=14}
 mtest <- table(CC.data$proc_param_name_stable_id, CC.data$biological_sample_id)
 mtest <-as.data.frame.matrix(mtest)
-dim(mtest)
+#dim(mtest)
 if(FALSE){
 nmax <-max(mtest)
 library(circlize)
@@ -51,35 +51,35 @@ draw(ht)
 To maintain data quality and robustness, we will discard any phenotypes that have fewer than 20,000 recorded observations.
 ```{r}
 mtest <- table(CC.data$proc_param_name, CC.data$biological_sample_id)
-dim(mtest)
+#dim(mtest)
 #head(mtest[,1:10])
 mtest0 <- mtest>0
 #head(mtest0[,1:10])
-rowSums(mtest0)
+#rowSums(mtest0)
 rmv.pheno.list <- rownames(mtest)[rowSums(mtest0)<20000]
 #rmv.pheno.list
-dim(CC.data)
+#dim(CC.data)
 CC.data <- CC.data %>% filter(!(proc_param_name %in% rmv.pheno.list))
-dim(CC.data)
+#dim(CC.data)
 # number of phenotypes left
-length(unique(CC.data$proc_param_name))
+#length(unique(CC.data$proc_param_name))
 ```
 
 ### Remove samples with fewer than 15 measured phenotypes
 ```{r rmv_samp, echo=TRUE}
 mtest <- table(CC.data$proc_param_name, CC.data$biological_sample_id)
-dim(mtest)
-head(mtest[,1:10])
+#dim(mtest)
+#head(mtest[,1:10])
 mtest0 <- mtest>0
-head(mtest0[,1:10])
-summary(colSums(mtest0))
+#head(mtest0[,1:10])
+#summary(colSums(mtest0))
 rmv.sample.list <- colnames(mtest)[colSums(mtest0)<15]
-length(rmv.sample.list)
-dim(CC.data)
+#length(rmv.sample.list)
+#dim(CC.data)
 CC.data <- CC.data %>% filter(!(biological_sample_id %in% rmv.sample.list))
-dim(CC.data)
+#dim(CC.data)
 # number of observations to use
-length(unique(CC.data$biological_sample_id))
+#length(unique(CC.data$biological_sample_id))
 ```
 
 ### Heapmap of filtered phenotypes
@@ -112,8 +112,8 @@ CC.mat <- CC.data %>%
   spread(proc_param_name, data_point) %>%
   tibble::column_to_rownames(var="biological_sample_id")
 head(CC.mat)
-dim(CC.mat)
-summary(colSums(is.na(CC.mat[,-1:-3])))
+#dim(CC.mat)
+#summary(colSums(is.na(CC.mat[,-1:-3])))
 ```
 
 ### Visualizing phenotype distributions 
@@ -131,13 +131,13 @@ In this step, we conduct a rank Z transformation on the phenotype data to ensure
 ```{r rankZ_trans, fig.width=10, fig.height=5, message=FALSE, warning=FALSE}
 library(RNOmni)
 CC.mat.rank <- CC.mat
-dim(CC.mat.rank)
+#dim(CC.mat.rank)
 CC.mat.rank <- CC.mat.rank[complete.cases(CC.mat.rank),]
-dim(CC.mat.rank)
+#dim(CC.mat.rank)
 
-dim(CC.mat)
+#dim(CC.mat)
 CC.mat <- CC.mat[complete.cases(CC.mat),]
-dim(CC.mat)
+#dim(CC.mat)
 
 CC.mat.rank <- cbind(CC.mat.rank[,1:3], apply(CC.mat.rank[,-1:-3], 2, RankNorm))
 ggplot(melt(CC.mat.rank), aes(x=value)) + 
@@ -158,11 +158,11 @@ Next, we run PVCA on randomly chosen subsets of our phenotype data (for computat
 source("code/PVCA.R")
 
 meta <- CC.mat.rank[,1:3] ## examining covariates sex, phenotyping_center, and strain_name
-head(meta)
-dim(meta)
-summary(meta) # variables are still characters
+#head(meta)
+#dim(meta)
+#summary(meta) # variables are still characters
 meta[sapply(meta, is.character)] <- lapply(meta[sapply(meta, is.character)], as.factor)
-summary(meta) # now all variables are converted to factors
+#summary(meta) # now all variables are converted to factors
 
 chisq.test(meta[,1],meta[,2])
 chisq.test(meta[,2],meta[,3]) 
@@ -199,8 +199,8 @@ We remove batch effects (the center effect) in the phenotype data set by using t
 library(sva)
 combat_komp = ComBat(dat=G, batch=meta$phenotyping_center, par.prior=TRUE, prior.plots=TRUE, mod=NULL)
 
-combat_komp[1:5,1:5]
-G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G
+#combat_komp[1:5,1:5]
+#G[1:5,1:5] # for comparison, combat_komp is same form and same dimensions as G
 ```
 
 ### PVCA on ComBat residuals 
@@ -250,29 +250,29 @@ draw(ht3)
 ### Loading Clinical Chemistry summary stat (IMPCv16)
 ```{r KOMP_stats}
 CC.stat <- readRDS("data/CC.stat.v16.rds")
-dim(CC.stat)
+#dim(CC.stat)
 table(CC.stat$parameter_name, CC.stat$procedure_name)
 
-length(unique(CC.stat$marker_symbol)) #3983
-length(unique(CC.stat$allele_symbol)) #4152
-length(unique(CC.stat$proc_param_name)) #27, number of phenotypes in association statistics data set
-length(unique(CC.data$proc_param_name)) #19, number of phenotypes in final control data
+#length(unique(CC.stat$marker_symbol)) #3983
+#length(unique(CC.stat$allele_symbol)) #4152
+#length(unique(CC.stat$proc_param_name)) #27, number of phenotypes in association statistics data set
+#length(unique(CC.data$proc_param_name)) #19, number of phenotypes in final control data
 
 pheno.list.stat <- unique(CC.stat$proc_param_name)
 pheno.list.ctrl <- unique(CC.data$proc_param_name)
-sum(pheno.list.stat %in% pheno.list.ctrl)
-sum(pheno.list.ctrl %in% pheno.list.stat)
+#sum(pheno.list.stat %in% pheno.list.ctrl)
+#sum(pheno.list.ctrl %in% pheno.list.stat)
 
 # Identifying common phenotypes between statistics and control data
 common.pheno.list <- sort(intersect(pheno.list.ctrl, pheno.list.stat))
 common.pheno.list
-length(common.pheno.list)
+#length(common.pheno.list)
 
 # Filtering summary statistics to contain only common phenotypes
-dim(CC.stat)
+#dim(CC.stat)
 CC.stat <- CC.stat %>% filter(proc_param_name %in% common.pheno.list)
-dim(CC.stat)
-length(unique(CC.stat$proc_param_name))
+#dim(CC.stat)
+#length(unique(CC.stat$proc_param_name))
 ```
 
 ### Visualizing gene-phenotype pair duplicates 
@@ -281,7 +281,7 @@ mtest <- table(CC.stat$proc_param_name, CC.stat$marker_symbol)
 mtest <-as.data.frame.matrix(mtest)
 nmax <-max(mtest)
 col_fun = colorRamp2(c(0, nmax), c("white", "red"))
-col_fun(seq(0, nmax))
+#col_fun(seq(0, nmax))
 ht = Heatmap(as.matrix(mtest), cluster_rows = FALSE, cluster_columns = FALSE, show_column_names = F, col = col_fun,
              row_names_gp = gpar(fontsize = 8), name="Count")
 draw(ht)
@@ -296,7 +296,7 @@ CC.z = CC.stat %>%
   na.omit() %>%
   group_by(marker_symbol, proc_param_name) %>% 
   summarize(zscore = sumz(z_score)) ## combine z-scores
-dim(CC.z)
+#dim(CC.z)
 
 ```
 
@@ -313,7 +313,7 @@ nan2na <- function(df){
 CC.zmat = dcast(CC.z, marker_symbol ~ proc_param_name, value.var = "zscore", 
              fun.aggregate = mean) %>% tibble::column_to_rownames(var="marker_symbol")
 CC.zmat = nan2na(CC.zmat) #convert nan to na
-dim(CC.zmat)
+#dim(CC.zmat)
 ```
 
 ### Visualization of Phenotype-Gene Coverage
@@ -321,8 +321,8 @@ The heatmap illustrates tested (red) and untested (white) gene-phenotype pairs.
 ```{r, fig.width=6, fig.height=2.5}
 # Generate a matrix indicating where z-scores are present
 id.mat <- 1*(!is.na(CC.zmat)) # multiply 1 to make this matrix numeric
-nrow(as.data.frame(colSums(id.mat)))
-dim(id.mat)
+#nrow(as.data.frame(colSums(id.mat)))
+#dim(id.mat)
 
 ## heatmap of gene - phenotype (red: tested, white: untested)
 ht = Heatmap(t(id.mat), 
@@ -350,7 +350,7 @@ Here, we estimate the genetic correlations between phenotypes utilizing the asso
 ```{r, fig.width=7, fig.height=3}
 # Select common phenotypes
 CC.zmat <- CC.zmat[,common.pheno.list]
-dim(CC.zmat)
+#dim(CC.zmat)
 
 # Compute genetic correlations
 CC.zcor = cor(CC.zmat, use="pairwise.complete.obs")
@@ -457,15 +457,15 @@ dim(zmat)
 # filter genes with less than 1 missing data point (na)
 zmat0 <- is.na(zmat)
 num.na<-colSums(zmat0)
-summary(num.na)
-dim(zmat)
-dim(zmat[,num.na<1])
-dim(zmat[,num.na<5])
-dim(zmat[,num.na<10])
+#summary(num.na)
+#dim(zmat)
+#dim(zmat[,num.na<1])
+#dim(zmat[,num.na<5])
+#dim(zmat[,num.na<10])
 
 # filter genes with less than 1 missing data point (na)
 zmat <- zmat[,num.na<1]
-dim(zmat)
+#dim(zmat)
 
 # Set correlation method for phenotypes
 #pheno.cor <- CC.cor.fig
@@ -475,9 +475,9 @@ pheno.cor <- CC.cor.combat.fig
 
 
 zmat <- zmat[rownames(pheno.cor),,drop=FALSE]
-rownames(zmat)
-rownames(pheno.cor)
-colnames(pheno.cor)
+#rownames(zmat)
+#rownames(pheno.cor)
+#colnames(pheno.cor)
 npheno <- nrow(zmat)
 
 ## calculate the percentage of missing Z-scores in the original data 
@@ -507,27 +507,32 @@ kompute.res <- kompute(t(zmat.imp), pheno.cor, 0.01)
 length(org.z)
 imp.z <- as.matrix(t(kompute.res$zmat))[mask.i]
 imp.info <- as.matrix(t(kompute.res$infomat))[mask.i]  
-plot(imp.z, org.z)
 
 # Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
 imp <- data.frame(org.z=org.z, imp.z=imp.z, info=imp.info)
-dim(imp)
+#dim(imp)
 imp <- imp[complete.cases(imp),]
 imp <- subset(imp, info>=0 & info <= 1)
-dim(imp)
+#dim(imp)
 cor.val <- round(cor(imp$imp.z, imp$org.z), digits=3)
-cor.val
-plot(imp$imp.z, imp$org.z)
+#cor.val
+
+g <- ggplot(imp, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0("IMPC CC Data, Cor=",cor.val),
+      x="Imputed Z-scores", y = "Measured Z-scores") +
+    theme_minimal()
+g
 
 # Set a cutoff for information content and filter the data accordingly
 info.cutoff <- 0.8
 imp.sub <- subset(imp, info>info.cutoff)
-dim(imp.sub)
-summary(imp.sub$imp.z)
-summary(imp.sub$info)
+#dim(imp.sub)
+#summary(imp.sub$imp.z)
+#summary(imp.sub$info)
 
 cor.val <- round(cor(imp.sub$imp.z, imp.sub$org.z), digits=3)
-cor.val
+#cor.val
 g <- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
     geom_point() +
     labs(title=paste0("IMPC Behavior Data (CC), Info>", info.cutoff, ", Cor=",cor.val),
@@ -553,6 +558,42 @@ fig2.2 <- ggplot(imp.sub, aes(x=imp.z, y=org.z, col=info)) +
 save(fig2.2, file="docs/figure/figures.Rmd/sim_CC_v16.rdata")
 ```
 
+### Run SVD Matrix Completion method
+```{r SVDMC_res, fig.width=5, fig.height=4}
+# load SVD Matrix Completion function
+source("code/svd_impute.R")
+r <- 6
+mc.res <- svd.impute(zmat.imp, r)
+
+# Compare measured vs imputed z-scores
+length(org.z)
+imp.z <- mc.res[mask.i]
+#plot(imp.z, org.z)
+#cor(imp.z, org.z)
+
+# Create a dataframe with the original and imputed z-scores and the information of imputed z-scores
+imp2 <- data.frame(org.z=org.z, imp.z=imp.z)
+#dim(imp2)
+imp2 <- imp2[complete.cases(imp2),]
+cor.val <- round(cor(imp2$imp.z, imp2$org.z), digits=3)
+#cor.val
+
+g <- ggplot(imp2, aes(x=imp.z, y=org.z)) +
+    geom_point() +
+    labs(title=paste0("IMPC CC Data, Cor=",cor.val),
+      x="Imputed Z-scores", y = "Measured Z-scores") +
+    theme_minimal()
+g
+```
+
+### Save imputation results
+```{r}
+imp$method <- "Kompute"
+imp2$method <- "SVD-MC"
+imp2$info <- NA 
+CC_Imputation_Result <- rbind(imp, imp2)
+save(CC_Imputation_Result, file = "data/CC.imp.res.v16.RData")
+```
 
 ### Save z-score matrix and phenotype correlation matrix
 ```{r}
