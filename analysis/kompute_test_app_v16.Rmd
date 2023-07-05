@@ -1,0 +1,54 @@
+---
+title: "Application Study: Performance Comparision of KOMPUTE and SVD Matrix Completion"
+author: "Coby Warkentin and Donghyung Lee"
+date: "`r Sys.Date()`"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+## Import the necessary packages
+```{r}
+library(MASS)
+library(kompute)
+library(kableExtra)
+```
+
+## Import imputation results
+```{r}
+load("data/BC.imp.res.v16.RData")
+load("data/CC.imp.res.v16.RData")
+load("data/OF.imp.res.v16.RData")
+```
+
+## Combine the results
+```{r}
+BC_Imputation_Result$domain <- "Body Composition"
+CC_Imputation_Result$domain <- "Clinical Chemistry"
+OF_Imputation_Result$domain <- "Open Field"
+
+imp.data <- rbind(BC_Imputation_Result, CC_Imputation_Result, OF_Imputation_Result)
+head(imp.data)
+
+# calculate correlation for each group
+correlations <- imp.data %>% 
+  group_by(method, domain) %>%
+  summarise(cor = cor(imp.z, org.z, use = "pairwise.complete.obs"))
+
+```
+
+## Generate supplementary figure
+```{r, fig.width=600, fig.height=400}
+g <- ggplot(imp.data, aes(x=imp.z, y=org.z)) +
+  geom_point(size=1) +
+  labs(x="Imputed Z-scores", y = "Measured Z-scores") +
+  theme_bw() +
+  facet_grid(method~domain) +
+  geom_text(data = correlations, aes(label = paste0("Cor: ", round(cor, 2)), x = -Inf, y = Inf), hjust = -0.2, vjust = 2, size=3)
+g
+
+png(file="docs/figure/figures.Rmd/supplementary_app_kompute_vs_svd_v16.png", width=800, height=600, res=150)
+g
+dev.off()
+```
