@@ -98,7 +98,7 @@ p9 <- komp.info.res60$plot
 combined_plot <- arrangeGrob(p1, p2, p3, p4, p5, p6, p7, p8, p9, ncol = 3)
 
 grid::grid.draw(combined_plot)
-#ggsave("docs/figure/figures.Rmd/kompute_test_sim_plot_v16.pdf", combined_plot)
+ggsave("docs/figure/figures.Rmd/kompute_test_sim_plot_v16.png", combined_plot, height=12, width=13)
 ```
 
 
