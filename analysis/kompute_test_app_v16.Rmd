@@ -13,6 +13,7 @@ editor_options:
 library(MASS)
 library(kompute)
 library(kableExtra)
+library(tidyverse)
 ```
 
 ## Import imputation results
