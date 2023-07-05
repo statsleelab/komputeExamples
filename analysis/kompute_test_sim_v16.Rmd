@@ -63,7 +63,7 @@ komp.info.res60 <- simulation(n.genes=n.genes, pheno.cor=pheno.cor, mask.prop=.6
 ```
 
 
-## Results
+## Results: Table
 
 Complie a table of correlation coefficients from all the simulations conducted
 ```{r}
@@ -77,7 +77,28 @@ rownames(cor.table) <- c("MC", "KPT", "KPT w/ info > 0.8")
 cor.table %>%
   kbl(caption = "Pearson correlation coefficients between the original and imputed Z-scores") %>%
   kable_classic(full_width = F, html_font = "Cambria")
+```
 
+
+## Results: Figure
+
+```{r, fig.height=15, fig.width=15}
+library(gridExtra)
+
+p1 <- mc.res20$plot
+p2 <- mc.res40$plot
+p3 <- mc.res60$plot
+p4 <- komp.res20$plot
+p5 <- komp.res40$plot
+p6 <- komp.res60$plot
+p7 <- komp.info.res20$plot
+p8 <- komp.info.res40$plot
+p9 <- komp.info.res60$plot
+
+combined_plot <- arrangeGrob(p1, p2, p3, p4, p5, p6, p7, p8, p9, ncol = 3)
+
+grid::grid.draw(combined_plot)
+#ggsave("docs/figure/figures.Rmd/kompute_test_sim_plot_v16.pdf", combined_plot)
 ```
 
 
