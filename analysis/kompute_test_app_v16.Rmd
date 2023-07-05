@@ -39,7 +39,7 @@ correlations <- imp.data %>%
 ```
 
 ## Generate supplementary figure
-```{r, fig.width=600, fig.height=400}
+```{r, fig.width=6, fig.height=4}
 g <- ggplot(imp.data, aes(x=imp.z, y=org.z)) +
   geom_point(size=1) +
   labs(x="Imputed Z-scores", y = "Measured Z-scores") +
